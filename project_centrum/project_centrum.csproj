@@ -58,6 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Example.cs" />
     <Compile Include="__CopyDrawingHandler.cs" />
     <Compile Include="__CopyViewHandler.cs" />
     <Compile Include="__DrawingData.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="_Mark_ContourPlate.cs" />
     <Compile Include="_SectionMark.cs" />
     <Compile Include="_StraightDimentionLineSet.cs" />
+    <Compile Include="__Transformster.cs" />
     <Compile Include="__ViewData.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

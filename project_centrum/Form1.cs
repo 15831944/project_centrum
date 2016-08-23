@@ -29,29 +29,29 @@ namespace project_centrum
             add_text("Copy... ");
 
             input = getter();
+            if (cb_offset.Checked) TeklaGetter.getPoint1();
 
-            add_text("Done \n");
+            add_text(Environment.NewLine + "Done");
             add_text(input.countObjects());
         }
 
         private void paste(Func<__DrawingData> getter)
         {
+            UserProperties.set(cb_view.Checked, cb_mark.Checked, cb_txt.Checked,
+                              cb_section.Checked, cb_detail.Checked, cb_dim.Checked, cb_line.Checked,
+                              cb_red.Checked);
+
             add_text("Paste... ");
 
             output = getter();
-            add_text("Done \n");
+            if (cb_offset.Checked) TeklaGetter.getPoint2();
+
+            add_text(Environment.NewLine + "Done");
             add_text(output.countObjects());
 
-            UserProperties.set(cb_view.Checked, cb_mark.Checked, cb_txt.Checked,
-                                                cb_mark_attr.Checked,
-                               cb_section.Checked, cb_detail.Checked, cb_dim.Checked, cb_line.Checked,
-                               cb_red.Checked);
-
-            add_text("***********\n");
             add_text("Redraw... ");
             __CopyDrawingHandler.main(input, output);
-            add_text("Done \n");
-
+            add_text("Done");
         }
 
         private void btn_input_all_Click(object sender, EventArgs e)
@@ -89,14 +89,14 @@ namespace project_centrum
                 DateTime end = DateTime.Now;
                 timerReport(start, end);
             }
-            catch (DivideByZeroException )
+            catch (DivideByZeroException)
             {
-                add_text("FAILED\n");
+                add_text("FAILED");
                 add_text("Drawing not opened");
             }
             catch
             {
-                add_text("FAILED\n");
+                add_text("FAILED");
                 add_text(error);
             }
 
@@ -105,14 +105,21 @@ namespace project_centrum
 
         private void timerReport(DateTime start, DateTime end)
         {
-            add_text("Time: " + end.Subtract(start).TotalSeconds.ToString("F0") + " seconds \n");
-            add_text("***********\n");
+            add_text("Time: " + end.Subtract(start).TotalSeconds.ToString("F0") + " seconds");
+            add_text("--------------------------------------------------------");
         }
 
         public void add_text(string message)
         {
-            txt_status.AppendText(message);
+            txt_status.AppendText(message + Environment.NewLine);
         }
+
+        public void replace_text(string message)
+        {
+            txt_status.Text = txt_status.Text.Remove(txt_status.Text.LastIndexOf(Environment.NewLine));
+            txt_status.AppendText(Environment.NewLine + message);
+        }
+        
 
         private void cb_onoff_CheckedChanged(object sender, EventArgs e)
         {
@@ -124,9 +131,7 @@ namespace project_centrum
             cb_view.Enabled = status;
             cb_mark.Enabled = status;
             cb_txt.Enabled = status;
-
-            cb_mark_attr.Enabled = status;
-
+            
             cb_section.Enabled = status;
             cb_detail.Enabled = status;
             cb_dim.Enabled = status;
@@ -145,9 +150,7 @@ namespace project_centrum
             cb_view.Checked = status;
             cb_mark.Checked = status;
             cb_txt.Checked = status;
-
-            cb_mark_attr.Checked = status;
-
+            
             cb_section.Checked = status;
             cb_detail.Checked = status;
             cb_dim.Checked = status;

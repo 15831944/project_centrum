@@ -48,21 +48,22 @@ namespace project_centrum
                     {
                         createDetailMarks(input.detailMarks, output.detailMarks, output.view as TSD.View);
                     }
+
+                    if (UserProperties._dim)
+                    {
+                        createDimentionLineSets(input.straightDimSets, output.straightDimSets, output.view);
+                    }
+
+                    if (UserProperties._line)
+                    {
+                        createLines(input.lines, output.lines, input.view, output.view);
+                    }
+
                 }
 
                 if (UserProperties._txt)
                 {
                     repositionTextFile(input.txtFiles, output.txtFiles);
-                }
-
-                if (UserProperties._dim)
-                {
-                    createDimentionLineSets(input.straightDimSets, output.straightDimSets, output.view);
-                }
-
-                if (UserProperties._line)
-                {
-                    createLines(input.lines, output.lines, output.view);
                 }
 
             }
@@ -84,31 +85,17 @@ namespace project_centrum
                 repositionMarks<T>(matches);
             }
 
-            if (UserProperties._mark_attr)
-            {
-                changeMarkAttrs<T>(matches);
-            }
-
             if (UserProperties._red)
             {
                 setNotFoundRed<T>(notFound);
             }
-
         }
 
         private static void repositionMarks<T>(Dictionary<T, T> matches) where T : _Mark
         {
             foreach (T inputKey in matches.Keys)
             {
-                matches[inputKey].changeMarkLocation(inputKey);
-            }
-        }
-
-        private static void changeMarkAttrs<T>(Dictionary<T, T> matches) where T : _Mark
-        {
-            foreach (T inputKey in matches.Keys)
-            {
-                matches[inputKey].changeMarkAttributes(inputKey);
+                matches[inputKey].reCreateMark(inputKey);
             }
         }
 
@@ -116,7 +103,9 @@ namespace project_centrum
         {
             foreach (T output in notFound)
             {
-                output.objectNotFound();
+                output._mark.Attributes.Frame.Color = TSD.DrawingColors.Red;
+                output._mark.Attributes.Frame.Type = TSD.FrameTypes.Rectangular;
+                output._mark.Modify();
             }
         }
 
@@ -124,7 +113,10 @@ namespace project_centrum
         {
             foreach (_SectionMark inputSection in input)
             {
-                TSD.SectionMark outputSectionMark = new TSD.SectionMark(outputView, inputSection._obj.LeftPoint, inputSection._obj.RightPoint);
+                T3D.Point leftPoint = __Transformster.Transform(inputSection._obj.LeftPoint);
+                T3D.Point rightPoint = __Transformster.Transform(inputSection._obj.RightPoint);
+
+                TSD.SectionMark outputSectionMark = new TSD.SectionMark(outputView, leftPoint, rightPoint);
                 outputSectionMark.Attributes = inputSection._obj.Attributes;
                 outputSectionMark.Insert();
 
@@ -141,7 +133,11 @@ namespace project_centrum
         {
             foreach (TSD.DetailMark inputDetail in input)
             {
-                TSD.DetailMark outputDetailMark = new TSD.DetailMark(outputView, inputDetail.CenterPoint, inputDetail.BoundaryPoint, inputDetail.LabelPoint);
+                T3D.Point centerPoint = __Transformster.Transform(inputDetail.CenterPoint);
+                T3D.Point boundaryPoint = __Transformster.Transform(inputDetail.BoundaryPoint);
+                T3D.Point labelPoint = __Transformster.Transform(inputDetail.LabelPoint);
+
+                TSD.DetailMark outputDetailMark = new TSD.DetailMark(outputView, centerPoint, boundaryPoint, labelPoint);
                 outputDetailMark.Attributes = inputDetail.Attributes;
                 outputDetailMark.Insert();
             }
@@ -165,18 +161,28 @@ namespace project_centrum
         {
             foreach (_StraightDimentionSet inputDimSet in input)
             {
+                TSD.PointList outputPoints = new TSD.PointList();
+                foreach (T3D.Point ip in inputDimSet._points)
+                {
+                    T3D.Point op = __Transformster.Transform(ip);
+                    outputPoints.Add(op);
+                }
+
                 TSD.StraightDimensionSetHandler sds = new TSD.StraightDimensionSetHandler();
-                TSD.StraightDimensionSet outputDimSet = sds.CreateDimensionSet(outputView, inputDimSet._points, inputDimSet._first.UpDirection, inputDimSet._set.Distance, inputDimSet._set.Attributes);
+                TSD.StraightDimensionSet outputDimSet = sds.CreateDimensionSet(outputView, outputPoints, inputDimSet._first.UpDirection, inputDimSet._set.Distance, inputDimSet._set.Attributes);
                 outputDimSet.Distance = inputDimSet._set.Distance;
                 outputDimSet.Modify();
             }
         }
 
-        private static void createLines(List<TSD.Line> input, List<TSD.Line> output, TSD.ViewBase outputView)
+        private static void createLines(List<TSD.Line> input, List<TSD.Line> output, TSD.ViewBase inputView, TSD.ViewBase outputView)
         {
             foreach (TSD.Line inputLine in input)
             {
-                TSD.Line outputLine = new TSD.Line(outputView, inputLine.StartPoint, inputLine.EndPoint, inputLine.Attributes);
+                T3D.Point startPoint = __Transformster.Transform(inputLine.StartPoint);
+                T3D.Point endPoint = __Transformster.Transform(inputLine.EndPoint);
+
+                TSD.Line outputLine = new TSD.Line(outputView, startPoint, endPoint, inputLine.Attributes);
                 outputLine.Attributes = inputLine.Attributes;
                 outputLine.Insert();
             }

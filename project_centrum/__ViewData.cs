@@ -116,57 +116,45 @@ namespace project_centrum
         {
             if (currentMark.Attributes.Content.Count > 0)
             {
-                TSM.ModelObject modelObject = getPart(currentMark);
+                System.Type[] Types = new System.Type[1];
+                Types.SetValue(typeof(TSD.ModelObject), 0);
+                TSD.DrawingObjectEnumerator markObjects = currentMark.GetRelatedObjects(Types);
 
-                if (modelObject != null)
+                foreach (TSD.ModelObject currentDO in markObjects)
                 {
-                    if (modelObject is TSM.Beam)
-                    {
-                        TSM.Beam currentMO = modelObject as TSM.Beam;
-                        markBeams.Add(new _Mark_Beam(currentMark, currentMO));
-                    }
-                    else if (modelObject is TSM.PolyBeam)
-                    {
-                        TSM.PolyBeam currentMO = modelObject as TSM.PolyBeam;
-                        markPolyBeams.Add(new _Mark_PolyBeam(currentMark, currentMO));
-                    }
-                    else if (modelObject is TSM.ContourPlate)
-                    {
-                        TSM.ContourPlate currentMO = modelObject as TSM.ContourPlate;
-                        markContourPlates.Add(new _Mark_ContourPlate(currentMark, currentMO));
-                    }
-                    else if (modelObject is TSM.SingleRebar)
-                    {
-                        TSM.SingleRebar currentMO = modelObject as TSM.SingleRebar;
-                        markSingleRebars.Add(new _Mark_SingleRebar(currentMark, currentMO));
-                    }
-                    else if (modelObject is TSM.RebarGroup)
-                    {
-                        TSM.BaseRebarGroup currentMO = modelObject as TSM.RebarGroup;
-                        markRebarBases.Add(new _Mark_RebarGroup(currentMark, currentMO));
-                    }
-                }
-            }
-        }
-
-        private TSM.ModelObject getPart(TSD.Mark current)
-        {
-            TSD.DrawingObjectEnumerator currentObjects = current.GetRelatedObjects();
-
-            while (currentObjects.MoveNext())
-            {
-                if (currentObjects.Current is TSD.ModelObject)
-                {
-                    TSD.ModelObject drawingObject = currentObjects.Current as TSD.ModelObject;
-
                     TSM.Model myModel = new TSM.Model();
-                    TSM.ModelObject modelObject = myModel.SelectModelObject(drawingObject.ModelIdentifier);
+                    TSM.ModelObject modelObject = myModel.SelectModelObject(currentDO.ModelIdentifier);
 
-                    return modelObject;
+                    if (modelObject != null)
+                    {
+                        if (modelObject is TSM.Beam)
+                        {
+                            TSM.Beam currentMO = modelObject as TSM.Beam;
+                            markBeams.Add(new _Mark_Beam(currentMark, currentMO, currentDO));
+                        }
+                        else if (modelObject is TSM.PolyBeam)
+                        {
+                            TSM.PolyBeam currentMO = modelObject as TSM.PolyBeam;
+                            markPolyBeams.Add(new _Mark_PolyBeam(currentMark, currentMO, currentDO));
+                        }
+                        else if (modelObject is TSM.ContourPlate)
+                        {
+                            TSM.ContourPlate currentMO = modelObject as TSM.ContourPlate;
+                            markContourPlates.Add(new _Mark_ContourPlate(currentMark, currentMO, currentDO));
+                        }
+                        else if (modelObject is TSM.SingleRebar)
+                        {
+                            TSM.SingleRebar currentMO = modelObject as TSM.SingleRebar;
+                            markSingleRebars.Add(new _Mark_SingleRebar(currentMark, currentMO, currentDO));
+                        }
+                        else if (modelObject is TSM.RebarGroup)
+                        {
+                            TSM.BaseRebarGroup currentMO = modelObject as TSM.RebarGroup;
+                            markRebarBases.Add(new _Mark_RebarGroup(currentMark, currentMO, currentDO));
+                        }
+                    }
                 }
             }
-
-            return null;
         }
     }
 }

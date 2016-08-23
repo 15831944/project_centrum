@@ -23,7 +23,6 @@ namespace project_centrum
         internal void setSheet(TSD.ContainerView sheet)
         {
             data[sheet] = new __ViewData(sheet);
-
         }
 
         internal void setViews(TSD.DrawingObjectEnumerator views)
@@ -33,7 +32,7 @@ namespace project_centrum
                 data[view] = new __ViewData(view);
             }
         }
-
+        
         internal void setSelectedViews(TSD.DrawingObjectEnumerator all)
         {
             foreach (TSD.DrawingObject one in all)
@@ -64,8 +63,14 @@ namespace project_centrum
 
         public void populate(TSD.DrawingObjectEnumerator all)
         {
+            int i = 0;
+            int tot = all.GetSize();
+            Form1._form.replace_text("Total objects to proccess: " + tot.ToString() );
+
             foreach (TSD.DrawingObject one in all)
             {
+                i++;
+                Form1._form.replace_text("Proccessing: " + i.ToString() + " of " + tot.ToString());
                 //if (one is TSD.ViewBase || one is TSD.DimensionLink)
                 if (one is TSD.Mark || one is TSD.StraightDimensionSet || one is TSD.SectionMark || one is TSD.DetailMark || one is TSD.Line || one is TSD.TextFile)
                 {
@@ -153,6 +158,8 @@ namespace project_centrum
             }
 
             StringBuilder message = new StringBuilder();
+            message.AppendLine("");
+            message.AppendLine("**************");
             message.AppendLine("Views: " + (views - 1));
             message.AppendLine("" );
             message.AppendLine("Beam marks: " + markBeams);
@@ -169,7 +176,7 @@ namespace project_centrum
             message.AppendLine("");
             message.AppendLine("Lines: " + lines);
             message.AppendLine("TextFiles: " + txtFiles);
-            message.AppendLine("");
+            message.AppendLine("**************");
             return message.ToString();
         }
     }

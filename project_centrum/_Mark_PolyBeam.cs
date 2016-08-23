@@ -13,7 +13,7 @@ namespace project_centrum
 {
     public class _Mark_PolyBeam : _Mark
     {
-        public _Mark_PolyBeam(TSD.Mark mark, TSM.ModelObject part) : base(mark, part)
+        public _Mark_PolyBeam(TSD.Mark mark, TSM.ModelObject part, TSD.ModelObject dr) : base(mark, part, dr)
         {
 
         }

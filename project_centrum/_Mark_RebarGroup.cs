@@ -16,7 +16,7 @@ namespace project_centrum
 {
     class _Mark_RebarGroup : _Mark
     {
-        public _Mark_RebarGroup(TSD.Mark mark, TSM.ModelObject part) : base(mark, part)
+        public _Mark_RebarGroup(TSD.Mark mark, TSM.ModelObject part, TSD.ModelObject dr) : base(mark, part, dr)
         {
 
         }

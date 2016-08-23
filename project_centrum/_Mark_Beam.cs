@@ -14,7 +14,7 @@ namespace project_centrum
 {
     public class _Mark_Beam : _Mark
     {
-        public _Mark_Beam(TSD.Mark mark, TSM.ModelObject part) : base(mark, part)
+        public _Mark_Beam(TSD.Mark mark, TSM.ModelObject part, TSD.ModelObject dr) : base(mark, part, dr)
         {
 
         }
