@@ -26,7 +26,16 @@ namespace project_centrum
                 drawing.setSheet(sheet);
                 TSD.DrawingObjectEnumerator views = sheet.GetAllViews();
                 drawing.setViews(views);
-                TSD.DrawingObjectEnumerator allObjects = sheet.GetAllObjects();
+
+                System.Type[] Types = new System.Type[6];
+                Types.SetValue(typeof(TSD.Mark), 0);
+                Types.SetValue(typeof(TSD.StraightDimensionSet), 1);
+                Types.SetValue(typeof(TSD.SectionMark), 2);
+                Types.SetValue(typeof(TSD.DetailMark), 3);
+                Types.SetValue(typeof(TSD.Line), 4);
+                Types.SetValue(typeof(TSD.TextFile), 5);
+
+                TSD.DrawingObjectEnumerator allObjects = sheet.GetAllObjects(Types);
                 drawing.populate(allObjects);
             }
             else
@@ -50,7 +59,7 @@ namespace project_centrum
 
 
                 picker.PickPoint("PICK", out point, out vv);
-                Form1._form.add_text(Environment.NewLine + point.X.ToString() + " " + point.Y.ToString());
+                Form1._form.add_text(Environment.NewLine + "Insertion point1 : " + point.X + ", " + point.Y);
                 UserProperties.setTag1(point);
             }
         }
@@ -68,7 +77,7 @@ namespace project_centrum
 
 
                 picker.PickPoint("PICK", out point, out vv);
-                Form1._form.add_text(Environment.NewLine + point.X.ToString() + " " + point.Y.ToString());
+                Form1._form.add_text(Environment.NewLine + "Insertion point2 : " + point.X + ", " + point.Y);
                 UserProperties.setTag2(point);
             }
         }

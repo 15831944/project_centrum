@@ -18,12 +18,14 @@ namespace project_centrum
         public TSD.Mark _mark;
         public TSM.ModelObject _part;
         private TSD.ModelObject _DRpart;
+        internal TSD.ViewBase _view;
 
-        public _Mark(TSD.Mark mark, TSM.ModelObject part, TSD.ModelObject DRpart)
+        public _Mark(TSD.Mark mark, TSM.ModelObject part, TSD.ModelObject DRpart, TSD.ViewBase view)
         {
             _mark = mark;
             _part = part;
             _DRpart = DRpart;
+            _view = view;
         }
 
 
@@ -32,9 +34,7 @@ namespace project_centrum
 
         public void reCreateMark(_Mark input)
         {
-            _mark.Delete();
-
-            TSD.Mark newMark = new TSD.Mark(_DRpart);
+            _mark.Attributes = input._mark.Attributes;
 
             if (input._mark.Placing is TSD.AlongLinePlacing)
             {
@@ -42,7 +42,7 @@ namespace project_centrum
                 T3D.Point start = __Transformster.Transform(attr.StartPoint);
                 T3D.Point end = __Transformster.Transform(attr.EndPoint);
                 TSD.AlongLinePlacing newPlacing = new TSD.AlongLinePlacing(start, end);
-                newMark.Placing = newPlacing;
+                _mark.Placing = newPlacing;
             }
 
             else if (input._mark.Placing is TSD.BaseLinePlacing)
@@ -51,7 +51,7 @@ namespace project_centrum
                 T3D.Point start = __Transformster.Transform(attr.StartPoint);
                 T3D.Point end = __Transformster.Transform(attr.EndPoint);
                 TSD.BaseLinePlacing newPlacing = new TSD.BaseLinePlacing(start, end);
-                newMark.Placing = newPlacing;
+                _mark.Placing = newPlacing;
             }
 
             else if (input._mark.Placing is TSD.LeaderLinePlacing)
@@ -59,33 +59,42 @@ namespace project_centrum
                 TSD.LeaderLinePlacing attr = input._mark.Placing as TSD.LeaderLinePlacing;
                 T3D.Point start = __Transformster.Transform(attr.StartPoint);
                 TSD.LeaderLinePlacing newPlacing = new TSD.LeaderLinePlacing(start);
-                newMark.Placing = newPlacing;
+                _mark.Placing = newPlacing;
             }
 
             else if (input._mark.Placing is TSD.PointPlacing)
             {
                 TSD.PointPlacing newPlacing = new TSD.PointPlacing();
-                newMark.Placing = newPlacing;
+                _mark.Placing = newPlacing;
             }
 
-            newMark.Attributes = input._mark.Attributes;
-            newMark.Insert();
-
-            newMark.InsertionPoint = __Transformster.Transform(input._mark.InsertionPoint); 
-            newMark.Modify();
-
+            _mark.InsertionPoint = __Transformster.Transform(input._mark.InsertionPoint);
+            _mark.Modify();
         }
 
+        public T3D.Point factor1Point(T3D.Point pp, TSD.View vv)
+        {
+            T3D.Matrix convMatrix = T3D.MatrixFactory.ToCoordinateSystem(vv.DisplayCoordinateSystem);
+            return convMatrix.Transform(pp);
+        }
+
+        public ArrayList factorPointArray(ArrayList pps, TSD.View vv)
+        {
+            ArrayList factored = new ArrayList();
+
+            T3D.Matrix convMatrix = T3D.MatrixFactory.ToCoordinateSystem(vv.DisplayCoordinateSystem);
+            foreach (T3D.Point pp in pps)
+            {
+                T3D.Point fp = convMatrix.Transform(pp);
+                factored.Add(fp);
+            }
+
+            return factored;
+        }
 
         public bool compare2Points(T3D.Point p1, T3D.Point p2)
         {
-            Form1._form.add_text("DUH" + p1.X.ToString() + " " + p1.Y.ToString());
-
-            Form1._form.add_text("BEFORE: " + p2.X.ToString() + " " + p2.Y.ToString());
-            
             p2 = __Transformster.Transform(p2);
-
-            Form1._form.add_text("AFTER: " + p2.X.ToString() + " " + p2.Y.ToString());
 
             if (Math.Abs(p1.X - p2.X) > 2.0)
             {
@@ -115,10 +124,8 @@ namespace project_centrum
             {
                 T3D.Point p1 = points1[i] as T3D.Point;
                 T3D.Point p2 = points2[i] as T3D.Point;
-
-                p2 = __Transformster.Transform(p2);
-
-                if (! compare2Points(p1, p2))
+                
+                if (!compare2Points(p1, p2))
                 {
                     return false;
                 }

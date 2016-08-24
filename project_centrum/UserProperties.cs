@@ -41,7 +41,7 @@ namespace project_centrum
             _txt = txt;
             _red = red;
 
-            _dR = 0;
+            _dR = 180;
         }
 
         public static void setTag1(T3D.Point start)

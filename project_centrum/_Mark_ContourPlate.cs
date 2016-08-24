@@ -13,7 +13,7 @@ namespace project_centrum
 {
     public class _Mark_ContourPlate : _Mark
     {
-        public _Mark_ContourPlate(TSD.Mark mark, TSM.ModelObject part, TSD.ModelObject dr) : base(mark, part, dr)
+        public _Mark_ContourPlate(TSD.Mark mark, TSM.ModelObject part, TSD.ModelObject dr, TSD.ViewBase vv) : base(mark, part, dr, vv)
         {
 
         }
@@ -26,7 +26,10 @@ namespace project_centrum
             ArrayList points1 = part1.Contour.ContourPoints;
             ArrayList points2 = part2.Contour.ContourPoints;
 
-            if (! comparePointArray(points1, points2))
+            ArrayList transformed1 = factorPointArray(points1, _view as TSD.View);
+            ArrayList transformed2 = factorPointArray(points2, other._view as TSD.View);
+
+            if (! comparePointArray(transformed1, transformed2) )
             {
                 return false;
             }

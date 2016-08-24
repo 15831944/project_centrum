@@ -16,7 +16,7 @@ namespace project_centrum
 {
     class _Mark_RebarGroup : _Mark
     {
-        public _Mark_RebarGroup(TSD.Mark mark, TSM.ModelObject part, TSD.ModelObject dr) : base(mark, part, dr)
+        public _Mark_RebarGroup(TSD.Mark mark, TSM.ModelObject part, TSD.ModelObject dr, TSD.ViewBase vv) : base(mark, part, dr, vv)
         {
 
         }
@@ -26,11 +26,16 @@ namespace project_centrum
             TSM.RebarGroup part1 = _part as TSM.RebarGroup;
             TSM.RebarGroup part2 = other._part as TSM.RebarGroup;
 
-            if (! compare2Points(part1.StartPoint, part2.StartPoint))
+            T3D.Point p1start = factor1Point(part1.StartPoint, _view as TSD.View);
+            T3D.Point p1end = factor1Point(part1.EndPoint, _view as TSD.View);
+            T3D.Point p2start = factor1Point(part2.StartPoint, other._view as TSD.View);
+            T3D.Point p2end = factor1Point(part2.EndPoint, other._view as TSD.View);
+
+            if (! compare2Points(p1start, p2start) )
             {
                 return false;
             }
-            if (! compare2Points(part1.EndPoint, part2.EndPoint))
+            if (! compare2Points(p1end, p2end) )
             {
                 return false;
             }
@@ -51,7 +56,10 @@ namespace project_centrum
                 ArrayList points1 = poly1.Points;
                 ArrayList points2 = poly2.Points;
 
-                if (! comparePointArray(points1, points2))
+                ArrayList transformed1 = factorPointArray(points1, _view as TSD.View);
+                ArrayList transformed2 = factorPointArray(points2, other._view as TSD.View);
+
+                if (! comparePointArray(transformed1, transformed2))
                 {
                     return false;
                 }

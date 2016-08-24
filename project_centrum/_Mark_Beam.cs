@@ -14,7 +14,7 @@ namespace project_centrum
 {
     public class _Mark_Beam : _Mark
     {
-        public _Mark_Beam(TSD.Mark mark, TSM.ModelObject part, TSD.ModelObject dr) : base(mark, part, dr)
+        public _Mark_Beam(TSD.Mark mark, TSM.ModelObject part, TSD.ModelObject dr, TSD.ViewBase vv) : base(mark, part, dr, vv)
         {
 
         }
@@ -24,11 +24,16 @@ namespace project_centrum
             TSM.Beam part1 = _part as TSM.Beam;
             TSM.Beam part2 = other._part as TSM.Beam;
 
-            if (! compare2Points(part1.StartPoint, part2.StartPoint) )
+            T3D.Point p1start = factor1Point(part1.StartPoint, _view as TSD.View);
+            T3D.Point p1end = factor1Point(part1.EndPoint, _view as TSD.View);
+            T3D.Point p2start = factor1Point(part2.StartPoint, other._view as TSD.View);
+            T3D.Point p2end = factor1Point(part2.EndPoint, other._view as TSD.View);
+
+            if (! compare2Points(p1start, p2start) )
             {
                 return false;
             }
-            if (! compare2Points(part1.EndPoint, part2.EndPoint) )
+            if (! compare2Points(p1end, p2end) )
             {
                 return false;
             }

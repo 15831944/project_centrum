@@ -71,7 +71,7 @@ namespace project_centrum
             {
                 i++;
                 Form1._form.replace_text("Proccessing: " + i.ToString() + " of " + tot.ToString());
-                //if (one is TSD.ViewBase || one is TSD.DimensionLink)
+                    //if (one is TSD.ViewBase || one is TSD.DimensionLink)
                 if (one is TSD.Mark || one is TSD.StraightDimensionSet || one is TSD.SectionMark || one is TSD.DetailMark || one is TSD.Line || one is TSD.TextFile)
                 {
                     TSD.ViewBase oneView = one.GetView();

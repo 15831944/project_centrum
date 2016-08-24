@@ -130,27 +130,27 @@ namespace project_centrum
                         if (modelObject is TSM.Beam)
                         {
                             TSM.Beam currentMO = modelObject as TSM.Beam;
-                            markBeams.Add(new _Mark_Beam(currentMark, currentMO, currentDO));
+                            markBeams.Add(new _Mark_Beam(currentMark, currentMO, currentDO, this.view));
                         }
                         else if (modelObject is TSM.PolyBeam)
                         {
                             TSM.PolyBeam currentMO = modelObject as TSM.PolyBeam;
-                            markPolyBeams.Add(new _Mark_PolyBeam(currentMark, currentMO, currentDO));
+                            markPolyBeams.Add(new _Mark_PolyBeam(currentMark, currentMO, currentDO, this.view));
                         }
                         else if (modelObject is TSM.ContourPlate)
                         {
                             TSM.ContourPlate currentMO = modelObject as TSM.ContourPlate;
-                            markContourPlates.Add(new _Mark_ContourPlate(currentMark, currentMO, currentDO));
+                            markContourPlates.Add(new _Mark_ContourPlate(currentMark, currentMO, currentDO, this.view));
                         }
                         else if (modelObject is TSM.SingleRebar)
                         {
                             TSM.SingleRebar currentMO = modelObject as TSM.SingleRebar;
-                            markSingleRebars.Add(new _Mark_SingleRebar(currentMark, currentMO, currentDO));
+                            markSingleRebars.Add(new _Mark_SingleRebar(currentMark, currentMO, currentDO, this.view));
                         }
                         else if (modelObject is TSM.RebarGroup)
                         {
                             TSM.BaseRebarGroup currentMO = modelObject as TSM.RebarGroup;
-                            markRebarBases.Add(new _Mark_RebarGroup(currentMark, currentMO, currentDO));
+                            markRebarBases.Add(new _Mark_RebarGroup(currentMark, currentMO, currentDO, this.view));
                         }
                     }
                 }

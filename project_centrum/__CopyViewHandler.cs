@@ -58,8 +58,15 @@ namespace project_centrum
                     {
                         createLines(input.lines, output.lines, input.view, output.view);
                     }
-
                 }
+
+                //else if (output.view is TSD.ContainerView)
+                //{
+                //    if (input.view != null && output.view != null)
+                //    {
+                //        printView(input.view, output.view);
+                //    }
+                //}
 
                 if (UserProperties._txt)
                 {
@@ -71,9 +78,25 @@ namespace project_centrum
 
         private static void repositionView(TSD.ViewBase input, TSD.ViewBase output)
         {
+            //Form1._form.add_text("I1: " + input.Origin.X + ", " + input.Origin.Y);
+            //Form1._form.add_text("I2: " + input.FrameOrigin.X + ", " + input.FrameOrigin.Y);
+            //Form1._form.add_text("");
+            //Form1._form.add_text("O1: " + output.Origin.X + ", " + output.Origin.Y);
+            //Form1._form.add_text("O2: " + output.FrameOrigin.X + ", " + output.FrameOrigin.Y);
+
+
             output.Origin = input.Origin;
             output.Modify();
         }
+
+        //private static void printView(TSD.ViewBase input, TSD.ViewBase output)
+        //{
+        //    Form1._form.add_text("CI1: " + input.Origin.X + ", " + input.Origin.Y);
+        //    Form1._form.add_text("CI2: " + input.FrameOrigin.X + ", " + input.FrameOrigin.Y);
+        //    Form1._form.add_text("");
+        //    Form1._form.add_text("CO1: " + output.Origin.X + ", " + output.Origin.Y);
+        //    Form1._form.add_text("CO2: " + output.FrameOrigin.X + ", " + output.FrameOrigin.Y);
+        //}
 
         private static void handleMarks<T>(List<T> input, List<T> output) where T : _Mark
         {
@@ -151,8 +174,9 @@ namespace project_centrum
             {
                 closest[key].InsertionPoint = key.InsertionPoint;
                 closest[key].Attributes = key.Attributes;
-                closest[key].Attributes.Scaling = TSD.ScalingOptions.NoScaling; //HARDCODE
                 closest[key].Size = key.Size;
+                closest[key].Modify();
+                closest[key].Attributes.Scaling = TSD.ScalingOptions.NoScaling; //HARDCODE
                 closest[key].Modify();
             }
         }

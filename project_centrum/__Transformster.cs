@@ -22,6 +22,31 @@ namespace project_centrum
 
                 double dX = b.X - a.X;
                 double dY = b.Y - a.Y;
+                
+                double X = input.X + dX;
+                double Y = input.Y + dY;
+                double Z = input.Z;
+
+                T3D.Point tr = new T3D.Point(X, Y, Z);
+
+                return tr;
+            }
+
+            else
+            {
+                return input;
+            }
+        }
+
+        public static T3D.Point Transform2(T3D.Point input)
+        {
+            if (UserProperties.a != null && UserProperties.b != null)
+            {
+                T3D.Point a = UserProperties.a;
+                T3D.Point b = UserProperties.b;
+
+                double dX = b.X - a.X;
+                double dY = b.Y - a.Y;
 
                 double cs = Math.Cos(Math.PI * UserProperties._dR / 180);
                 double sn = Math.Sin(Math.PI * UserProperties._dR / 180);

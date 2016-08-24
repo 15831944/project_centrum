@@ -83,7 +83,7 @@
             this.txt_status.Name = "txt_status";
             this.txt_status.ReadOnly = true;
             this.txt_status.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txt_status.Size = new System.Drawing.Size(565, 668);
+            this.txt_status.Size = new System.Drawing.Size(333, 393);
             this.txt_status.TabIndex = 1;
             // 
             // cb_view
@@ -111,6 +111,8 @@
             // cb_section
             // 
             this.cb_section.AutoSize = true;
+            this.cb_section.Checked = true;
+            this.cb_section.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cb_section.Location = new System.Drawing.Point(165, 60);
             this.cb_section.Name = "cb_section";
             this.cb_section.Size = new System.Drawing.Size(67, 17);
@@ -133,6 +135,8 @@
             // cb_dim
             // 
             this.cb_dim.AutoSize = true;
+            this.cb_dim.Checked = true;
+            this.cb_dim.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cb_dim.Location = new System.Drawing.Point(165, 100);
             this.cb_dim.Name = "cb_dim";
             this.cb_dim.Size = new System.Drawing.Size(78, 17);
@@ -161,6 +165,8 @@
             // cb_line
             // 
             this.cb_line.AutoSize = true;
+            this.cb_line.Checked = true;
+            this.cb_line.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cb_line.Location = new System.Drawing.Point(165, 120);
             this.cb_line.Name = "cb_line";
             this.cb_line.Size = new System.Drawing.Size(51, 17);
@@ -171,6 +177,8 @@
             // cb_txt
             // 
             this.cb_txt.AutoSize = true;
+            this.cb_txt.Checked = true;
+            this.cb_txt.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cb_txt.Location = new System.Drawing.Point(15, 100);
             this.cb_txt.Name = "cb_txt";
             this.cb_txt.Size = new System.Drawing.Size(63, 17);
@@ -181,6 +189,8 @@
             // cb_detail
             // 
             this.cb_detail.AutoSize = true;
+            this.cb_detail.Checked = true;
+            this.cb_detail.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cb_detail.Location = new System.Drawing.Point(165, 80);
             this.cb_detail.Name = "cb_detail";
             this.cb_detail.Size = new System.Drawing.Size(58, 17);
@@ -280,7 +290,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(844, 686);
+            this.ClientSize = new System.Drawing.Size(612, 411);
             this.Controls.Add(this.cb_offset);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
