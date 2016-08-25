@@ -21,6 +21,16 @@ namespace project_centrum
 
         }
 
+        public override void tryPredict(_Mark other)
+        {
+
+        }
+
+        public override T3D.Vector getDirection()
+        {
+            return new T3D.Vector(0, 0, 0);
+        }
+
         public override bool checkModelObjects(_Mark other)
         {
             TSM.RebarGroup part1 = _part as TSM.RebarGroup;

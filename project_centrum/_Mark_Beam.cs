@@ -19,6 +19,31 @@ namespace project_centrum
 
         }
 
+        public override void tryPredict(_Mark other)
+        {
+
+        }
+
+        public override T3D.Vector getDirection()
+        {
+            T3D.Point start = (_part as TSM.Beam).StartPoint;
+            T3D.Point end = (_part as TSM.Beam).EndPoint;
+
+            double dX = end.X - start.X;
+            double dY = end.Y - start.Y;
+            double dZ = end.Z - start.Z;
+
+            double dT = Math.Abs(dX) + Math.Abs(dY) + Math.Abs(dZ);
+
+            dX = dX / dT;
+            dY = dY / dT;
+            dZ = dZ / dT;
+
+            T3D.Vector vector = new T3D.Vector(dX, dY, dZ);
+
+            return vector;
+        }
+
         public override bool checkModelObjects(_Mark other)
         {
             TSM.Beam part1 = _part as TSM.Beam;

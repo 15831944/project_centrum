@@ -24,6 +24,7 @@ namespace project_centrum
             {
                 TSD.ContainerView sheet = drawingHandler.GetActiveDrawing().GetSheet();
                 drawing.setSheet(sheet);
+
                 TSD.DrawingObjectEnumerator views = sheet.GetAllViews();
                 drawing.setViews(views);
 
@@ -46,7 +47,7 @@ namespace project_centrum
             return drawing;
         }
 
-        public static void getPoint1()
+        public static void getPoint(Action<T3D.Point> setter)
         {
             __DrawingData drawing = new __DrawingData();
             TSD.DrawingHandler drawingHandler = new TSD.DrawingHandler();
@@ -58,8 +59,26 @@ namespace project_centrum
                 TSD.ViewBase vv = null;
 
 
+                Form1._form.add_text("Select origin point in drawing view");
+                picker.PickPoint("Pick one point", out point, out vv);
+                //Debuger.ppoint(point, "Offset point 1");
+                setter(point);
+            }
+        }
+
+        public static void getPoint1()
+        {
+            __DrawingData drawing = new __DrawingData();
+            TSD.DrawingHandler drawingHandler = new TSD.DrawingHandler();
+
+            if (drawingHandler.GetConnectionStatus())
+            {
+                TSD.UI.Picker picker = drawingHandler.GetPicker();
+                T3D.Point point = null;
+                TSD.ViewBase vv = null;
+
                 picker.PickPoint("PICK", out point, out vv);
-                Form1._form.add_text(Environment.NewLine + "Insertion point1 : " + point.X + ", " + point.Y);
+                //Debuger.ppoint(point, "Offset point 1");
                 UserProperties.setTag1(point);
             }
         }
@@ -75,9 +94,8 @@ namespace project_centrum
                 T3D.Point point = null;
                 TSD.ViewBase vv = null;
 
-
                 picker.PickPoint("PICK", out point, out vv);
-                Form1._form.add_text(Environment.NewLine + "Insertion point2 : " + point.X + ", " + point.Y);
+                //Debuger.ppoint(point, "Offset point 2");
                 UserProperties.setTag2(point);
             }
         }
@@ -95,26 +113,6 @@ namespace project_centrum
                 TSD.DrawingObjectEnumerator selectedObjects = drawingHandler.GetDrawingObjectSelector().GetSelected();
                 drawing.setSelectedViews(selectedObjects);
                 drawing.populateSelected(selectedObjects);
-            }
-            else
-            {
-                throw new DivideByZeroException();
-            }
-
-            return drawing;
-        }
-
-        public static __DrawingData getEmptyData()
-        {
-            __DrawingData drawing = new __DrawingData();
-            TSD.DrawingHandler drawingHandler = new TSD.DrawingHandler();
-
-            if (drawingHandler.GetConnectionStatus())
-            {
-                TSD.ContainerView sheet = drawingHandler.GetActiveDrawing().GetSheet();
-                drawing.setSheet(sheet);
-                TSD.DrawingObjectEnumerator views = sheet.GetAllViews();
-                drawing.setViews(views);
             }
             else
             {

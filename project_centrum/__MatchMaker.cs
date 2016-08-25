@@ -13,6 +13,53 @@ namespace project_centrum
 {
     class __MatchMaker
     {
+        public static Dictionary<TSD.ViewBase, TSD.ViewBase> viewFinder(List<TSD.ViewBase> input, List<TSD.ViewBase> output)
+        {
+            List<TSD.ViewBase> tempInput = new List<TSD.ViewBase>(input);
+            List<TSD.ViewBase> tempOutput = new List<TSD.ViewBase>(output);
+
+            Dictionary<TSD.ViewBase, TSD.ViewBase> closest = new Dictionary<TSD.ViewBase, TSD.ViewBase>();
+
+            while (tempInput.Count > 0 && tempOutput.Count > 0)
+            {
+
+                double min = double.MaxValue;
+                TSD.ViewBase minIn = null;
+                TSD.ViewBase minOut = null;
+
+                foreach (TSD.ViewBase aa in tempInput)
+                {
+                    foreach (TSD.ViewBase bb in tempOutput)
+                    {
+                        double X = aa.Origin.X - bb.Origin.X;
+                        double Y = aa.Origin.Y - bb.Origin.Y;
+                        double dist = Math.Sqrt(Math.Pow(X, 2) + Math.Pow(Y, 2));
+
+                        if (dist < min)
+                        {
+                            min = dist;
+                            minIn = aa;
+                            minOut = bb;
+                        }
+                    }
+                }
+
+                if (minIn != null && minOut != null)
+                {
+                    closest[minIn] = minOut;
+                    tempInput.Remove(minIn);
+                    tempOutput.Remove(minOut);
+                }
+                else
+                {
+                    break;
+                }
+
+            }
+
+            return closest;
+        }
+
         public static Dictionary<TSD.TextFile, TSD.TextFile> txtFinder(List<TSD.TextFile> input, List<TSD.TextFile> output)
         {
             List<TSD.TextFile> tempInput = new List<TSD.TextFile>(input);

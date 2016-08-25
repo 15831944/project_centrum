@@ -31,6 +31,9 @@ namespace project_centrum
 
         public abstract bool checkModelObjects(_Mark name);
 
+        public abstract void tryPredict(_Mark other);
+
+        public abstract T3D.Vector getDirection();
 
         public void reCreateMark(_Mark input)
         {
@@ -39,8 +42,8 @@ namespace project_centrum
             if (input._mark.Placing is TSD.AlongLinePlacing)
             {
                 TSD.AlongLinePlacing attr = input._mark.Placing as TSD.AlongLinePlacing;
-                T3D.Point start = __Transformster.Transform(attr.StartPoint);
-                T3D.Point end = __Transformster.Transform(attr.EndPoint);
+                T3D.Point start = __Transformster.Transform2(attr.StartPoint);
+                T3D.Point end = __Transformster.Transform2(attr.EndPoint);
                 TSD.AlongLinePlacing newPlacing = new TSD.AlongLinePlacing(start, end);
                 _mark.Placing = newPlacing;
             }
@@ -48,8 +51,8 @@ namespace project_centrum
             else if (input._mark.Placing is TSD.BaseLinePlacing)
             {
                 TSD.BaseLinePlacing attr = input._mark.Placing as TSD.BaseLinePlacing;
-                T3D.Point start = __Transformster.Transform(attr.StartPoint);
-                T3D.Point end = __Transformster.Transform(attr.EndPoint);
+                T3D.Point start = __Transformster.Transform2(attr.StartPoint);
+                T3D.Point end = __Transformster.Transform2(attr.EndPoint);
                 TSD.BaseLinePlacing newPlacing = new TSD.BaseLinePlacing(start, end);
                 _mark.Placing = newPlacing;
             }
@@ -57,7 +60,7 @@ namespace project_centrum
             else if (input._mark.Placing is TSD.LeaderLinePlacing)
             {
                 TSD.LeaderLinePlacing attr = input._mark.Placing as TSD.LeaderLinePlacing;
-                T3D.Point start = __Transformster.Transform(attr.StartPoint);
+                T3D.Point start = __Transformster.Transform2(attr.StartPoint);
                 TSD.LeaderLinePlacing newPlacing = new TSD.LeaderLinePlacing(start);
                 _mark.Placing = newPlacing;
             }
@@ -68,7 +71,8 @@ namespace project_centrum
                 _mark.Placing = newPlacing;
             }
 
-            _mark.InsertionPoint = __Transformster.Transform(input._mark.InsertionPoint);
+            _mark.InsertionPoint = __Transformster.Transform2(input._mark.InsertionPoint);
+            _mark.Modify();
             _mark.Modify();
         }
 
@@ -83,6 +87,7 @@ namespace project_centrum
             ArrayList factored = new ArrayList();
 
             T3D.Matrix convMatrix = T3D.MatrixFactory.ToCoordinateSystem(vv.DisplayCoordinateSystem);
+
             foreach (T3D.Point pp in pps)
             {
                 T3D.Point fp = convMatrix.Transform(pp);
@@ -94,7 +99,7 @@ namespace project_centrum
 
         public bool compare2Points(T3D.Point p1, T3D.Point p2)
         {
-            p2 = __Transformster.Transform(p2);
+            p2 = __Transformster.Transform2(p2);
 
             if (Math.Abs(p1.X - p2.X) > 2.0)
             {

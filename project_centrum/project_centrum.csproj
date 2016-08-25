@@ -58,6 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Debuger.cs" />
     <Compile Include="Example.cs" />
     <Compile Include="__CopyDrawingHandler.cs" />
     <Compile Include="__CopyViewHandler.cs" />

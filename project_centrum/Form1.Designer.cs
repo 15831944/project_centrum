@@ -49,6 +49,7 @@
             this.rb_paste_fast = new System.Windows.Forms.RadioButton();
             this.rb_paste_all = new System.Windows.Forms.RadioButton();
             this.cb_offset = new System.Windows.Forms.CheckBox();
+            this.cb_predict = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -57,7 +58,7 @@
             // 
             this.btn_input.Location = new System.Drawing.Point(12, 301);
             this.btn_input.Name = "btn_input";
-            this.btn_input.Size = new System.Drawing.Size(120, 47);
+            this.btn_input.Size = new System.Drawing.Size(96, 47);
             this.btn_input.TabIndex = 0;
             this.btn_input.Text = "COPY";
             this.btn_input.UseVisualStyleBackColor = true;
@@ -65,9 +66,9 @@
             // 
             // btn_output
             // 
-            this.btn_output.Location = new System.Drawing.Point(141, 301);
+            this.btn_output.Location = new System.Drawing.Point(114, 301);
             this.btn_output.Name = "btn_output";
-            this.btn_output.Size = new System.Drawing.Size(120, 47);
+            this.btn_output.Size = new System.Drawing.Size(97, 47);
             this.btn_output.TabIndex = 0;
             this.btn_output.Text = "PASTE";
             this.btn_output.UseVisualStyleBackColor = true;
@@ -78,12 +79,12 @@
             this.txt_status.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_status.Location = new System.Drawing.Point(267, 12);
+            this.txt_status.Location = new System.Drawing.Point(217, 12);
             this.txt_status.Multiline = true;
             this.txt_status.Name = "txt_status";
             this.txt_status.ReadOnly = true;
             this.txt_status.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txt_status.Size = new System.Drawing.Size(333, 393);
+            this.txt_status.Size = new System.Drawing.Size(278, 718);
             this.txt_status.TabIndex = 1;
             // 
             // cb_view
@@ -111,9 +112,7 @@
             // cb_section
             // 
             this.cb_section.AutoSize = true;
-            this.cb_section.Checked = true;
-            this.cb_section.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_section.Location = new System.Drawing.Point(165, 60);
+            this.cb_section.Location = new System.Drawing.Point(91, 60);
             this.cb_section.Name = "cb_section";
             this.cb_section.Size = new System.Drawing.Size(67, 17);
             this.cb_section.TabIndex = 4;
@@ -125,7 +124,7 @@
             this.cb_red.AutoSize = true;
             this.cb_red.Checked = true;
             this.cb_red.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_red.Location = new System.Drawing.Point(212, 278);
+            this.cb_red.Location = new System.Drawing.Point(80, 190);
             this.cb_red.Name = "cb_red";
             this.cb_red.Size = new System.Drawing.Size(49, 17);
             this.cb_red.TabIndex = 5;
@@ -135,9 +134,7 @@
             // cb_dim
             // 
             this.cb_dim.AutoSize = true;
-            this.cb_dim.Checked = true;
-            this.cb_dim.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_dim.Location = new System.Drawing.Point(165, 100);
+            this.cb_dim.Location = new System.Drawing.Point(91, 100);
             this.cb_dim.Name = "cb_dim";
             this.cb_dim.Size = new System.Drawing.Size(78, 17);
             this.cb_dim.TabIndex = 9;
@@ -156,7 +153,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(165, 40);
+            this.label3.Location = new System.Drawing.Point(91, 40);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 13);
             this.label3.TabIndex = 13;
@@ -165,9 +162,7 @@
             // cb_line
             // 
             this.cb_line.AutoSize = true;
-            this.cb_line.Checked = true;
-            this.cb_line.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_line.Location = new System.Drawing.Point(165, 120);
+            this.cb_line.Location = new System.Drawing.Point(91, 120);
             this.cb_line.Name = "cb_line";
             this.cb_line.Size = new System.Drawing.Size(51, 17);
             this.cb_line.TabIndex = 14;
@@ -177,8 +172,6 @@
             // cb_txt
             // 
             this.cb_txt.AutoSize = true;
-            this.cb_txt.Checked = true;
-            this.cb_txt.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cb_txt.Location = new System.Drawing.Point(15, 100);
             this.cb_txt.Name = "cb_txt";
             this.cb_txt.Size = new System.Drawing.Size(63, 17);
@@ -189,9 +182,7 @@
             // cb_detail
             // 
             this.cb_detail.AutoSize = true;
-            this.cb_detail.Checked = true;
-            this.cb_detail.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_detail.Location = new System.Drawing.Point(165, 80);
+            this.cb_detail.Location = new System.Drawing.Point(91, 80);
             this.cb_detail.Name = "cb_detail";
             this.cb_detail.Size = new System.Drawing.Size(58, 17);
             this.cb_detail.TabIndex = 16;
@@ -218,7 +209,7 @@
             this.panel1.Controls.Add(this.rb_copy_all);
             this.panel1.Location = new System.Drawing.Point(12, 354);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(120, 47);
+            this.panel1.Size = new System.Drawing.Size(96, 47);
             this.panel1.TabIndex = 18;
             // 
             // rb_copy_fast
@@ -247,9 +238,9 @@
             // 
             this.panel2.Controls.Add(this.rb_paste_fast);
             this.panel2.Controls.Add(this.rb_paste_all);
-            this.panel2.Location = new System.Drawing.Point(141, 354);
+            this.panel2.Location = new System.Drawing.Point(114, 354);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(120, 47);
+            this.panel2.Size = new System.Drawing.Size(97, 47);
             this.panel2.TabIndex = 19;
             // 
             // rb_paste_fast
@@ -277,20 +268,31 @@
             // cb_offset
             // 
             this.cb_offset.AutoSize = true;
-            this.cb_offset.Checked = true;
-            this.cb_offset.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_offset.Location = new System.Drawing.Point(36, 245);
+            this.cb_offset.Location = new System.Drawing.Point(12, 248);
             this.cb_offset.Name = "cb_offset";
             this.cb_offset.Size = new System.Drawing.Size(80, 17);
             this.cb_offset.TabIndex = 20;
             this.cb_offset.Text = "checkBox1";
             this.cb_offset.UseVisualStyleBackColor = true;
             // 
+            // cb_predict
+            // 
+            this.cb_predict.AutoSize = true;
+            this.cb_predict.Checked = true;
+            this.cb_predict.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_predict.Location = new System.Drawing.Point(15, 190);
+            this.cb_predict.Name = "cb_predict";
+            this.cb_predict.Size = new System.Drawing.Size(59, 17);
+            this.cb_predict.TabIndex = 21;
+            this.cb_predict.Text = "Predict";
+            this.cb_predict.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(612, 411);
+            this.ClientSize = new System.Drawing.Size(507, 736);
+            this.Controls.Add(this.cb_predict);
             this.Controls.Add(this.cb_offset);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -343,6 +345,7 @@
         private System.Windows.Forms.RadioButton rb_paste_fast;
         private System.Windows.Forms.RadioButton rb_paste_all;
         private System.Windows.Forms.CheckBox cb_offset;
+        private System.Windows.Forms.CheckBox cb_predict;
     }
 }
 

@@ -22,6 +22,7 @@ namespace project_centrum
         public static bool _line;
         public static bool _txt;
         public static bool _red;
+        public static bool _predict;
 
         public static int _dR;
 
@@ -30,7 +31,7 @@ namespace project_centrum
 
         public static void set(bool view, bool mark, bool txt,
                                bool section, bool detail, bool dim, bool line,
-                               bool red)
+                               bool red, bool predict)
         {
             _view = view;
             _mark = mark;
@@ -40,8 +41,9 @@ namespace project_centrum
             _line = line;
             _txt = txt;
             _red = red;
+            _predict = predict;
 
-            _dR = 180;
+            _dR = 0;
         }
 
         public static void setTag1(T3D.Point start)

@@ -22,6 +22,7 @@ namespace project_centrum
 
         internal void setSheet(TSD.ContainerView sheet)
         {
+            //Debuger.pcv(sheet);
             data[sheet] = new __ViewData(sheet);
         }
 
@@ -29,10 +30,11 @@ namespace project_centrum
         {
             foreach (TSD.View view in views)
             {
+                //Debuger.pview(view);
                 data[view] = new __ViewData(view);
             }
         }
-        
+
         internal void setSelectedViews(TSD.DrawingObjectEnumerator all)
         {
             foreach (TSD.DrawingObject one in all)
@@ -65,28 +67,26 @@ namespace project_centrum
         {
             int i = 0;
             int tot = all.GetSize();
-            Form1._form.replace_text("Total objects to proccess: " + tot.ToString() );
+
+            //Form1._form.add_text(String.Empty);
+            //Form1._form.replace_text("Total objects to proccess: " + tot.ToString() );
 
             foreach (TSD.DrawingObject one in all)
             {
                 i++;
-                Form1._form.replace_text("Proccessing: " + i.ToString() + " of " + tot.ToString());
-                    //if (one is TSD.ViewBase || one is TSD.DimensionLink)
-                if (one is TSD.Mark || one is TSD.StraightDimensionSet || one is TSD.SectionMark || one is TSD.DetailMark || one is TSD.Line || one is TSD.TextFile)
+                //Form1._form.replace_text("Proccessing: " + i.ToString() + " of " + tot.ToString());
+
+                TSD.ViewBase oneView = one.GetView();
+                foreach (TSD.ViewBase stored in data.Keys)
                 {
-                    TSD.ViewBase oneView = one.GetView();
-
-                    foreach (TSD.ViewBase stored in data.Keys)
+                    if (stored.IsSameDatabaseObject(oneView))
                     {
-                        if (stored.IsSameDatabaseObject(oneView))
-                        {
-                            data[stored].addOneObject(one);
-                            break;
-                        }
+                        data[stored].addOneObject(one);
+                        break;
                     }
-
                 }
             }
+            //Form1._form.add_text(String.Empty);
         }
 
         public void populateSelected(TSD.DrawingObjectEnumerator all)

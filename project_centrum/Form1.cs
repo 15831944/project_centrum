@@ -26,32 +26,32 @@ namespace project_centrum
 
         private void copy(Func<__DrawingData> getter)
         {
-            add_text("Copy... ");
+            //add_text("Copy... ");
 
             input = getter();
-            if (cb_offset.Checked) TeklaGetter.getPoint1();
+            if (cb_offset.Checked) TeklaGetter.getPoint(UserProperties.setTag1);
 
-            add_text(Environment.NewLine + "Done");
-            add_text(input.countObjects());
+            //add_text("Done");
+            //add_text(input.countObjects());
         }
 
         private void paste(Func<__DrawingData> getter)
         {
             UserProperties.set(cb_view.Checked, cb_mark.Checked, cb_txt.Checked,
                               cb_section.Checked, cb_detail.Checked, cb_dim.Checked, cb_line.Checked,
-                              cb_red.Checked);
+                              cb_red.Checked, cb_predict.Checked);
 
-            add_text("Paste... ");
+            //add_text("Paste... ");
 
             output = getter();
-            if (cb_offset.Checked) TeklaGetter.getPoint2();
+            if (cb_offset.Checked) TeklaGetter.getPoint(UserProperties.setTag2);
 
-            add_text(Environment.NewLine + "Done");
-            add_text(output.countObjects());
+            //add_text("Done");
+            //add_text(output.countObjects());
 
-            add_text("Redraw... ");
+            //add_text("Redraw... ");
             __CopyDrawingHandler.main(input, output);
-            add_text("Done");
+            //add_text("Done");
         }
 
         private void btn_input_all_Click(object sender, EventArgs e)
@@ -116,8 +116,15 @@ namespace project_centrum
 
         public void replace_text(string message)
         {
-            txt_status.Text = txt_status.Text.Remove(txt_status.Text.LastIndexOf(Environment.NewLine));
-            txt_status.AppendText(Environment.NewLine + message);
+            try
+            {
+                txt_status.Text = txt_status.Text.Remove(txt_status.Text.LastIndexOf(Environment.NewLine));
+                txt_status.AppendText(Environment.NewLine + message);
+            }
+            catch
+            {
+                add_text(message);
+            }
         }
         
 
@@ -138,9 +145,10 @@ namespace project_centrum
             cb_line.Enabled = status;
 
             cb_red.Enabled = status;
+            cb_predict.Enabled = status;
+            cb_offset.Enabled = status;
 
             cb_onoff.Enabled = status;
-
             btn_input.Enabled = status;
             btn_output.Enabled = status;
         }
@@ -157,6 +165,8 @@ namespace project_centrum
             cb_line.Checked = status;
 
             cb_red.Checked = status;
+            cb_predict.Checked = status;
+            cb_offset.Checked = status;
         }
     }
 }

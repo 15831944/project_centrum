@@ -60,14 +60,6 @@ namespace project_centrum
                     }
                 }
 
-                //else if (output.view is TSD.ContainerView)
-                //{
-                //    if (input.view != null && output.view != null)
-                //    {
-                //        printView(input.view, output.view);
-                //    }
-                //}
-
                 if (UserProperties._txt)
                 {
                     repositionTextFile(input.txtFiles, output.txtFiles);
@@ -78,25 +70,9 @@ namespace project_centrum
 
         private static void repositionView(TSD.ViewBase input, TSD.ViewBase output)
         {
-            //Form1._form.add_text("I1: " + input.Origin.X + ", " + input.Origin.Y);
-            //Form1._form.add_text("I2: " + input.FrameOrigin.X + ", " + input.FrameOrigin.Y);
-            //Form1._form.add_text("");
-            //Form1._form.add_text("O1: " + output.Origin.X + ", " + output.Origin.Y);
-            //Form1._form.add_text("O2: " + output.FrameOrigin.X + ", " + output.FrameOrigin.Y);
-
-
             output.Origin = input.Origin;
             output.Modify();
         }
-
-        //private static void printView(TSD.ViewBase input, TSD.ViewBase output)
-        //{
-        //    Form1._form.add_text("CI1: " + input.Origin.X + ", " + input.Origin.Y);
-        //    Form1._form.add_text("CI2: " + input.FrameOrigin.X + ", " + input.FrameOrigin.Y);
-        //    Form1._form.add_text("");
-        //    Form1._form.add_text("CO1: " + output.Origin.X + ", " + output.Origin.Y);
-        //    Form1._form.add_text("CO2: " + output.FrameOrigin.X + ", " + output.FrameOrigin.Y);
-        //}
 
         private static void handleMarks<T>(List<T> input, List<T> output) where T : _Mark
         {
@@ -106,6 +82,12 @@ namespace project_centrum
             if (UserProperties._mark)
             {
                 repositionMarks<T>(matches);
+            }
+
+            if (UserProperties._predict)
+            {
+                List<T> keys = new List<T>(matches.Keys);
+                tryPredictMarks<T>(notFound, keys);
             }
 
             if (UserProperties._red)
@@ -119,6 +101,17 @@ namespace project_centrum
             foreach (T inputKey in matches.Keys)
             {
                 matches[inputKey].reCreateMark(inputKey);
+            }
+        }
+
+        private static void tryPredictMarks<T>(List<T> notFound, List<T> knowns) where T : _Mark
+        {
+            foreach (T output in notFound)
+            {
+                T3D.Vector outputvector = output.getDirection();
+
+                List<T> gg = knowns.Where(x => x.getDirection() == outputvector).ToList();
+                Debuger.p(gg.Count.ToString());
             }
         }
 
@@ -136,8 +129,8 @@ namespace project_centrum
         {
             foreach (_SectionMark inputSection in input)
             {
-                T3D.Point leftPoint = __Transformster.Transform(inputSection._obj.LeftPoint);
-                T3D.Point rightPoint = __Transformster.Transform(inputSection._obj.RightPoint);
+                T3D.Point leftPoint = __Transformster.Transform2(inputSection._obj.LeftPoint);
+                T3D.Point rightPoint = __Transformster.Transform2(inputSection._obj.RightPoint);
 
                 TSD.SectionMark outputSectionMark = new TSD.SectionMark(outputView, leftPoint, rightPoint);
                 outputSectionMark.Attributes = inputSection._obj.Attributes;
@@ -156,9 +149,9 @@ namespace project_centrum
         {
             foreach (TSD.DetailMark inputDetail in input)
             {
-                T3D.Point centerPoint = __Transformster.Transform(inputDetail.CenterPoint);
-                T3D.Point boundaryPoint = __Transformster.Transform(inputDetail.BoundaryPoint);
-                T3D.Point labelPoint = __Transformster.Transform(inputDetail.LabelPoint);
+                T3D.Point centerPoint = __Transformster.Transform2(inputDetail.CenterPoint);
+                T3D.Point boundaryPoint = __Transformster.Transform2(inputDetail.BoundaryPoint);
+                T3D.Point labelPoint = __Transformster.Transform2(inputDetail.LabelPoint);
 
                 TSD.DetailMark outputDetailMark = new TSD.DetailMark(outputView, centerPoint, boundaryPoint, labelPoint);
                 outputDetailMark.Attributes = inputDetail.Attributes;
@@ -188,7 +181,7 @@ namespace project_centrum
                 TSD.PointList outputPoints = new TSD.PointList();
                 foreach (T3D.Point ip in inputDimSet._points)
                 {
-                    T3D.Point op = __Transformster.Transform(ip);
+                    T3D.Point op = __Transformster.Transform2(ip);
                     outputPoints.Add(op);
                 }
 
@@ -203,8 +196,8 @@ namespace project_centrum
         {
             foreach (TSD.Line inputLine in input)
             {
-                T3D.Point startPoint = __Transformster.Transform(inputLine.StartPoint);
-                T3D.Point endPoint = __Transformster.Transform(inputLine.EndPoint);
+                T3D.Point startPoint = __Transformster.Transform2(inputLine.StartPoint);
+                T3D.Point endPoint = __Transformster.Transform2(inputLine.EndPoint);
 
                 TSD.Line outputLine = new TSD.Line(outputView, startPoint, endPoint, inputLine.Attributes);
                 outputLine.Attributes = inputLine.Attributes;
