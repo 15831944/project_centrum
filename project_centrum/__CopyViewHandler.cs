@@ -84,16 +84,16 @@ namespace project_centrum
                 repositionMarks<T>(matches);
             }
 
-            if (UserProperties._predict)
-            {
-                List<T> keys = new List<T>(matches.Keys);
-                tryPredictMarks<T>(notFound, keys);
-            }
-
             if (UserProperties._red)
             {
                 setNotFoundRed<T>(notFound);
             }
+
+            if (UserProperties._predict)
+            {
+                tryPredictMarks<T>(notFound, input);
+            }
+
         }
 
         private static void repositionMarks<T>(Dictionary<T, T> matches) where T : _Mark
@@ -104,24 +104,21 @@ namespace project_centrum
             }
         }
 
-        private static void tryPredictMarks<T>(List<T> notFound, List<T> knowns) where T : _Mark
-        {
-            foreach (T output in notFound)
-            {
-                T3D.Vector outputvector = output.getDirection();
-
-                List<T> gg = knowns.Where(x => x.getDirection() == outputvector).ToList();
-                Debuger.p(gg.Count.ToString());
-            }
-        }
-
         private static void setNotFoundRed<T>(List<T> notFound) where T : _Mark
         {
             foreach (T output in notFound)
             {
-                output._mark.Attributes.Frame.Color = TSD.DrawingColors.Red;
-                output._mark.Attributes.Frame.Type = TSD.FrameTypes.Rectangular;
-                output._mark.Modify();
+                output.applyRedBorder();
+            }
+        }
+
+        private static void tryPredictMarks<T>(List<T> notFound, List<T> input) where T : _Mark
+        {
+            foreach (T output in notFound)
+            {
+                T3D.Vector outputvector = output.getDirection();
+                List<T> sameDirectionMarks = input.Where(x => x.getDirection() == outputvector).ToList();
+                output.tryPredict<T>(sameDirectionMarks);
             }
         }
 
@@ -129,8 +126,8 @@ namespace project_centrum
         {
             foreach (_SectionMark inputSection in input)
             {
-                T3D.Point leftPoint = __Transformster.Transform2(inputSection._obj.LeftPoint);
-                T3D.Point rightPoint = __Transformster.Transform2(inputSection._obj.RightPoint);
+                T3D.Point leftPoint = __GeometryOperations.applyGlobalOffset(inputSection._obj.LeftPoint);
+                T3D.Point rightPoint = __GeometryOperations.applyGlobalOffset(inputSection._obj.RightPoint);
 
                 TSD.SectionMark outputSectionMark = new TSD.SectionMark(outputView, leftPoint, rightPoint);
                 outputSectionMark.Attributes = inputSection._obj.Attributes;
@@ -149,9 +146,9 @@ namespace project_centrum
         {
             foreach (TSD.DetailMark inputDetail in input)
             {
-                T3D.Point centerPoint = __Transformster.Transform2(inputDetail.CenterPoint);
-                T3D.Point boundaryPoint = __Transformster.Transform2(inputDetail.BoundaryPoint);
-                T3D.Point labelPoint = __Transformster.Transform2(inputDetail.LabelPoint);
+                T3D.Point centerPoint = __GeometryOperations.applyGlobalOffset(inputDetail.CenterPoint);
+                T3D.Point boundaryPoint = __GeometryOperations.applyGlobalOffset(inputDetail.BoundaryPoint);
+                T3D.Point labelPoint = __GeometryOperations.applyGlobalOffset(inputDetail.LabelPoint);
 
                 TSD.DetailMark outputDetailMark = new TSD.DetailMark(outputView, centerPoint, boundaryPoint, labelPoint);
                 outputDetailMark.Attributes = inputDetail.Attributes;
@@ -181,7 +178,7 @@ namespace project_centrum
                 TSD.PointList outputPoints = new TSD.PointList();
                 foreach (T3D.Point ip in inputDimSet._points)
                 {
-                    T3D.Point op = __Transformster.Transform2(ip);
+                    T3D.Point op = __GeometryOperations.applyGlobalOffset(ip);
                     outputPoints.Add(op);
                 }
 
@@ -196,8 +193,8 @@ namespace project_centrum
         {
             foreach (TSD.Line inputLine in input)
             {
-                T3D.Point startPoint = __Transformster.Transform2(inputLine.StartPoint);
-                T3D.Point endPoint = __Transformster.Transform2(inputLine.EndPoint);
+                T3D.Point startPoint = __GeometryOperations.applyGlobalOffset(inputLine.StartPoint);
+                T3D.Point endPoint = __GeometryOperations.applyGlobalOffset(inputLine.EndPoint);
 
                 TSD.Line outputLine = new TSD.Line(outputView, startPoint, endPoint, inputLine.Attributes);
                 outputLine.Attributes = inputLine.Attributes;

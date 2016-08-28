@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,8 +20,8 @@ namespace project_centrum
 
         }
 
-        public override void tryPredict(_Mark other)
-        {
+        public override void tryPredict<T>(List<T> others)
+        { 
 
         }
 
@@ -37,10 +38,10 @@ namespace project_centrum
             ArrayList points1 = part1.Polygon.Points;
             ArrayList points2 = part2.Polygon.Points;
 
-            ArrayList transformed1 = factorPointArray(points1, _view as TSD.View);
-            ArrayList transformed2 = factorPointArray(points2, other._view as TSD.View);
+            ArrayList transformed1 = __GeometryOperations.factorPointArray(points1, _view as TSD.View);
+            ArrayList transformed2 = __GeometryOperations.factorPointArray(points2, other._view as TSD.View);
 
-            if (!comparePointArray(transformed1, transformed2))
+            if (! __GeometryOperations.comparePointArray(transformed1, transformed2) )
             {
                 return false;
             }

@@ -26,13 +26,13 @@ namespace project_centrum
 
         private void copy(Func<__DrawingData> getter)
         {
-            //add_text("Copy... ");
+            add_text("Copy... ");
 
             input = getter();
             if (cb_offset.Checked) TeklaGetter.getPoint(UserProperties.setTag1);
 
-            //add_text("Done");
-            //add_text(input.countObjects());
+            add_text("Done");
+            add_text(input.countObjects());
         }
 
         private void paste(Func<__DrawingData> getter)
@@ -41,17 +41,17 @@ namespace project_centrum
                               cb_section.Checked, cb_detail.Checked, cb_dim.Checked, cb_line.Checked,
                               cb_red.Checked, cb_predict.Checked);
 
-            //add_text("Paste... ");
+            add_text("Paste... ");
 
             output = getter();
             if (cb_offset.Checked) TeklaGetter.getPoint(UserProperties.setTag2);
 
-            //add_text("Done");
-            //add_text(output.countObjects());
+            add_text("Done");
+            add_text(output.countObjects());
 
-            //add_text("Redraw... ");
+            add_text("Redraw... ");
             __CopyDrawingHandler.main(input, output);
-            //add_text("Done");
+            add_text("Done");
         }
 
         private void btn_input_all_Click(object sender, EventArgs e)

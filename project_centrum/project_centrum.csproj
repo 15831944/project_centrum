@@ -67,7 +67,7 @@
     <Compile Include="_Mark_ContourPlate.cs" />
     <Compile Include="_SectionMark.cs" />
     <Compile Include="_StraightDimentionLineSet.cs" />
-    <Compile Include="__Transformster.cs" />
+    <Compile Include="__GeometryOperations.cs" />
     <Compile Include="__ViewData.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

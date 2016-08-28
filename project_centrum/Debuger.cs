@@ -14,13 +14,11 @@ namespace project_centrum
     class Debuger
     {
         public static void p(string txt)
-
         {
             Form1._form.add_text(txt);
         }
 
         public static void ppoint(T3D.Point pp, string txt)
-
         {
             Form1._form.add_text(txt + " : " + pp.X.ToString("F1") + " ; " + pp.Y.ToString("F1") + " ; " + pp.Z.ToString("F1"));
         }
@@ -40,14 +38,14 @@ namespace project_centrum
         public static void pcv(TSD.ContainerView vv)
         {
             Form1._form.add_text("---  SHEET  ---");
-            ppoint(vv.ExtremaCenter, "ExtremaCenter");
-            pvector(vv.FrameOrigin, "FrameOrigin");
+            //ppoint(vv.ExtremaCenter, "ExtremaCenter");
+            //pvector(vv.FrameOrigin, "FrameOrigin");
 
             Form1._form.add_text("IsSheet : " + vv.IsSheet.ToString());
             ppoint(vv.Origin, "Origin");
 
-            Form1._form.add_text("Height : " + vv.Height.ToString("F1"));
-            Form1._form.add_text("Width : " + vv.Width.ToString("F1"));
+            //Form1._form.add_text("Height : " + vv.Height.ToString("F1"));
+            //Form1._form.add_text("Width : " + vv.Width.ToString("F1"));
             Form1._form.add_text("");
         }
 
@@ -57,16 +55,16 @@ namespace project_centrum
             pcor(vv.DisplayCoordinateSystem, "DisplayCoordinateSystem");
             pcor(vv.ViewCoordinateSystem, "ViewCoordinateSystem");
 
-            ppoint(vv.ExtremaCenter, "ExtremaCenter");
-            pvector(vv.FrameOrigin, "FrameOrigin");
+            //ppoint(vv.ExtremaCenter, "ExtremaCenter");
+            //pvector(vv.FrameOrigin, "FrameOrigin");
 
-            Form1._form.add_text("IsSheet : " + vv.IsSheet.ToString());
-            Form1._form.add_text("Name : " + vv.Name);
+            //Form1._form.add_text("IsSheet : " + vv.IsSheet.ToString());
+            //Form1._form.add_text("Name : " + vv.Name);
             ppoint(vv.Origin, "Origin");
 
-            Form1._form.add_text("Height : " + vv.Height.ToString("F1"));
-            Form1._form.add_text("Width : " + vv.Width.ToString("F1"));
-            Form1._form.add_text("");
+            //Form1._form.add_text("Height : " + vv.Height.ToString("F1"));
+            //Form1._form.add_text("Width : " + vv.Width.ToString("F1"));
+            //Form1._form.add_text("");
         }
 
 

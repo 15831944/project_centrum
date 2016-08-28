@@ -21,7 +21,7 @@ namespace project_centrum
 
         }
 
-        public override void tryPredict(_Mark other)
+        public override void tryPredict<T>(List<T> others)
         {
 
         }
@@ -36,16 +36,16 @@ namespace project_centrum
             TSM.RebarGroup part1 = _part as TSM.RebarGroup;
             TSM.RebarGroup part2 = other._part as TSM.RebarGroup;
 
-            T3D.Point p1start = factor1Point(part1.StartPoint, _view as TSD.View);
-            T3D.Point p1end = factor1Point(part1.EndPoint, _view as TSD.View);
-            T3D.Point p2start = factor1Point(part2.StartPoint, other._view as TSD.View);
-            T3D.Point p2end = factor1Point(part2.EndPoint, other._view as TSD.View);
+            T3D.Point p1start = __GeometryOperations.factor1Point(part1.StartPoint, _view as TSD.View);
+            T3D.Point p1end = __GeometryOperations.factor1Point(part1.EndPoint, _view as TSD.View);
+            T3D.Point p2start = __GeometryOperations.factor1Point(part2.StartPoint, other._view as TSD.View);
+            T3D.Point p2end = __GeometryOperations.factor1Point(part2.EndPoint, other._view as TSD.View);
 
-            if (! compare2Points(p1start, p2start) )
+            if (!__GeometryOperations.compare2Points(p1start, p2start) )
             {
                 return false;
             }
-            if (! compare2Points(p1end, p2end) )
+            if (!__GeometryOperations.compare2Points(p1end, p2end) )
             {
                 return false;
             }
@@ -66,10 +66,10 @@ namespace project_centrum
                 ArrayList points1 = poly1.Points;
                 ArrayList points2 = poly2.Points;
 
-                ArrayList transformed1 = factorPointArray(points1, _view as TSD.View);
-                ArrayList transformed2 = factorPointArray(points2, other._view as TSD.View);
+                ArrayList transformed1 = __GeometryOperations.factorPointArray(points1, _view as TSD.View);
+                ArrayList transformed2 = __GeometryOperations.factorPointArray(points2, other._view as TSD.View);
 
-                if (! comparePointArray(transformed1, transformed2))
+                if (!__GeometryOperations.comparePointArray(transformed1, transformed2))
                 {
                     return false;
                 }

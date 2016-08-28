@@ -19,29 +19,169 @@ namespace project_centrum
 
         }
 
-        public override void tryPredict(_Mark other)
-        {
-
-        }
-
         public override T3D.Vector getDirection()
         {
-            T3D.Point start = (_part as TSM.Beam).StartPoint;
-            T3D.Point end = (_part as TSM.Beam).EndPoint;
+            T3D.Point start = __GeometryOperations.factor1Point((_part as TSM.Beam).StartPoint, _view as TSD.View);
+            T3D.Point end = __GeometryOperations.factor1Point((_part as TSM.Beam).EndPoint, _view as TSD.View);
 
-            double dX = end.X - start.X;
-            double dY = end.Y - start.Y;
-            double dZ = end.Z - start.Z;
-
-            double dT = Math.Abs(dX) + Math.Abs(dY) + Math.Abs(dZ);
-
-            dX = dX / dT;
-            dY = dY / dT;
-            dZ = dZ / dT;
-
-            T3D.Vector vector = new T3D.Vector(dX, dY, dZ);
+            T3D.Vector vector = __GeometryOperations.getDirectionVector(start, end);
 
             return vector;
+        }
+
+        public override void tryPredict<T>(List<T> others)
+        {
+            T match = null;
+
+            List<T> sameLineOthers = findSameLineMark(others);
+            match = findClosestMark(sameLineOthers);
+
+            if (match == null)
+            {
+                match = findClosestMark(others);
+            }
+
+            if (match != null)
+            {
+                this.reCreateMarkSmarts(match);
+            }
+        }
+
+        private List<T> findSameLineMark<T>(List<T> others) where T : _Mark
+        {
+            List<T> sameLine = new List<T>();
+
+            foreach (T other in others)
+            {
+                T3D.Point inputStart = __GeometryOperations.factor1Point((other._part as TSM.Beam).StartPoint, other._view as TSD.View);
+                inputStart = __GeometryOperations.applyGlobalOffset(inputStart);
+                T3D.Point outputStart = __GeometryOperations.factor1Point((this._part as TSM.Beam).StartPoint, this._view as TSD.View);
+                T3D.Point outputEnd = __GeometryOperations.factor1Point((this._part as TSM.Beam).EndPoint, this._view as TSD.View);
+
+                bool same = __GeometryOperations.areOnSameLine(outputStart, outputEnd, inputStart);
+                
+                if (same)
+                {
+                    sameLine.Add(other);
+                }
+
+            }
+
+            return sameLine;
+        }
+
+        private T findClosestMark<T>(List<T> others) where T : _Mark
+        {
+            T match = null;
+            double min = double.MaxValue;
+
+            foreach (T other in others)
+            {
+                T3D.Point inputStart = __GeometryOperations.factor1Point((other._part as TSM.Beam).StartPoint, other._view as TSD.View);
+                inputStart = __GeometryOperations.applyGlobalOffset(inputStart);
+                T3D.Point inputEnd = __GeometryOperations.factor1Point((other._part as TSM.Beam).EndPoint, other._view as TSD.View);
+                inputEnd = __GeometryOperations.applyGlobalOffset(inputStart);
+
+                T3D.Point outputStart = __GeometryOperations.factor1Point((this._part as TSM.Beam).StartPoint, this._view as TSD.View);
+                T3D.Point outputEnd = __GeometryOperations.factor1Point((this._part as TSM.Beam).EndPoint, this._view as TSD.View);
+
+                double dist = 0;
+                dist += __GeometryOperations.getLength(inputStart, outputStart);
+                dist += __GeometryOperations.getLength(inputEnd, outputEnd);
+
+                if (dist < min)
+                {
+                    match = other;
+                    min = dist;
+                }
+            }
+
+            return match;
+        }
+
+        private void reCreateMarkSmarts(_Mark other)
+        {
+            _mark.Attributes = other._mark.Attributes;
+            _mark.Attributes.Frame.Color = TSD.DrawingColors.Green;
+
+            T3D.Point inputStart = __GeometryOperations.factor1Point((other._part as TSM.Beam).StartPoint, other._view as TSD.View);
+            inputStart = __GeometryOperations.applyGlobalOffset(inputStart);
+            T3D.Point inputEnd = __GeometryOperations.factor1Point((other._part as TSM.Beam).EndPoint, other._view as TSD.View);
+            inputEnd = __GeometryOperations.applyGlobalOffset(inputEnd);
+
+            T3D.Point outputStart = __GeometryOperations.factor1Point((this._part as TSM.Beam).StartPoint, this._view as TSD.View);
+            T3D.Point outputEnd = __GeometryOperations.factor1Point((this._part as TSM.Beam).EndPoint, this._view as TSD.View);
+
+            T3D.Point markOffset = __GeometryOperations.getLocalOffset(inputStart, outputStart);
+            double alfa = __GeometryOperations.getAlfa(inputStart, inputEnd, outputStart, outputEnd);
+
+            T3D.Point insertion = __GeometryOperations.applyGlobalOffset(other._mark.InsertionPoint);
+            insertion = __GeometryOperations.applyLocalOffset(insertion, markOffset);
+
+            if (other._mark.Placing is TSD.LeaderLinePlacing)
+            {
+                TSD.LeaderLinePlacing attr = other._mark.Placing as TSD.LeaderLinePlacing;
+
+                T3D.Point start = __GeometryOperations.applyGlobalOffset(attr.StartPoint);
+                start = __GeometryOperations.applyLocalOffset(start, markOffset);
+                T3D.Point placingOffset = __GeometryOperations.getPlacingOffset(start, outputStart, alfa);
+                T3D.Point insertionOffset = __GeometryOperations.getLocalOffset(start, insertion);
+                start = __GeometryOperations.applyLocalOffset(outputStart, placingOffset);
+                insertion = __GeometryOperations.applyLocalOffset(start, insertionOffset);
+
+                TSD.LeaderLinePlacing newPlacing = new TSD.LeaderLinePlacing(start);
+                _mark.Placing = newPlacing;
+            }
+
+            else if (other._mark.Placing is TSD.AlongLinePlacing)
+            {
+                TSD.AlongLinePlacing attr = other._mark.Placing as TSD.AlongLinePlacing;
+
+                T3D.Point start = __GeometryOperations.applyGlobalOffset(attr.StartPoint);
+                start = __GeometryOperations.applyLocalOffset(start, markOffset);
+                T3D.Point placingOffset = __GeometryOperations.getPlacingOffset(outputStart, start, alfa);
+                T3D.Point insertionOffset = __GeometryOperations.getLocalOffset(start, insertion);
+                start = __GeometryOperations.applyLocalOffset(start, placingOffset);
+                insertion = __GeometryOperations.applyLocalOffset(start, insertionOffset);
+
+                T3D.Point end = __GeometryOperations.applyGlobalOffset(attr.EndPoint);
+                end = __GeometryOperations.applyLocalOffset(end, markOffset);
+                end = __GeometryOperations.applyLocalOffset(end, placingOffset);
+                
+                TSD.AlongLinePlacing newPlacing = new TSD.AlongLinePlacing(start, end);
+                _mark.Placing = newPlacing;
+            }
+
+            else if (other._mark.Placing is TSD.BaseLinePlacing)
+            {
+                //TSD.BaseLinePlacing attr = input._mark.Placing as TSD.BaseLinePlacing;
+
+                //T3D.Point start = __GeometryOperations.applyGlobalOffset(attr.StartPoint);
+                //start = __GeometryOperations.applyLocalOffset(start, markOffset);
+                //T3D.Point placingOffset = __GeometryOperations.getPlacingOffset(startPointRefactor, start, alfa);
+                //T3D.Point insertionOffset = __GeometryOperations.getLocalOffset(start, insertion);
+                //start = __GeometryOperations.applyLocalOffset(start, placingOffset);
+                //insertion = __GeometryOperations.applyLocalOffset(start, insertionOffset);
+
+                //T3D.Point end = __GeometryOperations.applyGlobalOffset(attr.EndPoint);
+                //end = __GeometryOperations.applyLocalOffset(end, markOffset);
+                //end = __GeometryOperations.applyLocalOffset(end, placingOffset);
+
+                //TSD.BaseLinePlacing newPlacing = new TSD.BaseLinePlacing(start, end);
+                //_mark.Placing = newPlacing;
+            }
+
+            else if (other._mark.Placing is TSD.PointPlacing)
+            {
+                TSD.PointPlacing newPlacing = new TSD.PointPlacing();
+                _mark.Placing = newPlacing;
+                
+            }
+
+            _mark.InsertionPoint = insertion;
+
+            _mark.Modify();
+            _mark.Modify();
         }
 
         public override bool checkModelObjects(_Mark other)
@@ -49,16 +189,16 @@ namespace project_centrum
             TSM.Beam part1 = _part as TSM.Beam;
             TSM.Beam part2 = other._part as TSM.Beam;
 
-            T3D.Point p1start = factor1Point(part1.StartPoint, _view as TSD.View);
-            T3D.Point p1end = factor1Point(part1.EndPoint, _view as TSD.View);
-            T3D.Point p2start = factor1Point(part2.StartPoint, other._view as TSD.View);
-            T3D.Point p2end = factor1Point(part2.EndPoint, other._view as TSD.View);
+            T3D.Point p1start = __GeometryOperations.factor1Point(part1.StartPoint, _view as TSD.View);
+            T3D.Point p1end = __GeometryOperations.factor1Point(part1.EndPoint, _view as TSD.View);
+            T3D.Point p2start = __GeometryOperations.factor1Point(part2.StartPoint, other._view as TSD.View);
+            T3D.Point p2end = __GeometryOperations.factor1Point(part2.EndPoint, other._view as TSD.View);
 
-            if (! compare2Points(p1start, p2start) )
+            if (!__GeometryOperations.compare2Points(p1start, p2start) )
             {
                 return false;
             }
-            if (! compare2Points(p1end, p2end) )
+            if (!__GeometryOperations.compare2Points(p1end, p2end) )
             {
                 return false;
             }
@@ -68,3 +208,4 @@ namespace project_centrum
 
     }
 }
+

@@ -22,7 +22,6 @@ namespace project_centrum
 
             while (tempInput.Count > 0 && tempOutput.Count > 0)
             {
-
                 double min = double.MaxValue;
                 TSD.ViewBase minIn = null;
                 TSD.ViewBase minOut = null;
