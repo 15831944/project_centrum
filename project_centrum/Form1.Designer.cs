@@ -51,13 +51,16 @@
             this.cb_offset = new System.Windows.Forms.CheckBox();
             this.cb_predict = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.txt_deg = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_input
             // 
-            this.btn_input.Location = new System.Drawing.Point(12, 301);
+            this.btn_input.Location = new System.Drawing.Point(12, 317);
             this.btn_input.Name = "btn_input";
             this.btn_input.Size = new System.Drawing.Size(96, 47);
             this.btn_input.TabIndex = 0;
@@ -67,7 +70,7 @@
             // 
             // btn_output
             // 
-            this.btn_output.Location = new System.Drawing.Point(114, 301);
+            this.btn_output.Location = new System.Drawing.Point(114, 317);
             this.btn_output.Name = "btn_output";
             this.btn_output.Size = new System.Drawing.Size(97, 47);
             this.btn_output.TabIndex = 0;
@@ -85,13 +88,13 @@
             this.txt_status.Name = "txt_status";
             this.txt_status.ReadOnly = true;
             this.txt_status.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txt_status.Size = new System.Drawing.Size(253, 718);
+            this.txt_status.Size = new System.Drawing.Size(234, 406);
             this.txt_status.TabIndex = 1;
             // 
             // cb_view
             // 
             this.cb_view.AutoSize = true;
-            this.cb_view.Location = new System.Drawing.Point(15, 180);
+            this.cb_view.Location = new System.Drawing.Point(15, 182);
             this.cb_view.Name = "cb_view";
             this.cb_view.Size = new System.Drawing.Size(54, 17);
             this.cb_view.TabIndex = 2;
@@ -125,7 +128,7 @@
             // cb_red
             // 
             this.cb_red.AutoSize = true;
-            this.cb_red.Location = new System.Drawing.Point(15, 200);
+            this.cb_red.Location = new System.Drawing.Point(15, 202);
             this.cb_red.Name = "cb_red";
             this.cb_red.Size = new System.Drawing.Size(143, 17);
             this.cb_red.TabIndex = 5;
@@ -216,7 +219,7 @@
             // 
             this.panel1.Controls.Add(this.rb_copy_fast);
             this.panel1.Controls.Add(this.rb_copy_all);
-            this.panel1.Location = new System.Drawing.Point(12, 354);
+            this.panel1.Location = new System.Drawing.Point(12, 370);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(96, 47);
             this.panel1.TabIndex = 18;
@@ -247,7 +250,7 @@
             // 
             this.panel2.Controls.Add(this.rb_paste_fast);
             this.panel2.Controls.Add(this.rb_paste_all);
-            this.panel2.Location = new System.Drawing.Point(114, 354);
+            this.panel2.Location = new System.Drawing.Point(114, 370);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(97, 47);
             this.panel2.TabIndex = 19;
@@ -277,17 +280,18 @@
             // cb_offset
             // 
             this.cb_offset.AutoSize = true;
-            this.cb_offset.Location = new System.Drawing.Point(15, 240);
+            this.cb_offset.Location = new System.Drawing.Point(15, 242);
             this.cb_offset.Name = "cb_offset";
             this.cb_offset.Size = new System.Drawing.Size(74, 17);
             this.cb_offset.TabIndex = 20;
             this.cb_offset.Text = "Use offset";
             this.cb_offset.UseVisualStyleBackColor = true;
+            this.cb_offset.CheckedChanged += new System.EventHandler(this.cb_offset_CheckedChanged);
             // 
             // cb_predict
             // 
             this.cb_predict.AutoSize = true;
-            this.cb_predict.Location = new System.Drawing.Point(15, 220);
+            this.cb_predict.Location = new System.Drawing.Point(15, 222);
             this.cb_predict.Name = "cb_predict";
             this.cb_predict.Size = new System.Drawing.Size(155, 17);
             this.cb_predict.TabIndex = 21;
@@ -297,17 +301,47 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 160);
+            this.label2.Location = new System.Drawing.Point(12, 162);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 13);
             this.label2.TabIndex = 22;
             this.label2.Text = "Advanced:";
             // 
+            // txt_deg
+            // 
+            this.txt_deg.Enabled = false;
+            this.txt_deg.Location = new System.Drawing.Point(90, 259);
+            this.txt_deg.Name = "txt_deg";
+            this.txt_deg.Size = new System.Drawing.Size(52, 20);
+            this.txt_deg.TabIndex = 23;
+            this.txt_deg.TextChanged += new System.EventHandler(this.txt_deg_TextChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 262);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(71, 13);
+            this.label4.TabIndex = 24;
+            this.label4.Text = "View rotation:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(148, 262);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(25, 13);
+            this.label5.TabIndex = 25;
+            this.label5.Text = "deg";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(482, 736);
+            this.ClientSize = new System.Drawing.Size(463, 424);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txt_deg);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cb_predict);
             this.Controls.Add(this.cb_offset);
@@ -364,6 +398,9 @@
         private System.Windows.Forms.CheckBox cb_offset;
         private System.Windows.Forms.CheckBox cb_predict;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txt_deg;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }
 

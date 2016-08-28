@@ -38,6 +38,7 @@ namespace project_centrum
 
             if (match == null)
             {
+                Debuger.p(others.Count.ToString());
                 match = findClosestMark(others);
             }
 
@@ -80,7 +81,7 @@ namespace project_centrum
                 T3D.Point inputStart = __GeometryOperations.factor1Point((other._part as TSM.Beam).StartPoint, other._view as TSD.View);
                 inputStart = __GeometryOperations.applyGlobalOffset(inputStart);
                 T3D.Point inputEnd = __GeometryOperations.factor1Point((other._part as TSM.Beam).EndPoint, other._view as TSD.View);
-                inputEnd = __GeometryOperations.applyGlobalOffset(inputStart);
+                inputEnd = __GeometryOperations.applyGlobalOffset(inputEnd);
 
                 T3D.Point outputStart = __GeometryOperations.factor1Point((this._part as TSM.Beam).StartPoint, this._view as TSD.View);
                 T3D.Point outputEnd = __GeometryOperations.factor1Point((this._part as TSM.Beam).EndPoint, this._view as TSD.View);
@@ -89,12 +90,15 @@ namespace project_centrum
                 dist += __GeometryOperations.getLength(inputStart, outputStart);
                 dist += __GeometryOperations.getLength(inputEnd, outputEnd);
 
+                Debuger.p("dist: " + dist.ToString());
                 if (dist < min)
                 {
                     match = other;
                     min = dist;
                 }
             }
+
+            Debuger.p("min: " + min.ToString());
 
             return match;
         }
@@ -103,6 +107,7 @@ namespace project_centrum
         {
             _mark.Attributes = other._mark.Attributes;
             _mark.Attributes.Frame.Color = TSD.DrawingColors.Green;
+            _mark.Modify();
 
             T3D.Point inputStart = __GeometryOperations.factor1Point((other._part as TSM.Beam).StartPoint, other._view as TSD.View);
             inputStart = __GeometryOperations.applyGlobalOffset(inputStart);

@@ -17,19 +17,27 @@ namespace project_centrum
         public static Form1 _form;
         __DrawingData input;
         __DrawingData output;
+        double offsetRotation = 0.0;
 
         public Form1()
         {
             InitializeComponent();
             _form = this;
+            txt_deg.Text = offsetRotation.ToString("f1");
         }
 
         private void copy(Func<__DrawingData> getter)
         {
+            UserProperties.set(cb_view.Checked, cb_mark.Checked, cb_txt.Checked,
+                  cb_section.Checked, cb_detail.Checked, cb_dim.Checked, cb_line.Checked,
+                  cb_red.Checked, cb_predict.Checked, offsetRotation);
+
             add_text("Copy... ");
 
-            input = getter();
             if (cb_offset.Checked) TeklaGetter.getPoint(UserProperties.setTag1);
+            else UserProperties.a = null;
+
+            input = getter();
 
             add_text("Done");
             add_text(input.countObjects());
@@ -39,12 +47,14 @@ namespace project_centrum
         {
             UserProperties.set(cb_view.Checked, cb_mark.Checked, cb_txt.Checked,
                               cb_section.Checked, cb_detail.Checked, cb_dim.Checked, cb_line.Checked,
-                              cb_red.Checked, cb_predict.Checked);
+                              cb_red.Checked, cb_predict.Checked, offsetRotation);
 
             add_text("Paste... ");
 
-            output = getter();
             if (cb_offset.Checked) TeklaGetter.getPoint(UserProperties.setTag2);
+            else UserProperties.b = null;
+
+            output = getter();
 
             add_text("Done");
             add_text(output.countObjects());
@@ -56,6 +66,7 @@ namespace project_centrum
 
         private void btn_input_all_Click(object sender, EventArgs e)
         {
+            txt_status.Text = "";
             if (rb_copy_all.Checked)
             {
                 copy_paste_handler(copy, TeklaGetter.getAllData, "Error copying - 1");
@@ -107,6 +118,7 @@ namespace project_centrum
         {
             add_text("Time: " + end.Subtract(start).TotalSeconds.ToString("F0") + " seconds");
             add_text("--------------------------------------------------------");
+            add_text("");
         }
 
         public void add_text(string message)
@@ -151,6 +163,7 @@ namespace project_centrum
             cb_onoff.Enabled = status;
             btn_input.Enabled = status;
             btn_output.Enabled = status;
+            txt_deg.Enabled = status;
         }
 
         private void on_off(bool status)
@@ -168,5 +181,28 @@ namespace project_centrum
             cb_predict.Checked = status;
             cb_offset.Checked = status;
         }
+
+        private void cb_offset_CheckedChanged(object sender, EventArgs e)
+        {
+            txt_deg.Enabled = cb_offset.Checked;
+        }
+
+        private void txt_deg_TextChanged(object sender, EventArgs e)
+        {
+            if (txt_deg.Text != "" && txt_deg.Text != "-")
+            {
+                try
+                {
+                    string value = txt_deg.Text;
+                    value = value.Replace('.', ',');
+                    offsetRotation = Double.Parse(value);
+                }
+                catch
+                {
+                    txt_deg.Text = "0.0";
+                }
+            }
+        }
+
     }
 }

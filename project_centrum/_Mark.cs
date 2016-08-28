@@ -37,6 +37,7 @@ namespace project_centrum
         public void reCreateMark(_Mark input)
         {
             _mark.Attributes = input._mark.Attributes;
+            _mark.Modify();
 
             if (input._mark.Placing is TSD.LeaderLinePlacing)
             {

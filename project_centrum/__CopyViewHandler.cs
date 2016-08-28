@@ -30,7 +30,7 @@ namespace project_centrum
                         }
                     }
 
-                    if (UserProperties._mark || UserProperties._mark_attr || UserProperties._red)
+                    if (UserProperties._mark || UserProperties._red || UserProperties._predict)
                     {
                         handleMarks<_Mark_Beam>(input.markBeams, output.markBeams);
                         handleMarks<_Mark_PolyBeam>(input.markPolyBeams, output.markPolyBeams);
