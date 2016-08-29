@@ -102,41 +102,7 @@ namespace project_centrum
                 setter(point);
             }
         }
-
-        public static void getPoint1()
-        {
-            __DrawingData drawing = new __DrawingData();
-            TSD.DrawingHandler drawingHandler = new TSD.DrawingHandler();
-
-            if (drawingHandler.GetConnectionStatus())
-            {
-                TSD.UI.Picker picker = drawingHandler.GetPicker();
-                T3D.Point point = null;
-                TSD.ViewBase vv = null;
-
-                picker.PickPoint("PICK", out point, out vv);
-                //Debuger.ppoint(point, "Offset point 1");
-                UserProperties.setTag1(point);
-            }
-        }
-
-        public static void getPoint2()
-        {
-            __DrawingData drawing = new __DrawingData();
-            TSD.DrawingHandler drawingHandler = new TSD.DrawingHandler();
-
-            if (drawingHandler.GetConnectionStatus())
-            {
-                TSD.UI.Picker picker = drawingHandler.GetPicker();
-                T3D.Point point = null;
-                TSD.ViewBase vv = null;
-
-                picker.PickPoint("PICK", out point, out vv);
-                //Debuger.ppoint(point, "Offset point 2");
-                UserProperties.setTag2(point);
-            }
-        }
-
+        
         public static __DrawingData getSelectedData()
         {
             __DrawingData drawing = new __DrawingData();
