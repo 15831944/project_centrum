@@ -34,6 +34,8 @@ namespace project_centrum
 
         public abstract T3D.Vector getDirection();
 
+        public abstract T3D.Vector getDirectionOther();
+
         public void reCreateMark(_Mark input)
         {
             _mark.Attributes = input._mark.Attributes;

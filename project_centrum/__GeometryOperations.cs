@@ -101,6 +101,9 @@ namespace project_centrum
             double alfa = getLength(start1, end1);
             double bravo = getLength(start2, end2);
 
+            if (alfa < 0.1) return 1;
+            if (bravo < 0.1) return 1;
+
             double multi = bravo / alfa;
 
             return multi;
@@ -108,11 +111,20 @@ namespace project_centrum
 
         public static T3D.Point getPlacingOffset(T3D.Point output, T3D.Point placing, double alfa)
         {
-            double dX = (placing.X - output.X) * alfa;
-            double dY = (placing.Y - output.Y) * alfa;
+            double dX = (placing.X - output.X);
 
-            if (Math.Abs(dX / 100) > Math.Abs(dY)) dY = 0;
-            else if (Math.Abs(dY / 100) > Math.Abs(dX)) dX = 0;
+            double dY = (placing.Y - output.Y);
+
+            if (Math.Abs(dX / 100) > dY)
+            {
+                dX = dX * alfa;
+            }
+
+            if (Math.Abs(dY / 100) > dX)
+            {
+                dY = dY * alfa;
+            }
+
 
             T3D.Point tr = new T3D.Point(dX, dY, 0);
             

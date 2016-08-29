@@ -117,7 +117,7 @@ namespace project_centrum
             foreach (T output in notFound)
             {
                 T3D.Vector outputvector = output.getDirection();
-                List<T> sameDirectionMarks = input.Where(x => x.getDirection() == outputvector).ToList();
+                List<T> sameDirectionMarks = input.Where(x => x.getDirectionOther() == outputvector).ToList();
                 output.tryPredict<T>(sameDirectionMarks);
             }
         }

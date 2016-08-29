@@ -29,6 +29,11 @@ namespace project_centrum
             return vector;
         }
 
+        public override T3D.Vector getDirectionOther()
+        {
+            return getDirection();
+        }
+
         public override void tryPredict<T>(List<T> others)
         {
             T match = null;
@@ -38,7 +43,6 @@ namespace project_centrum
 
             if (match == null)
             {
-                Debuger.p(others.Count.ToString());
                 match = findClosestMark(others);
             }
 
@@ -90,15 +94,13 @@ namespace project_centrum
                 dist += __GeometryOperations.getLength(inputStart, outputStart);
                 dist += __GeometryOperations.getLength(inputEnd, outputEnd);
 
-                Debuger.p("dist: " + dist.ToString());
                 if (dist < min)
                 {
                     match = other;
                     min = dist;
+
                 }
             }
-
-            Debuger.p("min: " + min.ToString());
 
             return match;
         }
