@@ -59,6 +59,14 @@ namespace project_centrum
                         createLines(input.lines, output.lines, input.view, output.view);
                     }
                 }
+                else
+                {
+                    if (UserProperties._line)
+                    {
+                        createLinesNoOffset(input.lines, output.lines, input.view, output.view);
+                    }
+                }
+
 
                 if (UserProperties._txt)
                 {
@@ -195,6 +203,19 @@ namespace project_centrum
             {
                 T3D.Point startPoint = __GeometryOperations.applyGlobalOffset(inputLine.StartPoint);
                 T3D.Point endPoint = __GeometryOperations.applyGlobalOffset(inputLine.EndPoint);
+
+                TSD.Line outputLine = new TSD.Line(outputView, startPoint, endPoint, inputLine.Attributes);
+                outputLine.Attributes = inputLine.Attributes;
+                outputLine.Insert();
+            }
+        }
+
+        private static void createLinesNoOffset(List<TSD.Line> input, List<TSD.Line> output, TSD.ViewBase inputView, TSD.ViewBase outputView)
+        {
+            foreach (TSD.Line inputLine in input)
+            {
+                T3D.Point startPoint = inputLine.StartPoint;
+                T3D.Point endPoint = inputLine.EndPoint;
 
                 TSD.Line outputLine = new TSD.Line(outputView, startPoint, endPoint, inputLine.Attributes);
                 outputLine.Attributes = inputLine.Attributes;

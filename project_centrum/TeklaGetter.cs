@@ -28,55 +28,28 @@ namespace project_centrum
                 TSD.DrawingObjectEnumerator views = sheet.GetAllViews();
                 drawing.setViews(views);
 
-                int i = 0;
-                if (UserProperties._mark) i++;
-                if (UserProperties._dim) i++;
-                if (UserProperties._section) i++;
-                if (UserProperties._detail) i++;
-                if (UserProperties._line) i++;
-                if (UserProperties._txt) i++;
+                ArrayList types = new ArrayList();
 
-                System.Type[] Types = new System.Type[i];
+                if (UserProperties._mark) types.Add(typeof(TSD.Mark));
+                if (UserProperties._dim) types.Add(typeof(TSD.StraightDimensionSet));
+                if (UserProperties._section) types.Add(typeof(TSD.SectionMark));
+                if (UserProperties._detail) types.Add(typeof(TSD.DetailMark));
+                if (UserProperties._line) types.Add(typeof(TSD.Line));
+                if (UserProperties._txt) types.Add(typeof(TSD.TextFile));
 
-                i = 0;
-
-                if (UserProperties._mark)
+                if (types.Count != 0)
                 {
-                    Types.SetValue(typeof(TSD.Mark), i);
-                    i++;
+                    System.Type[] Types = new System.Type[types.Count];
+
+                    for (int i = 0; i < types.Count; i++)
+                    {
+                        Types.SetValue(types[i] as Type, i);
+                    }
+
+                    TSD.DrawingObjectEnumerator allObjects = sheet.GetAllObjects(Types);
+                    drawing.populate(allObjects);
                 }
 
-                if (UserProperties._dim)
-                {
-                    Types.SetValue(typeof(TSD.StraightDimensionSet), i);
-                    i++;
-                }
-                if (UserProperties._section)
-                {
-                    Types.SetValue(typeof(TSD.SectionMark), i);
-                    i++;
-                }
-
-                if (UserProperties._detail)
-                {
-                    Types.SetValue(typeof(TSD.DetailMark), i);
-                    i++;
-                }
-
-                if (UserProperties._line)
-                {
-                    Types.SetValue(typeof(TSD.Line), i);
-                    i++;
-                }
-
-                if (UserProperties._txt)
-                {
-                    Types.SetValue(typeof(TSD.TextFile), i);
-                    i++;
-                }
-
-                TSD.DrawingObjectEnumerator allObjects = sheet.GetAllObjects(Types);
-                drawing.populate(allObjects);
             }
             else
             {
