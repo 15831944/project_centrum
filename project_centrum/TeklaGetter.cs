@@ -28,7 +28,7 @@ namespace project_centrum
                 TSD.DrawingObjectEnumerator views = sheet.GetAllViews();
                 drawing.setViews(views);
 
-                ArrayList types = new ArrayList();
+                List<Type> types = new List<Type>();
 
                 if (UserProperties._mark) types.Add(typeof(TSD.Mark));
                 if (UserProperties._dim) types.Add(typeof(TSD.StraightDimensionSet));
@@ -43,7 +43,7 @@ namespace project_centrum
 
                     for (int i = 0; i < types.Count; i++)
                     {
-                        Types.SetValue(types[i] as Type, i);
+                        Types.SetValue(types[i], i);
                     }
 
                     TSD.DrawingObjectEnumerator allObjects = sheet.GetAllObjects(Types);

@@ -17,7 +17,7 @@ namespace project_centrum
 {
     class __ViewData
     {
-        bool _setView;
+        public bool _setView;
         public TSD.ViewBase view;
 
         public List<_Mark_Beam> markBeams;

@@ -24,7 +24,7 @@ namespace project_centrum
                 {
                     if (UserProperties._view)
                     {
-                        if (input._set != false && output._set != false)
+                        if (input._setView != false && output._setView != false)
                         {
                             repositionView(input.view, output.view);
                         }
