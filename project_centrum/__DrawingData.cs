@@ -22,14 +22,14 @@ namespace project_centrum
 
         internal void setSheet(TSD.ContainerView sheet)
         {
-            data[sheet] = new __ViewData(sheet);
+            data[sheet] = new __ViewData(sheet, true);
         }
 
         internal void setViews(TSD.DrawingObjectEnumerator views)
         {
             foreach (TSD.View view in views)
             {
-                data[view] = new __ViewData(view);
+                data[view] = new __ViewData(view, true);
             }
         }
 
@@ -53,7 +53,7 @@ namespace project_centrum
 
                     if (found == false)
                     {
-                        data[one as TSD.ViewBase] = new __ViewData(one as TSD.ViewBase);
+                        data[one as TSD.ViewBase] = new __ViewData(one as TSD.ViewBase, true);
                     }
                 }
             }
@@ -107,7 +107,7 @@ namespace project_centrum
 
                     if (found == false)
                     {
-                        data[oneView] = new __ViewData();
+                        data[oneView] = new __ViewData(oneView, false);
                         data[oneView].addOneObject(one);
                     }
                 }

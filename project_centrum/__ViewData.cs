@@ -17,6 +17,7 @@ namespace project_centrum
 {
     class __ViewData
     {
+        bool _setView;
         public TSD.ViewBase view;
 
         public List<_Mark_Beam> markBeams;
@@ -33,28 +34,11 @@ namespace project_centrum
 
         public List<TSD.TextFile> txtFiles;
 
-        public __ViewData(TSD.ViewBase currentView)
+        public __ViewData(TSD.ViewBase currentView, bool set)
         {
+            _setView = set;
             view = currentView;
 
-            markBeams = new List<_Mark_Beam>();
-            markPolyBeams = new List<_Mark_PolyBeam>();
-            markContourPlates = new List<_Mark_ContourPlate>();
-
-            markSingleRebars = new List<_Mark_SingleRebar>();
-            markRebarBases = new List<_Mark_RebarGroup>();
-
-            straightDimSets = new List<_StraightDimentionSet>();
-
-            sectionMarks = new List<_SectionMark>();
-            detailMarks = new List<TSD.DetailMark>();
-
-            lines = new List<TSD.Line>();
-            txtFiles = new List<TSD.TextFile>();
-        }
-
-        public __ViewData()
-        {
             markBeams = new List<_Mark_Beam>();
             markPolyBeams = new List<_Mark_PolyBeam>();
             markContourPlates = new List<_Mark_ContourPlate>();
