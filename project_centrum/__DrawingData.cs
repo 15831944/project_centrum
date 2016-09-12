@@ -88,8 +88,16 @@ namespace project_centrum
 
         public void populateSelected(TSD.DrawingObjectEnumerator all)
         {
+            int i = 0;
+            int tot = all.GetSize();
+
+            Form1._form.replace_text("Total objects to proccess: " + tot.ToString());
+
             foreach (TSD.DrawingObject one in all)
             {
+                i++;
+                Form1._form.replace_text("Proccessing: " + i.ToString() + " of " + tot.ToString());
+
                 if (one is TSD.Mark || one is TSD.StraightDimensionSet || one is TSD.SectionMark || one is TSD.DetailMark || one is TSD.Line || one is TSD.TextFile)
                 {
                     bool found = false;

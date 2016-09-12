@@ -25,8 +25,11 @@ namespace project_centrum
 
         public static double _dR;
 
-        public static T3D.Point a = null;
-        public static T3D.Point b = null;
+        public static T3D.Point viewInputPoint = null;
+        public static T3D.Point viewOutputPoint = null;
+
+        public static T3D.Point sheetInputPoint = null;
+        public static T3D.Point sheetOutputPoint = null;
 
         public static void set(bool view, bool mark, bool txt,
                                bool section, bool detail, bool dim, bool line,
@@ -45,14 +48,16 @@ namespace project_centrum
             _dR = deg;
         }
 
-        public static void setTag1(T3D.Point start)
+        public static void setInputPoints(T3D.Point start, T3D.Point sheet)
         {
-            a = start;
+            viewInputPoint = start;
+            sheetInputPoint = sheet;
         }
 
-        public static void setTag2(T3D.Point end)
+        public static void setOutputPoints(T3D.Point end, T3D.Point sheet)
         {
-            b = end;
+            viewOutputPoint = end;
+            sheetOutputPoint = sheet;
         }
     }
 }

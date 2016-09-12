@@ -59,20 +59,24 @@ namespace project_centrum
             return drawing;
         }
 
-        public static void getPoint(Action<T3D.Point> setter)
+        public static void getPoint(Action<T3D.Point, T3D.Point> setter)
         {
             __DrawingData drawing = new __DrawingData();
             TSD.DrawingHandler drawingHandler = new TSD.DrawingHandler();
 
             if (drawingHandler.GetConnectionStatus())
             {
+                TSD.ContainerView sheet = drawingHandler.GetActiveDrawing().GetSheet();
+
                 TSD.UI.Picker picker = drawingHandler.GetPicker();
-                T3D.Point point = null;
-                TSD.ViewBase vv = null;
+                T3D.Point viewPoint = null;
+                TSD.ViewBase curView = null;
 
                 Form1._form.add_text("Select origin point in drawing view");
-                picker.PickPoint("Pick one point", out point, out vv);
-                setter(point);
+                picker.PickPoint("Pick one point", out viewPoint, out curView);
+                T3D.Point sheetPoint = TSD.Tools.DrawingCoordinateConverter.Convert(curView, sheet, viewPoint);
+
+                setter(viewPoint, sheetPoint);
             }
         }
         

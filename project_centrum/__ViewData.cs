@@ -17,7 +17,7 @@ namespace project_centrum
 {
     class __ViewData
     {
-        public bool _setView;
+        public bool _repView;
         public TSD.ViewBase view;
 
         public List<_Mark_Beam> markBeams;
@@ -36,7 +36,7 @@ namespace project_centrum
 
         public __ViewData(TSD.ViewBase currentView, bool set)
         {
-            _setView = set;
+            _repView = set;
             view = currentView;
 
             markBeams = new List<_Mark_Beam>();

@@ -16,10 +16,10 @@ namespace project_centrum
     {
         public static T3D.Point applyGlobalOffset(T3D.Point input)
         {
-            if (UserProperties.a != null && UserProperties.b != null)
+            if (UserProperties.viewInputPoint != null && UserProperties.viewOutputPoint != null)
             {
-                T3D.Point a = UserProperties.a;
-                T3D.Point b = UserProperties.b;
+                T3D.Point a = UserProperties.viewInputPoint;
+                T3D.Point b = UserProperties.viewOutputPoint;
 
                 double cs = Math.Cos(Math.PI * UserProperties._dR / 180);
                 double sn = Math.Sin(Math.PI * UserProperties._dR / 180);

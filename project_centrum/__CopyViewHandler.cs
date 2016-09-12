@@ -24,9 +24,16 @@ namespace project_centrum
                 {
                     if (UserProperties._view)
                     {
-                        if (input._setView != false && output._setView != false)
+                        if (input._repView != false && output._repView != false)
                         {
-                            repositionView(input.view, output.view);
+                            if (UserProperties.sheetInputPoint == null || UserProperties.sheetOutputPoint == null)
+                            {
+                                repositionView(input.view, output.view);
+                            }
+                            else
+                            {
+                                repositionViewWithOffset(input.view, output.view);
+                            }
                         }
                     }
 
@@ -79,6 +86,15 @@ namespace project_centrum
         private static void repositionView(TSD.ViewBase input, TSD.ViewBase output)
         {
             output.Origin = input.Origin;
+            output.Modify();
+        }
+
+        private static void repositionViewWithOffset(TSD.ViewBase input, TSD.ViewBase output)
+        {
+            
+            T3D.Point minus = __GeometryOperations.getLocalOffset(UserProperties.sheetOutputPoint, UserProperties.sheetInputPoint);
+            T3D.Point gg = __GeometryOperations.applyLocalOffset(output.Origin, minus);
+            output.Origin = gg;
             output.Modify();
         }
 

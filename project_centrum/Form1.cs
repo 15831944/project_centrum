@@ -29,13 +29,13 @@ namespace project_centrum
         private void copy(Func<__DrawingData> getter)
         {
             UserProperties.set(cb_view.Checked, cb_mark.Checked, cb_txt.Checked,
-                  cb_section.Checked, cb_detail.Checked, cb_dim.Checked, cb_line.Checked,
-                  cb_red.Checked, cb_predict.Checked, offsetRotation);
+                                cb_section.Checked, cb_detail.Checked, cb_dim.Checked, cb_line.Checked,
+                                cb_red.Checked, cb_predict.Checked, offsetRotation);
 
             add_text("Copy... ");
 
-            if (cb_offset.Checked) TeklaGetter.getPoint(UserProperties.setTag1);
-            else UserProperties.a = null;
+            if (cb_offset.Checked) TeklaGetter.getPoint(UserProperties.setInputPoints);
+            else UserProperties.viewInputPoint = null;
 
             input = getter();
 
@@ -46,13 +46,13 @@ namespace project_centrum
         private void paste(Func<__DrawingData> getter)
         {
             UserProperties.set(cb_view.Checked, cb_mark.Checked, cb_txt.Checked,
-                              cb_section.Checked, cb_detail.Checked, cb_dim.Checked, cb_line.Checked,
-                              cb_red.Checked, cb_predict.Checked, offsetRotation);
+                                cb_section.Checked, cb_detail.Checked, cb_dim.Checked, cb_line.Checked,
+                                cb_red.Checked, cb_predict.Checked, offsetRotation);
 
             add_text("Paste... ");
 
-            if (cb_offset.Checked) TeklaGetter.getPoint(UserProperties.setTag2);
-            else UserProperties.b = null;
+            if (cb_offset.Checked) TeklaGetter.getPoint(UserProperties.setOutputPoints);
+            else UserProperties.viewOutputPoint = null;
 
             output = getter();
 
