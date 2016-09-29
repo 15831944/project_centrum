@@ -120,6 +120,7 @@ namespace project_centrum
                     }
                 }
             }
+            Form1._form.add_text(String.Empty);
         }
 
 

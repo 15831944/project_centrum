@@ -104,11 +104,12 @@ namespace project_centrum
             return closest;
         }
 
-        public static Dictionary<T, T> matchMarks<T>(List<T> input, List<T> output, out List<T> notFound) where T : _Mark
+        public static Dictionary<T, T> matchMarks<T>(List<T> input, List<T> output, out List<T> notFound, out List<T> notFoundInput) where T : _Mark
         {
             List<T> tempInput = new List<T>(input);
             List<T> tempOutput = new List<T>(output);
             notFound = new List<T>();
+            notFoundInput = new List<T>();
             Dictionary<T, T> matches = new Dictionary<T, T>();
 
             foreach (T outputMark in tempOutput)
@@ -133,6 +134,8 @@ namespace project_centrum
                     notFound.Add(outputMark);
                 }
             }
+
+            notFoundInput = tempInput;
 
             return matches;
         }

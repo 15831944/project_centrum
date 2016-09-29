@@ -101,7 +101,8 @@ namespace project_centrum
         private static void handleMarks<T>(List<T> input, List<T> output) where T : _Mark
         {
             List<T> notFound = new List<T>();
-            Dictionary<T, T> matches = __MatchMaker.matchMarks(input, output, out notFound);
+            List<T> notFoundInput = new List<T>();
+            Dictionary<T, T> matches = __MatchMaker.matchMarks(input, output, out notFound, out notFoundInput);
 
             if (UserProperties._mark)
             {
@@ -116,6 +117,14 @@ namespace project_centrum
             if (UserProperties._predict)
             {
                 tryPredictMarks<T>(notFound, input);
+            }
+
+            if (notFound.Count > 0 || notFoundInput.Count > 0)
+            {
+                Debuger.p("");
+                Debuger.p("[MARKS] Output not found: " + notFound.Count.ToString());
+                Debuger.p("[MARKS] Input not found: " + notFoundInput.Count.ToString());
+                Debuger.p("");
             }
 
         }
@@ -189,9 +198,9 @@ namespace project_centrum
                 closest[key].InsertionPoint = key.InsertionPoint;
                 closest[key].Attributes = key.Attributes;
                 closest[key].Size = key.Size;
+                //closest[key].Attributes.Scaling = TSD.ScalingOptions.NoScaling; //HARDCODE
                 closest[key].Modify();
-                closest[key].Attributes.Scaling = TSD.ScalingOptions.NoScaling; //HARDCODE
-                closest[key].Modify();
+                Debuger.p("TextFile -> No Scaling");
             }
         }
 

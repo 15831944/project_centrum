@@ -15,7 +15,7 @@ namespace project_centrum
     {
         public static void p(string txt)
         {
-            Form1._form.add_text(txt);
+            Form1._form.add_text("[Debuger] "+ txt);
         }
 
         public static void ppoint(T3D.Point pp, string txt)
