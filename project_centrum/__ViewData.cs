@@ -23,6 +23,9 @@ namespace project_centrum
         public List<_Mark_Beam> markBeams;
         public List<_Mark_PolyBeam> markPolyBeams;
         public List<_Mark_ContourPlate> markContourPlates;
+
+        public List<_Mark_BoltGroup> markBoltGroup;        
+
         public List<_Mark_SingleRebar> markSingleRebars;
         public List<_Mark_RebarGroup> markRebarBases;
 
@@ -42,6 +45,8 @@ namespace project_centrum
             markBeams = new List<_Mark_Beam>();
             markPolyBeams = new List<_Mark_PolyBeam>();
             markContourPlates = new List<_Mark_ContourPlate>();
+
+            markBoltGroup = new List<_Mark_BoltGroup>();
 
             markSingleRebars = new List<_Mark_SingleRebar>();
             markRebarBases = new List<_Mark_RebarGroup>();
@@ -135,6 +140,11 @@ namespace project_centrum
                         {
                             TSM.BaseRebarGroup currentMO = modelObject as TSM.RebarGroup;
                             markRebarBases.Add(new _Mark_RebarGroup(currentMark, currentMO, currentDO, this.view));
+                        }
+                        else if (modelObject is TSM.BoltGroup)
+                        {
+                            TSM.BoltGroup currentMO = modelObject as TSM.BoltGroup;
+                            markBoltGroup.Add(new _Mark_BoltGroup(currentMark, currentMO, currentDO, this.view));
                         }
                     }
                 }

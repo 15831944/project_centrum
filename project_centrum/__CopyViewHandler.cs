@@ -42,6 +42,9 @@ namespace project_centrum
                         handleMarks<_Mark_Beam>(input.markBeams, output.markBeams);
                         handleMarks<_Mark_PolyBeam>(input.markPolyBeams, output.markPolyBeams);
                         handleMarks<_Mark_ContourPlate>(input.markContourPlates, output.markContourPlates);
+
+                        handleMarks<_Mark_BoltGroup>(input.markBoltGroup, output.markBoltGroup);
+
                         handleMarks<_Mark_SingleRebar>(input.markSingleRebars, output.markSingleRebars);
                         handleMarks<_Mark_RebarGroup>(input.markRebarBases, output.markRebarBases);
                     }

@@ -132,6 +132,8 @@ namespace project_centrum
             int markPolyBeams = 0;
             int markContourPlates = 0;
 
+            int markBoltGroup = 0;
+
             int markSingleRebars = 0;
             int markRebarBases = 0;
 
@@ -150,6 +152,8 @@ namespace project_centrum
                 markBeams += data[view].markBeams.Count;
                 markPolyBeams += data[view].markPolyBeams.Count;
                 markContourPlates += data[view].markContourPlates.Count;
+
+                markBoltGroup += data[view].markBoltGroup.Count;
 
                 markSingleRebars += data[view].markSingleRebars.Count;
                 markRebarBases += data[view].markRebarBases.Count;
@@ -171,6 +175,8 @@ namespace project_centrum
             message.AppendLine("Beam marks: " + markBeams);
             message.AppendLine("PolyBeam marks: " + markPolyBeams);
             message.AppendLine("ContourPlate marks: " + markContourPlates);
+            message.AppendLine("");
+            message.AppendLine("BoltGroup marks: " + markBoltGroup);
             message.AppendLine("");
             message.AppendLine("SingleRebar marks: " + markSingleRebars);
             message.AppendLine("RebarGroup marks: " + markRebarBases);
