@@ -17,22 +17,22 @@ namespace project_centrum
     class _SectionMark
     {
         public TSD.SectionMark _obj;
-        public TSD.TextElement _txt;
+        //public TSD.TextElement _txt;
 
         public _SectionMark(TSD.SectionMark obj)
         {
             _obj = obj;
 
-            IEnumerator content = obj.Attributes.TagsAttributes.TagA2.TagContent.GetEnumerator();
+            //IEnumerator content = obj.Attributes.TagsAttributes.TagA2.TagContent.GetEnumerator();
 
-            while (content.MoveNext())
-            {
-                if (content.Current is TSD.PropertyElement)
-                {
-                    TSD.PropertyElement tag = content.Current as TSD.PropertyElement;
-                    _txt = new TSD.TextElement(tag.GetUnformattedString(), tag.Font);
-                }
-            }
+            //while (content.MoveNext())
+            //{
+            //    if (content.Current is TSD.PropertyElement)
+            //    {
+            //        TSD.PropertyElement tag = content.Current as TSD.PropertyElement;
+            //        _txt = new TSD.TextElement(tag.GetUnformattedString(), tag.Font);
+            //    }
+            //}
         }
     }
 }

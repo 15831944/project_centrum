@@ -169,12 +169,12 @@ namespace project_centrum
                 outputSectionMark.Attributes = inputSection._obj.Attributes;
                 outputSectionMark.Insert();
 
-                if (inputSection._txt != null)
-                {
-                    outputSectionMark.Attributes.TagsAttributes.TagA2.TagContent.Clear();
-                    outputSectionMark.Attributes.TagsAttributes.TagA2.TagContent.Add(inputSection._txt);
-                    outputSectionMark.Modify();
-                }
+                //if (inputSection._txt != null)
+                //{
+                //    outputSectionMark.Attributes.TagsAttributes.TagA2.TagContent.Clear();
+                //    outputSectionMark.Attributes.TagsAttributes.TagA2.TagContent.Add(inputSection._txt);
+                //    outputSectionMark.Modify();
+                //}
             }
         }
 
