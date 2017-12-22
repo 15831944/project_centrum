@@ -46,22 +46,21 @@
     <Reference Include="System.Xml" />
     <Reference Include="Tekla.Structures, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>W:\Alex\Tekla_2017\DLL\Tekla.Structures.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\TeklaStructuresLearning\2016i\nt\bin\plugins\Tekla.Structures.dll</HintPath>
     </Reference>
     <Reference Include="Tekla.Structures.Drawing, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>W:\Alex\Tekla_2017\DLL\Tekla.Structures.Drawing.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\TeklaStructuresLearning\2016i\nt\bin\plugins\Tekla.Structures.Drawing.dll</HintPath>
     </Reference>
     <Reference Include="Tekla.Structures.Model, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>W:\Alex\Tekla_2017\DLL\Tekla.Structures.Model.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\TeklaStructuresLearning\2016i\nt\bin\plugins\Tekla.Structures.Model.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Debuger.cs" />
     <Compile Include="_Mark_BoltGroup.cs" />
     <Compile Include="__CopyDrawingHandler.cs" />
-    <Compile Include="__CopyViewHandler.cs" />
     <Compile Include="__DrawingData.cs" />
     <Compile Include="__MatchMaker.cs" />
     <Compile Include="_Mark_ContourPlate.cs" />

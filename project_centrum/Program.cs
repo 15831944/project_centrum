@@ -16,7 +16,7 @@ namespace project_centrum
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Form1 f1 = new Form1();
+            MainForm f1 = new MainForm();
             Application.Run(f1);
         }
     }

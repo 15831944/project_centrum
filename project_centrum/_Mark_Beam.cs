@@ -19,6 +19,7 @@ namespace project_centrum
 
         }
 
+
         public override T3D.Vector getDirection()
         {
             T3D.Point start = __GeometryOperations.factor1Point((_part as TSM.Beam).StartPoint, _view as TSD.View);
@@ -29,10 +30,12 @@ namespace project_centrum
             return vector;
         }
 
+
         public override T3D.Vector getDirectionOther()
         {
             return getDirection();
         }
+
 
         public override void tryPredict<T>(List<T> others)
         {
@@ -51,6 +54,7 @@ namespace project_centrum
                 this.reCreateMarkSmarts(match);
             }
         }
+
 
         private List<T> findSameLineMark<T>(List<T> others) where T : _Mark
         {
@@ -74,6 +78,7 @@ namespace project_centrum
 
             return sameLine;
         }
+
 
         private T findClosestMark<T>(List<T> others) where T : _Mark
         {
@@ -104,6 +109,7 @@ namespace project_centrum
 
             return match;
         }
+
 
         private void reCreateMarkSmarts(_Mark other)
         {
@@ -190,6 +196,7 @@ namespace project_centrum
             _mark.Modify();
             _mark.Modify();
         }
+
 
         public override bool checkModelObjects(_Mark other)
         {

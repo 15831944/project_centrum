@@ -30,12 +30,6 @@ namespace project_centrum
 
         public static bool _predict;
 
-        public static T3D.Point viewInputPoint = null;
-        public static T3D.Point viewOutputPoint = null;
-
-        public static T3D.Point sheetInputPoint = null;
-        public static T3D.Point sheetOutputPoint = null;
-
         public static void set(bool view, bool mark, 
                                bool section, bool detail, bool line, bool dim,
                                bool txt, bool dwg,
@@ -60,17 +54,6 @@ namespace project_centrum
             _dR = deg;
         }
 
-        public static void setInputPoints(T3D.Point start, T3D.Point sheet)
-        {
-            viewInputPoint = start;
-            sheetInputPoint = sheet;
-        }
-
-        public static void setOutputPoints(T3D.Point end, T3D.Point sheet)
-        {
-            viewOutputPoint = end;
-            sheetOutputPoint = sheet;
-        }
     }
 }
 

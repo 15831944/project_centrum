@@ -20,6 +20,7 @@ namespace project_centrum
         private TSD.ModelObject _DRpart;
         internal TSD.ViewBase _view;
 
+
         public _Mark(TSD.Mark mark, TSM.ModelObject part, TSD.ModelObject DRpart, TSD.ViewBase view)
         {
             _mark = mark;
@@ -28,13 +29,12 @@ namespace project_centrum
             _view = view;
         }
 
+
         public abstract bool checkModelObjects(_Mark name);
-
         public abstract void tryPredict<T>(List<T> others) where T : _Mark;
-
         public abstract T3D.Vector getDirection();
-
         public abstract T3D.Vector getDirectionOther();
+
 
         public void reCreateMark(_Mark input)
         {
@@ -86,5 +86,6 @@ namespace project_centrum
             _mark.Attributes.Frame.Type = TSD.FrameTypes.Rectangular;
             _mark.Modify();
         }
+
     }
 }

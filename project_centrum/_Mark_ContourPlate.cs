@@ -19,20 +19,24 @@ namespace project_centrum
 
         }
 
+
         public override void tryPredict<T>(List<T> others)
         {
 
         }
+
 
         public override T3D.Vector getDirection()
         {
             return new T3D.Vector(0, 0, 0);
         }
 
+
         public override T3D.Vector getDirectionOther()
         {
             return new T3D.Vector(0, 0, 10);
         }
+
 
         public override bool checkModelObjects(_Mark other)
         {

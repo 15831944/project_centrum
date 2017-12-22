@@ -18,12 +18,14 @@ namespace project_centrum
         public TSD.StraightDimension _first;
         public TSD.PointList _points;
 
+
         public _StraightDimentionSet(TSD.StraightDimensionSet obj)
         {
             _set = obj as TSD.StraightDimensionSet;
             _points = new TSD.PointList();
             getDimSetPoints();
         }
+
 
         internal void getDimSetPoints()
         {
@@ -43,6 +45,7 @@ namespace project_centrum
             }
         }
 
+
         private void addUniquePoints(T3D.Point point)
         {
             if (! _points.Contains(point))
@@ -50,5 +53,6 @@ namespace project_centrum
                 _points.Add(point);
             }
         }
+
     }
 }

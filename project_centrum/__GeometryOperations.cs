@@ -14,12 +14,18 @@ namespace project_centrum
 {
     static class __GeometryOperations
     {
+        public static T3D.Point viewInputPoint = null;
+        public static T3D.Point viewOutputPoint = null;
+
+        public static T3D.Point sheetInputPoint = null;
+        public static T3D.Point sheetOutputPoint = null;
+
         public static T3D.Point applyGlobalOffset(T3D.Point input)
         {
-            if (UserProperties.viewInputPoint != null && UserProperties.viewOutputPoint != null)
+            if (__GeometryOperations.viewInputPoint != null && __GeometryOperations.viewOutputPoint != null)
             {
-                T3D.Point a = UserProperties.viewInputPoint;
-                T3D.Point b = UserProperties.viewOutputPoint;
+                T3D.Point a = __GeometryOperations.viewInputPoint;
+                T3D.Point b = __GeometryOperations.viewOutputPoint;
 
                 double cs = Math.Cos(Math.PI * UserProperties._dR / 180);
                 double sn = Math.Sin(Math.PI * UserProperties._dR / 180);
@@ -44,11 +50,13 @@ namespace project_centrum
             }
         }
 
+
         public static bool areOnSameLine(T3D.Point A, T3D.Point B, T3D.Point C)
         {
             bool line = Math.Abs(A.X * (B.Y - C.Y) + B.X * (C.Y - A.Y) + C.X * (A.Y - B.Y)) < 1;
             return line;
         }
+
 
         public static T3D.Vector getDirectionVector(T3D.Point start, T3D.Point end)
         {
@@ -67,6 +75,7 @@ namespace project_centrum
             return vector;
         }
 
+
         public static double getLength(T3D.Point start, T3D.Point end)
         {
             double dX = end.X - start.X;
@@ -75,6 +84,7 @@ namespace project_centrum
             double L = Math.Pow(Math.Pow(dX, 2) + Math.Pow(dY, 2), 0.5);
             return L;
         }
+
 
         public static T3D.Point getLocalOffset(T3D.Point start1, T3D.Point start2)
         {
@@ -86,6 +96,7 @@ namespace project_centrum
             return tr;
         }
 
+
         public static T3D.Point applyLocalOffset(T3D.Point output, T3D.Point offset)
         {
             double dX = output.X - offset.X;
@@ -95,6 +106,7 @@ namespace project_centrum
 
             return tr;
         }
+
 
         public static double getAlfa(T3D.Point start1, T3D.Point end1, T3D.Point start2, T3D.Point end2)
         {
@@ -109,10 +121,10 @@ namespace project_centrum
             return multi;
         }
 
+
         public static T3D.Point getPlacingOffset(T3D.Point output, T3D.Point placing, double alfa)
         {
             double dX = (placing.X - output.X);
-
             double dY = (placing.Y - output.Y);
 
             if (Math.Abs(dX / 100) > dY)
@@ -125,17 +137,18 @@ namespace project_centrum
                 dY = dY * alfa;
             }
 
-
             T3D.Point tr = new T3D.Point(dX, dY, 0);
             
             return tr;
         }
+
 
         public static T3D.Point factor1Point(T3D.Point pp, TSD.View vv)
         {
             T3D.Matrix convMatrix = T3D.MatrixFactory.ToCoordinateSystem(vv.DisplayCoordinateSystem);
             return convMatrix.Transform(pp);
         }
+
 
         public static ArrayList factorPointArray(ArrayList pps, TSD.View vv)
         {
@@ -152,6 +165,7 @@ namespace project_centrum
             return factored;
         }
 
+
         public static bool compare2Points(T3D.Point p1, T3D.Point p2)
         {
             p2 = __GeometryOperations.applyGlobalOffset(p2);
@@ -167,6 +181,22 @@ namespace project_centrum
 
             return true;
         }
+
+
+        public static bool compare2PointsNullTolerance(T3D.Point p1, T3D.Point p2)
+        {
+            if (Math.Abs(p1.X - p2.X) > 0.1)
+            {
+                return false;
+            }
+            if (Math.Abs(p1.Y - p2.Y) > 0.1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
 
         public static bool comparePointArray(ArrayList points1, ArrayList points2)
         {
@@ -193,5 +223,20 @@ namespace project_centrum
 
             return true;
         }
+
+
+        public static void setInputPoints(T3D.Point start, T3D.Point sheet)
+        {
+            viewInputPoint = start;
+            sheetInputPoint = sheet;
+        }
+
+
+        public static void setOutputPoints(T3D.Point end, T3D.Point sheet)
+        {
+            viewOutputPoint = end;
+            sheetOutputPoint = sheet;
+        }
+
     }
 }

@@ -15,18 +15,21 @@ namespace project_centrum
     {
         public static void p(string txt)
         {
-            Form1._form.add_text("[Debuger] "+ txt);
+            MainForm._form.add_text("[Debuger] "+ txt);
         }
+
 
         public static void ppoint(T3D.Point pp, string txt)
         {
-            Form1._form.add_text(txt + " : " + pp.X.ToString("F1") + " ; " + pp.Y.ToString("F1") + " ; " + pp.Z.ToString("F1"));
+            MainForm._form.add_text(txt + " : " + pp.X.ToString("F1") + " ; " + pp.Y.ToString("F1") + " ; " + pp.Z.ToString("F1"));
         }
+
 
         public static void pvector(T3D.Vector pp, string txt)
         {
-            Form1._form.add_text(txt + " : " + pp.X.ToString("F1") + " ; " + pp.Y.ToString("F1") + " ; " + pp.Z.ToString("F1"));
+            MainForm._form.add_text(txt + " : " + pp.X.ToString("F1") + " ; " + pp.Y.ToString("F1") + " ; " + pp.Z.ToString("F1"));
         }
+
 
         public static void pcor(T3D.CoordinateSystem pc, string txt)
         {
@@ -35,23 +38,25 @@ namespace project_centrum
             ppoint(pc.Origin, txt + " Origin");
         }
 
+
         public static void pcv(TSD.ContainerView vv)
         {
-            Form1._form.add_text("---  SHEET  ---");
+            MainForm._form.add_text("---  SHEET  ---");
             //ppoint(vv.ExtremaCenter, "ExtremaCenter");
             //pvector(vv.FrameOrigin, "FrameOrigin");
 
-            Form1._form.add_text("IsSheet : " + vv.IsSheet.ToString());
+            MainForm._form.add_text("IsSheet : " + vv.IsSheet.ToString());
             ppoint(vv.Origin, "Origin");
 
             //Form1._form.add_text("Height : " + vv.Height.ToString("F1"));
             //Form1._form.add_text("Width : " + vv.Width.ToString("F1"));
-            Form1._form.add_text("");
+            MainForm._form.add_text("");
         }
+
 
         public static void pview(TSD.View vv)
         {
-            Form1._form.add_text("---  VIEW  ---");
+            MainForm._form.add_text("---  VIEW  ---");
             pcor(vv.DisplayCoordinateSystem, "DisplayCoordinateSystem");
             pcor(vv.ViewCoordinateSystem, "ViewCoordinateSystem");
 
@@ -66,7 +71,6 @@ namespace project_centrum
             //Form1._form.add_text("Width : " + vv.Width.ToString("F1"));
             //Form1._form.add_text("");
         }
-
 
     }
 }

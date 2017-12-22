@@ -15,7 +15,7 @@ using T3D = Tekla.Structures.Geometry3d;
 
 namespace project_centrum
 {
-    class __ViewData
+    class __ViewBaseData
     {
         public TSD.ViewBase view;
 
@@ -34,7 +34,7 @@ namespace project_centrum
         public List<TSD.TextFile> txtFiles;
         public List<TSD.DwgObject> dwgRefs;
 
-        public __ViewData(TSD.ViewBase currentView)
+        public __ViewBaseData(TSD.ViewBase currentView)
         {
             view = currentView;
 
@@ -53,6 +53,7 @@ namespace project_centrum
             txtFiles = new List<TSD.TextFile>();
             dwgRefs = new List<TSD.DwgObject>();
         }
+
 
         public void addOneObject(TSD.DrawingObject dro)
         {
@@ -100,6 +101,7 @@ namespace project_centrum
                 dwgRefs.Add(current);
             }
         }
+
 
         private void markHandler(TSD.Mark currentMark)
         {
@@ -150,6 +152,7 @@ namespace project_centrum
                 }
             }
         }
+
     }
 }
 

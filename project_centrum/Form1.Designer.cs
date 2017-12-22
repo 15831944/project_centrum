@@ -1,6 +1,6 @@
 ﻿namespace project_centrum
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -43,10 +43,10 @@
             this.cb_detail = new System.Windows.Forms.CheckBox();
             this.cb_onoff = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.rb_copy_fast = new System.Windows.Forms.RadioButton();
+            this.rb_copy_selected = new System.Windows.Forms.RadioButton();
             this.rb_copy_all = new System.Windows.Forms.RadioButton();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.rb_paste_fast = new System.Windows.Forms.RadioButton();
+            this.rb_paste_selected = new System.Windows.Forms.RadioButton();
             this.rb_paste_all = new System.Windows.Forms.RadioButton();
             this.lb_rep_or_create = new System.Windows.Forms.Label();
             this.cb_dwg = new System.Windows.Forms.CheckBox();
@@ -121,7 +121,7 @@
             this.cb_section.AutoSize = true;
             this.cb_section.Checked = true;
             this.cb_section.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_section.Location = new System.Drawing.Point(91, 60);
+            this.cb_section.Location = new System.Drawing.Point(100, 60);
             this.cb_section.Name = "cb_section";
             this.cb_section.Size = new System.Drawing.Size(67, 17);
             this.cb_section.TabIndex = 4;
@@ -135,9 +135,9 @@
             this.cb_red.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cb_red.Location = new System.Drawing.Point(15, 240);
             this.cb_red.Name = "cb_red";
-            this.cb_red.Size = new System.Drawing.Size(143, 17);
+            this.cb_red.Size = new System.Drawing.Size(141, 17);
             this.cb_red.TabIndex = 5;
-            this.cb_red.Text = "RED (* Not found marks)";
+            this.cb_red.Text = "RED (* not found marks)";
             this.cb_red.UseVisualStyleBackColor = true;
             // 
             // cb_dim
@@ -145,7 +145,7 @@
             this.cb_dim.AutoSize = true;
             this.cb_dim.Checked = true;
             this.cb_dim.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_dim.Location = new System.Drawing.Point(91, 100);
+            this.cb_dim.Location = new System.Drawing.Point(15, 160);
             this.cb_dim.Name = "cb_dim";
             this.cb_dim.Size = new System.Drawing.Size(78, 17);
             this.cb_dim.TabIndex = 9;
@@ -155,7 +155,7 @@
             // lb_repo
             // 
             this.lb_repo.AutoSize = true;
-            this.lb_repo.Location = new System.Drawing.Point(12, 40);
+            this.lb_repo.Location = new System.Drawing.Point(10, 40);
             this.lb_repo.Name = "lb_repo";
             this.lb_repo.Size = new System.Drawing.Size(60, 13);
             this.lb_repo.TabIndex = 11;
@@ -164,18 +164,18 @@
             // lb_create
             // 
             this.lb_create.AutoSize = true;
-            this.lb_create.Location = new System.Drawing.Point(88, 40);
+            this.lb_create.Location = new System.Drawing.Point(95, 40);
             this.lb_create.Name = "lb_create";
-            this.lb_create.Size = new System.Drawing.Size(41, 13);
+            this.lb_create.Size = new System.Drawing.Size(85, 13);
             this.lb_create.TabIndex = 13;
-            this.lb_create.Text = "Create:";
+            this.lb_create.Text = "Create (* if new):";
             // 
             // cb_line
             // 
             this.cb_line.AutoSize = true;
             this.cb_line.Checked = true;
             this.cb_line.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_line.Location = new System.Drawing.Point(91, 120);
+            this.cb_line.Location = new System.Drawing.Point(100, 100);
             this.cb_line.Name = "cb_line";
             this.cb_line.Size = new System.Drawing.Size(51, 17);
             this.cb_line.TabIndex = 14;
@@ -187,7 +187,7 @@
             this.cb_txt.AutoSize = true;
             this.cb_txt.Checked = true;
             this.cb_txt.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_txt.Location = new System.Drawing.Point(15, 180);
+            this.cb_txt.Location = new System.Drawing.Point(100, 180);
             this.cb_txt.Name = "cb_txt";
             this.cb_txt.Size = new System.Drawing.Size(63, 17);
             this.cb_txt.TabIndex = 15;
@@ -199,7 +199,7 @@
             this.cb_detail.AutoSize = true;
             this.cb_detail.Checked = true;
             this.cb_detail.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_detail.Location = new System.Drawing.Point(91, 80);
+            this.cb_detail.Location = new System.Drawing.Point(100, 80);
             this.cb_detail.Name = "cb_detail";
             this.cb_detail.Size = new System.Drawing.Size(58, 17);
             this.cb_detail.TabIndex = 16;
@@ -222,22 +222,22 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.rb_copy_fast);
+            this.panel1.Controls.Add(this.rb_copy_selected);
             this.panel1.Controls.Add(this.rb_copy_all);
             this.panel1.Location = new System.Drawing.Point(12, 354);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(96, 47);
             this.panel1.TabIndex = 18;
             // 
-            // rb_copy_fast
+            // rb_copy_selected
             // 
-            this.rb_copy_fast.AutoSize = true;
-            this.rb_copy_fast.Location = new System.Drawing.Point(3, 27);
-            this.rb_copy_fast.Name = "rb_copy_fast";
-            this.rb_copy_fast.Size = new System.Drawing.Size(93, 17);
-            this.rb_copy_fast.TabIndex = 1;
-            this.rb_copy_fast.Text = "Selected (fast)";
-            this.rb_copy_fast.UseVisualStyleBackColor = true;
+            this.rb_copy_selected.AutoSize = true;
+            this.rb_copy_selected.Location = new System.Drawing.Point(3, 27);
+            this.rb_copy_selected.Name = "rb_copy_selected";
+            this.rb_copy_selected.Size = new System.Drawing.Size(93, 17);
+            this.rb_copy_selected.TabIndex = 1;
+            this.rb_copy_selected.Text = "Selected (fast)";
+            this.rb_copy_selected.UseVisualStyleBackColor = true;
             // 
             // rb_copy_all
             // 
@@ -253,22 +253,22 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.rb_paste_fast);
+            this.panel2.Controls.Add(this.rb_paste_selected);
             this.panel2.Controls.Add(this.rb_paste_all);
             this.panel2.Location = new System.Drawing.Point(114, 354);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(97, 47);
             this.panel2.TabIndex = 19;
             // 
-            // rb_paste_fast
+            // rb_paste_selected
             // 
-            this.rb_paste_fast.AutoSize = true;
-            this.rb_paste_fast.Location = new System.Drawing.Point(4, 27);
-            this.rb_paste_fast.Name = "rb_paste_fast";
-            this.rb_paste_fast.Size = new System.Drawing.Size(93, 17);
-            this.rb_paste_fast.TabIndex = 1;
-            this.rb_paste_fast.Text = "Selected (fast)";
-            this.rb_paste_fast.UseVisualStyleBackColor = true;
+            this.rb_paste_selected.AutoSize = true;
+            this.rb_paste_selected.Location = new System.Drawing.Point(4, 27);
+            this.rb_paste_selected.Name = "rb_paste_selected";
+            this.rb_paste_selected.Size = new System.Drawing.Size(93, 17);
+            this.rb_paste_selected.TabIndex = 1;
+            this.rb_paste_selected.Text = "Selected (fast)";
+            this.rb_paste_selected.UseVisualStyleBackColor = true;
             // 
             // rb_paste_all
             // 
@@ -285,18 +285,18 @@
             // lb_rep_or_create
             // 
             this.lb_rep_or_create.AutoSize = true;
-            this.lb_rep_or_create.Location = new System.Drawing.Point(12, 160);
+            this.lb_rep_or_create.Location = new System.Drawing.Point(10, 140);
             this.lb_rep_or_create.Name = "lb_rep_or_create";
-            this.lb_rep_or_create.Size = new System.Drawing.Size(133, 13);
+            this.lb_rep_or_create.Size = new System.Drawing.Size(144, 13);
             this.lb_rep_or_create.TabIndex = 22;
-            this.lb_rep_or_create.Text = "Reposition / Create if new:";
+            this.lb_rep_or_create.Text = "Reposition OR Create if new:";
             // 
             // cb_dwg
             // 
             this.cb_dwg.AutoSize = true;
             this.cb_dwg.Checked = true;
             this.cb_dwg.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_dwg.Location = new System.Drawing.Point(91, 180);
+            this.cb_dwg.Location = new System.Drawing.Point(100, 160);
             this.cb_dwg.Name = "cb_dwg";
             this.cb_dwg.Size = new System.Drawing.Size(65, 17);
             this.cb_dwg.TabIndex = 26;
@@ -306,7 +306,7 @@
             // lb_advanced
             // 
             this.lb_advanced.AutoSize = true;
-            this.lb_advanced.Location = new System.Drawing.Point(12, 224);
+            this.lb_advanced.Location = new System.Drawing.Point(10, 220);
             this.lb_advanced.Name = "lb_advanced";
             this.lb_advanced.Size = new System.Drawing.Size(59, 13);
             this.lb_advanced.TabIndex = 27;
@@ -315,7 +315,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 265);
+            this.label4.Location = new System.Drawing.Point(10, 262);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 13);
             this.label4.TabIndex = 24;
@@ -324,7 +324,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(148, 265);
+            this.label5.Location = new System.Drawing.Point(148, 262);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(25, 13);
             this.label5.TabIndex = 25;
@@ -349,7 +349,7 @@
             this.label1.TabIndex = 28;
             this.label1.Text = "coded by Aleksandr Ess";
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -377,7 +377,7 @@
             this.Controls.Add(this.txt_status);
             this.Controls.Add(this.btn_output);
             this.Controls.Add(this.btn_input);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Centrum DEV";
             this.TopMost = true;
             this.panel1.ResumeLayout(false);
@@ -407,9 +407,9 @@
         private System.Windows.Forms.CheckBox cb_onoff;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.RadioButton rb_copy_fast;
+        private System.Windows.Forms.RadioButton rb_copy_selected;
         private System.Windows.Forms.RadioButton rb_copy_all;
-        private System.Windows.Forms.RadioButton rb_paste_fast;
+        private System.Windows.Forms.RadioButton rb_paste_selected;
         private System.Windows.Forms.RadioButton rb_paste_all;
         private System.Windows.Forms.Label lb_rep_or_create;
         private System.Windows.Forms.CheckBox cb_dwg;

@@ -13,28 +13,34 @@ namespace project_centrum
 {
     class __DrawingData
     {
-        public Dictionary<TSD.ViewBase, __ViewData> data;
+        public Dictionary<TSD.ViewBase, __ViewBaseData> data;
 
-        public T3D.Point viewPoint = null;
-        public T3D.Point sheetPoint = null;
+        public TSD.ContainerView sheet;
+        public TSD.View view;
+
+        public T3D.Point viewPoint = new T3D.Point(0, 0, 0);
+        public T3D.Point sheetPoint = new T3D.Point(0, 0, 0);
+        
 
         public __DrawingData()
         {
-            data = new Dictionary<TSD.ViewBase, __ViewData>();
+            data = new Dictionary<TSD.ViewBase, __ViewBaseData>();
         }
 
-        internal void setSheet(TSD.ContainerView sheet)
+
+        internal void setSheet(TSD.ContainerView s)
         {
-            data[sheet] = new __ViewData(sheet);
+            data[s] = new __ViewBaseData(s);
+            sheet = s;
         }
 
-        internal void setView(TSD.View view)
+
+        internal void setView(TSD.View v)
         {
-            if (view != null)
-            {
-                data[view] = new __ViewData(view);
-            }            
+            data[v] = new __ViewBaseData(v);
+            view = v;
         }
+
 
         internal void setPoints(T3D.Point vp, T3D.Point sp)
         {
@@ -42,49 +48,23 @@ namespace project_centrum
             sheetPoint = sp;
         }
 
-        //internal void setSelectedViews(TSD.DrawingObjectEnumerator all)
-        //{
-        //    foreach (TSD.DrawingObject one in all)
-        //    {
-        //        if (one is TSD.ViewBase)
-        //        {
-        //            bool found = false;
-
-        //            foreach (TSD.ViewBase stored in data.Keys)
-        //            {
-        //                if (stored.IsSameDatabaseObject(one))
-        //                {
-        //                    data[stored].addOneObject(one);
-        //                    found = true;
-        //                    break;
-        //                }
-        //            }
-
-        //            if (found == false)
-        //            {
-        //                data[one as TSD.ViewBase] = new __ViewData(one as TSD.ViewBase);
-        //            }
-        //        }
-        //    }
-
-        //    all.Reset();
-        //}
 
         public void populate(TSD.DrawingObjectEnumerator all)
         {
             int i = 0;
             int tot = all.GetSize();
             
-            Form1._form.replace_text("Total objects to proccess: " + tot.ToString() );
+            MainForm._form.replace_text("Total objects to proccess: " + tot.ToString() );
 
             foreach (TSD.DrawingObject one in all)
             {
                 i++;
-                Form1._form.replace_text("Proccessing: " + i.ToString() + " of " + tot.ToString());
+                MainForm._form.replace_text("Proccessing: " + i.ToString() + " of " + tot.ToString());
 
                 if (one is TSD.Mark || one is TSD.StraightDimensionSet || one is TSD.SectionMark || one is TSD.DetailMark || one is TSD.Line || one is TSD.TextFile || one is TSD.DwgObject)
                 {
                     TSD.ViewBase oneView = one.GetView();
+
                     foreach (TSD.ViewBase stored in data.Keys)
                     {
                         if (stored.IsSameDatabaseObject(oneView))
@@ -95,45 +75,8 @@ namespace project_centrum
                     }
                 }
             }
-            Form1._form.add_text(String.Empty);
+            MainForm._form.add_text(String.Empty);
         }
-
-        //public void populateSelected(TSD.DrawingObjectEnumerator all)
-        //{
-        //    int i = 0;
-        //    int tot = all.GetSize();
-
-        //    Form1._form.replace_text("Total objects to proccess: " + tot.ToString());
-
-        //    foreach (TSD.DrawingObject one in all)
-        //    {
-        //        i++;
-        //        Form1._form.replace_text("Proccessing: " + i.ToString() + " of " + tot.ToString());
-
-        //        if (one is TSD.Mark || one is TSD.StraightDimensionSet || one is TSD.SectionMark || one is TSD.DetailMark || one is TSD.Line || one is TSD.TextFile || one is TSD.DwgObject)
-        //        {
-        //            bool found = false;
-        //            TSD.ViewBase oneView = one.GetView();
-
-        //            foreach (TSD.ViewBase stored in data.Keys)
-        //            {
-        //                if (stored.IsSameDatabaseObject(oneView))
-        //                {
-        //                    data[stored].addOneObject(one);
-        //                    found = true;
-        //                    break;
-        //                }
-        //            }
-
-        //            if (found == false)
-        //            {
-        //                data[oneView] = new __ViewData(oneView, false);
-        //                data[oneView].addOneObject(one);
-        //            }
-        //        }
-        //    }
-        //    Form1._form.add_text(String.Empty);
-        //}
 
 
         public string countObjects()
@@ -198,5 +141,6 @@ namespace project_centrum
             message.AppendLine("**************");
             return message.ToString();
         }
+
     }
 }

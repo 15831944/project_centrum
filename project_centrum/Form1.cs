@@ -12,21 +12,24 @@ using System.Threading;
 
 namespace project_centrum
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public static Form1 _form;
+
+        public static MainForm _form;
         __DrawingData input;
         __DrawingData output;
         double offsetRotation = 0.0;
 
-        public Form1()
+
+        public MainForm()
         {
             InitializeComponent();
             _form = this;
             txt_deg.Text = offsetRotation.ToString("f1");
         }
 
-        private void copy(Func<__DrawingData> getter)
+
+        private void tekla_interface(Func<__DrawingData> getter, ref __DrawingData container)
         {
             UserProperties.set(cb_view.Checked, cb_mark.Checked,                                 
                                 cb_section.Checked, cb_detail.Checked, cb_line.Checked, cb_dim.Checked,
@@ -34,95 +37,106 @@ namespace project_centrum
                                 cb_red.Checked, 
                                 offsetRotation);
 
-            add_text("Copy... ");
-            input = getter();
-            UserProperties.setInputPoints(input.viewPoint, input.sheetPoint);
+            add_text("Getting data... ");
 
-            add_text("Done");
-            add_text(input.countObjects());
+            container = getter();
+
+            add_text("[DONE]");
+            add_text(container.countObjects() );
         }
 
-        private void paste(Func<__DrawingData> getter)
-        {
-            UserProperties.set(cb_view.Checked, cb_mark.Checked,
-                               cb_section.Checked, cb_detail.Checked, cb_line.Checked, cb_dim.Checked,
-                               cb_txt.Checked, cb_dwg.Checked, 
-                               cb_red.Checked,
-                               offsetRotation);
-
-            add_text("Paste... ");
-            output = getter();
-            UserProperties.setOutputPoints(output.viewPoint, output.sheetPoint);
-
-            add_text("Done");
-            add_text(output.countObjects());
-
-            add_text("Redraw... ");
-            __CopyDrawingHandler.main(input, output);
-            add_text("Done");
-        }
 
         private void btn_input_all_Click(object sender, EventArgs e)
         {
             txt_status.Text = "";
+            add_text("[COPY]");
             if (rb_copy_all.Checked)
             {
-                copy_paste_handler(copy, TeklaGetter.getAllData, "Error copying - 1");
+                copy_paste_handler(TeklaGetter.getAllData, ref input, "[ERROR] copying (e1)");
             }
-            else if (rb_copy_fast.Checked)
+            else if (rb_copy_selected.Checked)
             {
-                copy_paste_handler(copy, TeklaGetter.getSelectedData, "Error copying - 2");
+                copy_paste_handler(TeklaGetter.getSelectedData, ref input, "[ERROR] copying (e2)");
             }
         }
 
+
         private void btn_output_Click(object sender, EventArgs e)
         {
+            add_text("");
+            add_text("[PASTE]");
             if (rb_paste_all.Checked)
             {
-                copy_paste_handler(paste, TeklaGetter.getAllData, "Error pasting - 3");
+                copy_paste_handler(TeklaGetter.getAllData, ref output, "[ERROR] pasting (e3)");
             }
-            else if (rb_paste_fast.Checked)
+            else if (rb_paste_selected.Checked)
             {
-                copy_paste_handler(paste, TeklaGetter.getSelectedData, "Error pasting - 4");
+                copy_paste_handler(TeklaGetter.getSelectedData, ref output, "[ERROR] pasting (e4)");
             }
+
+            add_text("");
+            add_text("[REDRAW]");
+            redraw_handler();            
         }
+
         
-        private void copy_paste_handler(Action<Func<__DrawingData>> function, Func<__DrawingData> getter, string error)
+        private void copy_paste_handler(Func<__DrawingData> getter, ref __DrawingData container, string error)
         {
             toggle_all_controls(false);
 
             try
             {
                 DateTime start = DateTime.Now;
-                function(getter);
+                tekla_interface(getter, ref container);
                 DateTime end = DateTime.Now;
-                timerReport(start, end);
-            }
-            catch (DivideByZeroException)
-            {
-                add_text("FAILED");
-                add_text("Drawing not opened");
+                timeReport(start, end);
             }
             catch
             {
-                add_text("FAILED");
                 add_text(error);
             }
 
             toggle_all_controls(true);
         }
 
-        private void timerReport(DateTime start, DateTime end)
+
+        private void redraw_handler()
+        {
+            toggle_all_controls(false);
+
+            if (input == null || output == null)
+            {
+                add_text("[ERROR] redrawing (e5)");
+            }
+
+            try
+            {
+                __CopyDrawingHandler.main(input, output);
+                add_text("[DONE]");
+            }
+            catch
+            {
+                add_text("[ERROR] redrawing (e6)");
+            }
+
+            toggle_all_controls(true);
+        }  
+
+
+
+        private void timeReport(DateTime start, DateTime end)
         {
             add_text("Time: " + end.Subtract(start).TotalSeconds.ToString("F0") + " seconds");
             add_text("--------------------------------------------------------");
             add_text("");
         }
 
+
         public void add_text(string message)
         {
             txt_status.AppendText(message + Environment.NewLine);
         }
+
 
         public void replace_text(string message)
         {
@@ -142,6 +156,7 @@ namespace project_centrum
         {
             on_off(cb_onoff.Checked);
         }
+
 
         private void toggle_all_controls(bool status)
         {
@@ -165,6 +180,7 @@ namespace project_centrum
             btn_output.Enabled = status;            
         }
 
+
         private void on_off(bool status)
         {
             cb_view.Checked = status;
@@ -181,9 +197,10 @@ namespace project_centrum
             cb_red.Checked = status;            
         }
 
+
         private void txt_deg_TextChanged(object sender, EventArgs e)
         {
-            if (txt_deg.Text != "" && txt_deg.Text != "-")
+            if (txt_deg.Text != "")
             {
                 try
                 {
@@ -202,5 +219,6 @@ namespace project_centrum
                 offsetRotation = 0.0;
             }
         }
+
     }
 }
