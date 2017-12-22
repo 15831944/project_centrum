@@ -17,47 +17,41 @@ namespace project_centrum
 {
     class __ViewData
     {
-        public bool _repView;
         public TSD.ViewBase view;
 
         public List<_Mark_Beam> markBeams;
         public List<_Mark_PolyBeam> markPolyBeams;
         public List<_Mark_ContourPlate> markContourPlates;
-
         public List<_Mark_BoltGroup> markBoltGroup;        
-
         public List<_Mark_SingleRebar> markSingleRebars;
         public List<_Mark_RebarGroup> markRebarBases;
 
-        public List<TSD.Line> lines;
-        public List<_StraightDimentionSet> straightDimSets;
-
         public List<_SectionMark> sectionMarks;
         public List<TSD.DetailMark> detailMarks;
+        public List<_StraightDimentionSet> straightDimSets;
+        public List<TSD.Line> lines;
 
         public List<TSD.TextFile> txtFiles;
+        public List<TSD.DwgObject> dwgRefs;
 
-        public __ViewData(TSD.ViewBase currentView, bool set)
+        public __ViewData(TSD.ViewBase currentView)
         {
-            _repView = set;
             view = currentView;
 
             markBeams = new List<_Mark_Beam>();
             markPolyBeams = new List<_Mark_PolyBeam>();
             markContourPlates = new List<_Mark_ContourPlate>();
-
             markBoltGroup = new List<_Mark_BoltGroup>();
-
             markSingleRebars = new List<_Mark_SingleRebar>();
             markRebarBases = new List<_Mark_RebarGroup>();
-
-            straightDimSets = new List<_StraightDimentionSet>();
-
+            
             sectionMarks = new List<_SectionMark>();
             detailMarks = new List<TSD.DetailMark>();
-
             lines = new List<TSD.Line>();
+            straightDimSets = new List<_StraightDimentionSet>();
+
             txtFiles = new List<TSD.TextFile>();
+            dwgRefs = new List<TSD.DwgObject>();
         }
 
         public void addOneObject(TSD.DrawingObject dro)
@@ -98,6 +92,12 @@ namespace project_centrum
             {
                 TSD.TextFile current = dro as TSD.TextFile;
                 txtFiles.Add(current);
+            }
+
+            else if (dro is TSD.DwgObject)
+            {
+                TSD.DwgObject current = dro as TSD.DwgObject;
+                dwgRefs.Add(current);
             }
         }
 

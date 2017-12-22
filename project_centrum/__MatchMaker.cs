@@ -59,50 +59,50 @@ namespace project_centrum
             return closest;
         }
 
-        public static Dictionary<TSD.TextFile, TSD.TextFile> txtFinder(List<TSD.TextFile> input, List<TSD.TextFile> output)
-        {
-            List<TSD.TextFile> tempInput = new List<TSD.TextFile>(input);
-            List<TSD.TextFile> tempOutput = new List<TSD.TextFile>(output);
+        //public static Dictionary<TSD.TextFile, TSD.TextFile> txtFinder(List<TSD.TextFile> input, List<TSD.TextFile> output)
+        //{
+        //    List<TSD.TextFile> tempInput = new List<TSD.TextFile>(input);
+        //    List<TSD.TextFile> tempOutput = new List<TSD.TextFile>(output);
 
-            Dictionary<TSD.TextFile, TSD.TextFile> closest = new Dictionary<Tekla.Structures.Drawing.TextFile, Tekla.Structures.Drawing.TextFile>();
+        //    Dictionary<TSD.TextFile, TSD.TextFile> closest = new Dictionary<Tekla.Structures.Drawing.TextFile, Tekla.Structures.Drawing.TextFile>();
 
-            while (tempInput.Count > 0 && tempOutput.Count > 0)
-            {
-                double min = double.MaxValue;
-                TSD.TextFile minIn = null;
-                TSD.TextFile minOut = null;
+        //    while (tempInput.Count > 0 && tempOutput.Count > 0)
+        //    {
+        //        double min = double.MaxValue;
+        //        TSD.TextFile minIn = null;
+        //        TSD.TextFile minOut = null;
 
-                foreach (TSD.TextFile aa in tempInput)
-                {
-                    foreach (TSD.TextFile bb in tempOutput)
-                    {
-                        double X = aa.InsertionPoint.X - bb.InsertionPoint.X;
-                        double Y = aa.InsertionPoint.Y - bb.InsertionPoint.Y;
-                        double dist = Math.Sqrt(Math.Pow(X, 2) + Math.Pow(Y, 2));
+        //        foreach (TSD.TextFile aa in tempInput)
+        //        {
+        //            foreach (TSD.TextFile bb in tempOutput)
+        //            {
+        //                double X = aa.InsertionPoint.X - bb.InsertionPoint.X;
+        //                double Y = aa.InsertionPoint.Y - bb.InsertionPoint.Y;
+        //                double dist = Math.Sqrt(Math.Pow(X, 2) + Math.Pow(Y, 2));
 
-                        if (dist < min)
-                        {
-                            min = dist;
-                            minIn = aa;
-                            minOut = bb;
-                        }
-                    }
-                }
+        //                if (dist < min)
+        //                {
+        //                    min = dist;
+        //                    minIn = aa;
+        //                    minOut = bb;
+        //                }
+        //            }
+        //        }
 
-                if (minIn != null && minOut != null)
-                {
-                    closest[minIn] = minOut;
-                    tempInput.Remove(minIn);
-                    tempOutput.Remove(minOut);
-                }
-                else
-                {
-                    break;
-                }
-            }
+        //        if (minIn != null && minOut != null)
+        //        {
+        //            closest[minIn] = minOut;
+        //            tempInput.Remove(minIn);
+        //            tempOutput.Remove(minOut);
+        //        }
+        //        else
+        //        {
+        //            break;
+        //        }
+        //    }
 
-            return closest;
-        }
+        //    return closest;
+        //}
 
         public static Dictionary<T, T> matchMarks<T>(List<T> input, List<T> output, out List<T> notFound, out List<T> notFoundInput) where T : _Mark
         {

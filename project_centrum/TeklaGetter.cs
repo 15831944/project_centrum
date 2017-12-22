@@ -18,24 +18,31 @@ namespace project_centrum
         public static __DrawingData getAllData()
         {
             __DrawingData drawing = new __DrawingData();
+
             TSD.DrawingHandler drawingHandler = new TSD.DrawingHandler();
 
             if (drawingHandler.GetConnectionStatus())
             {
                 TSD.ContainerView sheet = drawingHandler.GetActiveDrawing().GetSheet();
-                drawing.setSheet(sheet);
 
-                TSD.DrawingObjectEnumerator views = sheet.GetAllViews();
-                drawing.setViews(views);
+                if (UserProperties._mark || UserProperties._section || UserProperties._detail || UserProperties._line || UserProperties._dim)
+                {
+                    getPoint(drawing);
+                }
+                else
+                {
+                    drawing.setSheet(sheet);
+                }
 
                 List<Type> types = new List<Type>();
 
                 if (UserProperties._mark) types.Add(typeof(TSD.Mark));
-                if (UserProperties._dim) types.Add(typeof(TSD.StraightDimensionSet));
                 if (UserProperties._section) types.Add(typeof(TSD.SectionMark));
                 if (UserProperties._detail) types.Add(typeof(TSD.DetailMark));
                 if (UserProperties._line) types.Add(typeof(TSD.Line));
+                if (UserProperties._dim) types.Add(typeof(TSD.StraightDimensionSet));
                 if (UserProperties._txt) types.Add(typeof(TSD.TextFile));
+                if (UserProperties._dwg) types.Add(typeof(TSD.DwgObject));
 
                 if (types.Count != 0)
                 {
@@ -55,44 +62,43 @@ namespace project_centrum
             {
                 throw new DivideByZeroException();
             }
-
+        
             return drawing;
         }
 
-        public static void getPoint(Action<T3D.Point, T3D.Point> setter)
+        public static void getPoint(__DrawingData drawing)
         {
-            __DrawingData drawing = new __DrawingData();
             TSD.DrawingHandler drawingHandler = new TSD.DrawingHandler();
 
             if (drawingHandler.GetConnectionStatus())
             {
                 TSD.ContainerView sheet = drawingHandler.GetActiveDrawing().GetSheet();
 
-                TSD.UI.Picker picker = drawingHandler.GetPicker();
-                T3D.Point viewPoint = null;
-                TSD.ViewBase curView = null;
 
-                Form1._form.add_text("Select origin point in drawing view");
-                picker.PickPoint("Pick one point", out viewPoint, out curView);
-                T3D.Point sheetPoint = TSD.Tools.DrawingCoordinateConverter.Convert(curView, sheet, viewPoint);
-
-                setter(viewPoint, sheetPoint);
             }
         }
         
         public static __DrawingData getSelectedData()
         {
             __DrawingData drawing = new __DrawingData();
+
             TSD.DrawingHandler drawingHandler = new TSD.DrawingHandler();
 
             if (drawingHandler.GetConnectionStatus())
             {
                 TSD.ContainerView sheet = drawingHandler.GetActiveDrawing().GetSheet();
-                drawing.setSheet(sheet);
+
+                if (UserProperties._mark || UserProperties._section || UserProperties._detail || UserProperties._line || UserProperties._dim)
+                {
+                    getPoint(drawing);
+                }
+                else
+                {
+                    drawing.setSheet(sheet);
+                }
 
                 TSD.DrawingObjectEnumerator selectedObjects = drawingHandler.GetDrawingObjectSelector().GetSelected();
-                drawing.setSelectedViews(selectedObjects);
-                drawing.populateSelected(selectedObjects);
+                drawing.populate(selectedObjects);
             }
             else
             {

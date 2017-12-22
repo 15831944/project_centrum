@@ -15,15 +15,20 @@ namespace project_centrum
     {
         public static bool _view;
         public static bool _mark;
+
         public static bool _section;
         public static bool _detail;
         public static bool _dim;
         public static bool _line;
+
         public static bool _txt;
+        public static bool _dwg;
+
         public static bool _red;
-        public static bool _predict;
 
         public static double _dR;
+
+        public static bool _predict;
 
         public static T3D.Point viewInputPoint = null;
         public static T3D.Point viewOutputPoint = null;
@@ -31,19 +36,26 @@ namespace project_centrum
         public static T3D.Point sheetInputPoint = null;
         public static T3D.Point sheetOutputPoint = null;
 
-        public static void set(bool view, bool mark, bool txt,
-                               bool section, bool detail, bool dim, bool line,
-                               bool red, bool predict, double deg)
+        public static void set(bool view, bool mark, 
+                               bool section, bool detail, bool line, bool dim,
+                               bool txt, bool dwg,
+                               bool red, 
+                               double deg)
         {
             _view = view;
             _mark = mark;
+
             _section = section;
             _detail = detail;
             _dim = dim;
             _line = line;
+
             _txt = txt;
+            _dwg = dwg;
+
             _red = red;
-            _predict = predict;
+
+            _predict = false;
 
             _dR = deg;
         }

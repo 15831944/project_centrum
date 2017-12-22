@@ -15,6 +15,9 @@ namespace project_centrum
     {
         public Dictionary<TSD.ViewBase, __ViewData> data;
 
+        public T3D.Point viewPoint = null;
+        public T3D.Point sheetPoint = null;
+
         public __DrawingData()
         {
             data = new Dictionary<TSD.ViewBase, __ViewData>();
@@ -22,44 +25,50 @@ namespace project_centrum
 
         internal void setSheet(TSD.ContainerView sheet)
         {
-            data[sheet] = new __ViewData(sheet, true);
+            data[sheet] = new __ViewData(sheet);
         }
 
-        internal void setViews(TSD.DrawingObjectEnumerator views)
+        internal void setView(TSD.View view)
         {
-            foreach (TSD.View view in views)
+            if (view != null)
             {
-                data[view] = new __ViewData(view, true);
-            }
+                data[view] = new __ViewData(view);
+            }            
         }
 
-        internal void setSelectedViews(TSD.DrawingObjectEnumerator all)
+        internal void setPoints(T3D.Point vp, T3D.Point sp)
         {
-            foreach (TSD.DrawingObject one in all)
-            {
-                if (one is TSD.ViewBase)
-                {
-                    bool found = false;
-
-                    foreach (TSD.ViewBase stored in data.Keys)
-                    {
-                        if (stored.IsSameDatabaseObject(one))
-                        {
-                            data[stored].addOneObject(one);
-                            found = true;
-                            break;
-                        }
-                    }
-
-                    if (found == false)
-                    {
-                        data[one as TSD.ViewBase] = new __ViewData(one as TSD.ViewBase, true);
-                    }
-                }
-            }
-
-            all.Reset();
+            viewPoint = vp;
+            sheetPoint = sp;
         }
+
+        //internal void setSelectedViews(TSD.DrawingObjectEnumerator all)
+        //{
+        //    foreach (TSD.DrawingObject one in all)
+        //    {
+        //        if (one is TSD.ViewBase)
+        //        {
+        //            bool found = false;
+
+        //            foreach (TSD.ViewBase stored in data.Keys)
+        //            {
+        //                if (stored.IsSameDatabaseObject(one))
+        //                {
+        //                    data[stored].addOneObject(one);
+        //                    found = true;
+        //                    break;
+        //                }
+        //            }
+
+        //            if (found == false)
+        //            {
+        //                data[one as TSD.ViewBase] = new __ViewData(one as TSD.ViewBase);
+        //            }
+        //        }
+        //    }
+
+        //    all.Reset();
+        //}
 
         public void populate(TSD.DrawingObjectEnumerator all)
         {
@@ -73,55 +82,58 @@ namespace project_centrum
                 i++;
                 Form1._form.replace_text("Proccessing: " + i.ToString() + " of " + tot.ToString());
 
-                TSD.ViewBase oneView = one.GetView();
-                foreach (TSD.ViewBase stored in data.Keys)
+                if (one is TSD.Mark || one is TSD.StraightDimensionSet || one is TSD.SectionMark || one is TSD.DetailMark || one is TSD.Line || one is TSD.TextFile || one is TSD.DwgObject)
                 {
-                    if (stored.IsSameDatabaseObject(oneView))
-                    {
-                        data[stored].addOneObject(one);
-                        break;
-                    }
-                }
-            }
-            Form1._form.add_text(String.Empty);
-        }
-
-        public void populateSelected(TSD.DrawingObjectEnumerator all)
-        {
-            int i = 0;
-            int tot = all.GetSize();
-
-            Form1._form.replace_text("Total objects to proccess: " + tot.ToString());
-
-            foreach (TSD.DrawingObject one in all)
-            {
-                i++;
-                Form1._form.replace_text("Proccessing: " + i.ToString() + " of " + tot.ToString());
-
-                if (one is TSD.Mark || one is TSD.StraightDimensionSet || one is TSD.SectionMark || one is TSD.DetailMark || one is TSD.Line || one is TSD.TextFile)
-                {
-                    bool found = false;
                     TSD.ViewBase oneView = one.GetView();
-
                     foreach (TSD.ViewBase stored in data.Keys)
                     {
                         if (stored.IsSameDatabaseObject(oneView))
                         {
                             data[stored].addOneObject(one);
-                            found = true;
                             break;
                         }
-                    }
-
-                    if (found == false)
-                    {
-                        data[oneView] = new __ViewData(oneView, false);
-                        data[oneView].addOneObject(one);
                     }
                 }
             }
             Form1._form.add_text(String.Empty);
         }
+
+        //public void populateSelected(TSD.DrawingObjectEnumerator all)
+        //{
+        //    int i = 0;
+        //    int tot = all.GetSize();
+
+        //    Form1._form.replace_text("Total objects to proccess: " + tot.ToString());
+
+        //    foreach (TSD.DrawingObject one in all)
+        //    {
+        //        i++;
+        //        Form1._form.replace_text("Proccessing: " + i.ToString() + " of " + tot.ToString());
+
+        //        if (one is TSD.Mark || one is TSD.StraightDimensionSet || one is TSD.SectionMark || one is TSD.DetailMark || one is TSD.Line || one is TSD.TextFile || one is TSD.DwgObject)
+        //        {
+        //            bool found = false;
+        //            TSD.ViewBase oneView = one.GetView();
+
+        //            foreach (TSD.ViewBase stored in data.Keys)
+        //            {
+        //                if (stored.IsSameDatabaseObject(oneView))
+        //                {
+        //                    data[stored].addOneObject(one);
+        //                    found = true;
+        //                    break;
+        //                }
+        //            }
+
+        //            if (found == false)
+        //            {
+        //                data[oneView] = new __ViewData(oneView, false);
+        //                data[oneView].addOneObject(one);
+        //            }
+        //        }
+        //    }
+        //    Form1._form.add_text(String.Empty);
+        //}
 
 
         public string countObjects()
@@ -131,19 +143,17 @@ namespace project_centrum
             int markBeams = 0;
             int markPolyBeams = 0;
             int markContourPlates = 0;
-
             int markBoltGroup = 0;
-
             int markSingleRebars = 0;
             int markRebarBases = 0;
 
-            int straightDimSets = 0;
-
             int sectionMarks = 0;
             int detailMarks = 0;
-
             int lines = 0;
+            int straightDimSets = 0;
+
             int txtFiles = 0;
+            int dwgRefs = 0;
 
             foreach (TSD.ViewBase view in data.Keys)
             {
@@ -152,19 +162,17 @@ namespace project_centrum
                 markBeams += data[view].markBeams.Count;
                 markPolyBeams += data[view].markPolyBeams.Count;
                 markContourPlates += data[view].markContourPlates.Count;
-
                 markBoltGroup += data[view].markBoltGroup.Count;
-
                 markSingleRebars += data[view].markSingleRebars.Count;
                 markRebarBases += data[view].markRebarBases.Count;
 
-                straightDimSets += data[view].straightDimSets.Count;
-
                 sectionMarks += data[view].sectionMarks.Count;
                 detailMarks += data[view].detailMarks.Count;
-
                 lines += data[view].lines.Count;
+                straightDimSets += data[view].straightDimSets.Count;
+
                 txtFiles += data[view].txtFiles.Count;
+                dwgRefs += data[view].dwgRefs.Count;
             }
 
             StringBuilder message = new StringBuilder();
@@ -175,19 +183,18 @@ namespace project_centrum
             message.AppendLine("Beam marks: " + markBeams);
             message.AppendLine("PolyBeam marks: " + markPolyBeams);
             message.AppendLine("ContourPlate marks: " + markContourPlates);
-            message.AppendLine("");
             message.AppendLine("BoltGroup marks: " + markBoltGroup);
-            message.AppendLine("");
             message.AppendLine("SingleRebar marks: " + markSingleRebars);
             message.AppendLine("RebarGroup marks: " + markRebarBases);
-            message.AppendLine("");
-            message.AppendLine("StraightDimentionSets: " + straightDimSets);
             message.AppendLine("");
             message.AppendLine("Section marks: " + sectionMarks);
             message.AppendLine("Detail marsk: " + detailMarks);
             message.AppendLine("");
+            message.AppendLine("StraightDimentionSets: " + straightDimSets);
+            message.AppendLine("");
             message.AppendLine("Lines: " + lines);
             message.AppendLine("TextFiles: " + txtFiles);
+            message.AppendLine("DwgRef: " + dwgRefs);
             message.AppendLine("**************");
             return message.ToString();
         }

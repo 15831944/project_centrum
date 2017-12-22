@@ -28,16 +28,15 @@ namespace project_centrum
 
         private void copy(Func<__DrawingData> getter)
         {
-            UserProperties.set(cb_view.Checked, cb_mark.Checked, cb_txt.Checked,
-                                cb_section.Checked, cb_detail.Checked, cb_dim.Checked, cb_line.Checked,
-                                cb_red.Checked, cb_predict.Checked, offsetRotation);
+            UserProperties.set(cb_view.Checked, cb_mark.Checked,                                 
+                                cb_section.Checked, cb_detail.Checked, cb_line.Checked, cb_dim.Checked,
+                                cb_txt.Checked, cb_dwg.Checked,
+                                cb_red.Checked, 
+                                offsetRotation);
 
             add_text("Copy... ");
-
-            if (cb_offset.Checked) TeklaGetter.getPoint(UserProperties.setInputPoints);
-            else UserProperties.viewInputPoint = null;
-
             input = getter();
+            UserProperties.setInputPoints(input.viewPoint, input.sheetPoint);
 
             add_text("Done");
             add_text(input.countObjects());
@@ -45,16 +44,15 @@ namespace project_centrum
 
         private void paste(Func<__DrawingData> getter)
         {
-            UserProperties.set(cb_view.Checked, cb_mark.Checked, cb_txt.Checked,
-                                cb_section.Checked, cb_detail.Checked, cb_dim.Checked, cb_line.Checked,
-                                cb_red.Checked, cb_predict.Checked, offsetRotation);
+            UserProperties.set(cb_view.Checked, cb_mark.Checked,
+                               cb_section.Checked, cb_detail.Checked, cb_line.Checked, cb_dim.Checked,
+                               cb_txt.Checked, cb_dwg.Checked, 
+                               cb_red.Checked,
+                               offsetRotation);
 
             add_text("Paste... ");
-
-            if (cb_offset.Checked) TeklaGetter.getPoint(UserProperties.setOutputPoints);
-            else UserProperties.viewOutputPoint = null;
-
             output = getter();
+            UserProperties.setOutputPoints(output.viewPoint, output.sheetPoint);
 
             add_text("Done");
             add_text(output.countObjects());
@@ -149,42 +147,38 @@ namespace project_centrum
         {
             cb_view.Enabled = status;
             cb_mark.Enabled = status;
-            cb_txt.Enabled = status;
-            
+                        
             cb_section.Enabled = status;
             cb_detail.Enabled = status;
-            cb_dim.Enabled = status;
             cb_line.Enabled = status;
+            cb_dim.Enabled = status;
+
+            cb_txt.Enabled = status;
+            cb_dwg.Enabled = status;
 
             cb_red.Enabled = status;
-            cb_predict.Enabled = status;
-            cb_offset.Enabled = status;
+
+            txt_deg.Enabled = status;
 
             cb_onoff.Enabled = status;
             btn_input.Enabled = status;
-            btn_output.Enabled = status;
-            txt_deg.Enabled = status;
+            btn_output.Enabled = status;            
         }
 
         private void on_off(bool status)
         {
             cb_view.Checked = status;
             cb_mark.Checked = status;
-            cb_txt.Checked = status;
             
             cb_section.Checked = status;
             cb_detail.Checked = status;
-            cb_dim.Checked = status;
             cb_line.Checked = status;
+            cb_dim.Checked = status;
 
-            cb_red.Checked = status;
-            cb_predict.Checked = status;
-            cb_offset.Checked = status;
-        }
+            cb_txt.Checked = status;
+            cb_dwg.Checked = status;
 
-        private void cb_offset_CheckedChanged(object sender, EventArgs e)
-        {
-            txt_deg.Enabled = cb_offset.Checked;
+            cb_red.Checked = status;            
         }
 
         private void txt_deg_TextChanged(object sender, EventArgs e)
@@ -200,7 +194,12 @@ namespace project_centrum
                 catch
                 {
                     txt_deg.Text = "0.0";
+                    offsetRotation = 0.0;
                 }
+            }
+            else
+            {
+                offsetRotation = 0.0;
             }
         }
     }

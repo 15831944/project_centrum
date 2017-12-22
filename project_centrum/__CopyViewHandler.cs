@@ -24,16 +24,9 @@ namespace project_centrum
                 {
                     if (UserProperties._view)
                     {
-                        if (input._repView != false && output._repView != false)
+                        if (input.view != null && output.view != null)
                         {
-                            if (UserProperties.sheetInputPoint == null || UserProperties.sheetOutputPoint == null)
-                            {
-                                repositionView(input.view, output.view);
-                            }
-                            else
-                            {
-                                repositionViewWithOffset(input.view, output.view);
-                            }
+                            repositionViewWithOffset(input.view as TSD.View, output.view as TSD.View);
                         }
                     }
 
@@ -80,21 +73,19 @@ namespace project_centrum
 
                 if (UserProperties._txt)
                 {
-                    repositionTextFile(input.txtFiles, output.txtFiles);
+                    repositionTextFile(input.txtFiles, output.txtFiles, input, output);
+                }
+
+                if (UserProperties._dwg)
+                {
+                    repositionDwgFile(input.dwgRefs, output.dwgRefs, input, output);
                 }
 
             }
         }
-
-        private static void repositionView(TSD.ViewBase input, TSD.ViewBase output)
-        {
-            output.Origin = input.Origin;
-            output.Modify();
-        }
-
-        private static void repositionViewWithOffset(TSD.ViewBase input, TSD.ViewBase output)
-        {
-            
+        
+        private static void repositionViewWithOffset(TSD.View input, TSD.View output)
+        {            
             T3D.Point minus = __GeometryOperations.getLocalOffset(UserProperties.sheetOutputPoint, UserProperties.sheetInputPoint);
             T3D.Point gg = __GeometryOperations.applyLocalOffset(output.Origin, minus);
             output.Origin = gg;
@@ -192,18 +183,65 @@ namespace project_centrum
             }
         }
 
-        private static void repositionTextFile(List<TSD.TextFile> input, List<TSD.TextFile> output)
+        private static void repositionTextFile(List<TSD.TextFile> input, List<TSD.TextFile> output, __ViewData inputData, __ViewData outputData)
         {
-            Dictionary<TSD.TextFile, TSD.TextFile> closest = __MatchMaker.txtFinder(input, output);
-
-            foreach (TSD.TextFile key in closest.Keys)
+            foreach (TSD.TextFile inputTextFile in input)
             {
-                closest[key].InsertionPoint = key.InsertionPoint;
-                closest[key].Attributes = key.Attributes;
-                closest[key].Size = key.Size;
-                //closest[key].Attributes.Scaling = TSD.ScalingOptions.NoScaling; //HARDCODE
-                closest[key].Modify();
-                Debuger.p("TextFile -> No Scaling");
+                bool found = false;
+
+                foreach (TSD.TextFile outputTextFile in output)
+                {
+                    if (inputTextFile.FileName == outputTextFile.FileName)
+                    {
+                        outputTextFile.InsertionPoint = inputTextFile.InsertionPoint;
+                        outputTextFile.Attributes = inputTextFile.Attributes;
+                        outputTextFile.Size = inputTextFile.Size;
+                        outputTextFile.Modify();
+                        Debuger.p("TextFile -> No Scaling");
+
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found == false)
+                {
+                    TSD.TextFile outputTextFile = new TSD.TextFile(outputData.view, inputTextFile.InsertionPoint, inputTextFile.FileName);
+                    outputTextFile.Attributes = inputTextFile.Attributes;
+                    outputTextFile.FileName = inputTextFile.FileName;
+                    outputTextFile.Insert();
+                }
+            }
+        }
+
+
+        private static void repositionDwgFile(List<TSD.DwgObject> input, List<TSD.DwgObject> output, __ViewData inputData, __ViewData outputData)
+        {
+            foreach (TSD.DwgObject inputDwgFile in input)
+            {
+                bool found = false;
+
+                foreach (TSD.DwgObject outputDwgFile in output)
+                {
+                    if (inputDwgFile.FileName == outputDwgFile.FileName)
+                    {
+                        outputDwgFile.InsertionPoint = inputDwgFile.InsertionPoint;
+                        outputDwgFile.Attributes = inputDwgFile.Attributes;
+                        outputDwgFile.Size = inputDwgFile.Size;
+                        outputDwgFile.Modify();
+
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found == false)
+                {
+                    TSD.DwgObject outputDwgFile = new TSD.DwgObject(outputData.view, inputDwgFile.InsertionPoint, inputDwgFile.FileName);
+                    outputDwgFile.Attributes = inputDwgFile.Attributes;
+                    outputDwgFile.FileName = inputDwgFile.FileName;
+                    outputDwgFile.Insert();
+                }
             }
         }
 

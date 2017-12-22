@@ -36,8 +36,8 @@
             this.cb_section = new System.Windows.Forms.CheckBox();
             this.cb_red = new System.Windows.Forms.CheckBox();
             this.cb_dim = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lb_repo = new System.Windows.Forms.Label();
+            this.lb_create = new System.Windows.Forms.Label();
             this.cb_line = new System.Windows.Forms.CheckBox();
             this.cb_txt = new System.Windows.Forms.CheckBox();
             this.cb_detail = new System.Windows.Forms.CheckBox();
@@ -48,19 +48,20 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.rb_paste_fast = new System.Windows.Forms.RadioButton();
             this.rb_paste_all = new System.Windows.Forms.RadioButton();
-            this.cb_offset = new System.Windows.Forms.CheckBox();
-            this.cb_predict = new System.Windows.Forms.CheckBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txt_deg = new System.Windows.Forms.TextBox();
+            this.lb_rep_or_create = new System.Windows.Forms.Label();
+            this.cb_dwg = new System.Windows.Forms.CheckBox();
+            this.lb_advanced = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.txt_deg = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_input
             // 
-            this.btn_input.Location = new System.Drawing.Point(12, 317);
+            this.btn_input.Location = new System.Drawing.Point(12, 301);
             this.btn_input.Name = "btn_input";
             this.btn_input.Size = new System.Drawing.Size(96, 47);
             this.btn_input.TabIndex = 0;
@@ -70,7 +71,7 @@
             // 
             // btn_output
             // 
-            this.btn_output.Location = new System.Drawing.Point(114, 317);
+            this.btn_output.Location = new System.Drawing.Point(114, 301);
             this.btn_output.Name = "btn_output";
             this.btn_output.Size = new System.Drawing.Size(97, 47);
             this.btn_output.TabIndex = 0;
@@ -96,11 +97,11 @@
             this.cb_view.AutoSize = true;
             this.cb_view.Checked = true;
             this.cb_view.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_view.Location = new System.Drawing.Point(15, 220);
+            this.cb_view.Location = new System.Drawing.Point(15, 60);
             this.cb_view.Name = "cb_view";
-            this.cb_view.Size = new System.Drawing.Size(54, 17);
+            this.cb_view.Size = new System.Drawing.Size(49, 17);
             this.cb_view.TabIndex = 2;
-            this.cb_view.Text = "Views";
+            this.cb_view.Text = "View";
             this.cb_view.UseVisualStyleBackColor = true;
             // 
             // cb_mark
@@ -108,7 +109,7 @@
             this.cb_mark.AutoSize = true;
             this.cb_mark.Checked = true;
             this.cb_mark.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_mark.Location = new System.Drawing.Point(15, 60);
+            this.cb_mark.Location = new System.Drawing.Point(15, 100);
             this.cb_mark.Name = "cb_mark";
             this.cb_mark.Size = new System.Drawing.Size(55, 17);
             this.cb_mark.TabIndex = 3;
@@ -132,7 +133,7 @@
             this.cb_red.AutoSize = true;
             this.cb_red.Checked = true;
             this.cb_red.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_red.Location = new System.Drawing.Point(15, 180);
+            this.cb_red.Location = new System.Drawing.Point(15, 240);
             this.cb_red.Name = "cb_red";
             this.cb_red.Size = new System.Drawing.Size(143, 17);
             this.cb_red.TabIndex = 5;
@@ -151,23 +152,23 @@
             this.cb_dim.Text = "Dimentions";
             this.cb_dim.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // lb_repo
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 40);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 13);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Reposition:";
+            this.lb_repo.AutoSize = true;
+            this.lb_repo.Location = new System.Drawing.Point(12, 40);
+            this.lb_repo.Name = "lb_repo";
+            this.lb_repo.Size = new System.Drawing.Size(60, 13);
+            this.lb_repo.TabIndex = 11;
+            this.lb_repo.Text = "Reposition:";
             // 
-            // label3
+            // lb_create
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(88, 40);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 13);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "Create:";
+            this.lb_create.AutoSize = true;
+            this.lb_create.Location = new System.Drawing.Point(88, 40);
+            this.lb_create.Name = "lb_create";
+            this.lb_create.Size = new System.Drawing.Size(41, 13);
+            this.lb_create.TabIndex = 13;
+            this.lb_create.Text = "Create:";
             // 
             // cb_line
             // 
@@ -186,7 +187,7 @@
             this.cb_txt.AutoSize = true;
             this.cb_txt.Checked = true;
             this.cb_txt.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_txt.Location = new System.Drawing.Point(15, 80);
+            this.cb_txt.Location = new System.Drawing.Point(15, 180);
             this.cb_txt.Name = "cb_txt";
             this.cb_txt.Size = new System.Drawing.Size(63, 17);
             this.cb_txt.TabIndex = 15;
@@ -223,7 +224,7 @@
             // 
             this.panel1.Controls.Add(this.rb_copy_fast);
             this.panel1.Controls.Add(this.rb_copy_all);
-            this.panel1.Location = new System.Drawing.Point(12, 370);
+            this.panel1.Location = new System.Drawing.Point(12, 354);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(96, 47);
             this.panel1.TabIndex = 18;
@@ -254,7 +255,7 @@
             // 
             this.panel2.Controls.Add(this.rb_paste_fast);
             this.panel2.Controls.Add(this.rb_paste_all);
-            this.panel2.Location = new System.Drawing.Point(114, 370);
+            this.panel2.Location = new System.Drawing.Point(114, 354);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(97, 47);
             this.panel2.TabIndex = 19;
@@ -281,49 +282,40 @@
             this.rb_paste_all.Text = "All (slow)";
             this.rb_paste_all.UseVisualStyleBackColor = true;
             // 
-            // cb_offset
+            // lb_rep_or_create
             // 
-            this.cb_offset.AutoSize = true;
-            this.cb_offset.Location = new System.Drawing.Point(15, 240);
-            this.cb_offset.Name = "cb_offset";
-            this.cb_offset.Size = new System.Drawing.Size(74, 17);
-            this.cb_offset.TabIndex = 20;
-            this.cb_offset.Text = "Use offset";
-            this.cb_offset.UseVisualStyleBackColor = true;
-            this.cb_offset.CheckedChanged += new System.EventHandler(this.cb_offset_CheckedChanged);
+            this.lb_rep_or_create.AutoSize = true;
+            this.lb_rep_or_create.Location = new System.Drawing.Point(12, 160);
+            this.lb_rep_or_create.Name = "lb_rep_or_create";
+            this.lb_rep_or_create.Size = new System.Drawing.Size(133, 13);
+            this.lb_rep_or_create.TabIndex = 22;
+            this.lb_rep_or_create.Text = "Reposition / Create if new:";
             // 
-            // cb_predict
+            // cb_dwg
             // 
-            this.cb_predict.AutoSize = true;
-            this.cb_predict.Location = new System.Drawing.Point(15, 200);
-            this.cb_predict.Name = "cb_predict";
-            this.cb_predict.Size = new System.Drawing.Size(155, 17);
-            this.cb_predict.TabIndex = 21;
-            this.cb_predict.Text = "Predict marks (* Beam only)";
-            this.cb_predict.UseVisualStyleBackColor = true;
+            this.cb_dwg.AutoSize = true;
+            this.cb_dwg.Checked = true;
+            this.cb_dwg.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_dwg.Location = new System.Drawing.Point(91, 180);
+            this.cb_dwg.Name = "cb_dwg";
+            this.cb_dwg.Size = new System.Drawing.Size(65, 17);
+            this.cb_dwg.TabIndex = 26;
+            this.cb_dwg.Text = "DwgRef";
+            this.cb_dwg.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // lb_advanced
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 160);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 13);
-            this.label2.TabIndex = 22;
-            this.label2.Text = "Advanced:";
-            // 
-            // txt_deg
-            // 
-            this.txt_deg.Enabled = false;
-            this.txt_deg.Location = new System.Drawing.Point(90, 259);
-            this.txt_deg.Name = "txt_deg";
-            this.txt_deg.Size = new System.Drawing.Size(52, 20);
-            this.txt_deg.TabIndex = 23;
-            this.txt_deg.TextChanged += new System.EventHandler(this.txt_deg_TextChanged);
+            this.lb_advanced.AutoSize = true;
+            this.lb_advanced.Location = new System.Drawing.Point(12, 224);
+            this.lb_advanced.Name = "lb_advanced";
+            this.lb_advanced.Size = new System.Drawing.Size(59, 13);
+            this.lb_advanced.TabIndex = 27;
+            this.lb_advanced.Text = "Advanced:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 262);
+            this.label4.Location = new System.Drawing.Point(12, 265);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 13);
             this.label4.TabIndex = 24;
@@ -332,31 +324,51 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(148, 262);
+            this.label5.Location = new System.Drawing.Point(148, 265);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(25, 13);
             this.label5.TabIndex = 25;
             this.label5.Text = "deg";
+            // 
+            // txt_deg
+            // 
+            this.txt_deg.Location = new System.Drawing.Point(90, 260);
+            this.txt_deg.Name = "txt_deg";
+            this.txt_deg.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.txt_deg.Size = new System.Drawing.Size(52, 20);
+            this.txt_deg.TabIndex = 23;
+            this.txt_deg.Text = "0.0";
+            this.txt_deg.TextChanged += new System.EventHandler(this.txt_deg_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(44, 405);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(121, 13);
+            this.label1.TabIndex = 28;
+            this.label1.Text = "coded by Aleksandr Ess";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(463, 424);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lb_advanced);
+            this.Controls.Add(this.cb_dwg);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txt_deg);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.cb_predict);
-            this.Controls.Add(this.cb_offset);
+            this.Controls.Add(this.lb_rep_or_create);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.cb_onoff);
             this.Controls.Add(this.cb_detail);
             this.Controls.Add(this.cb_txt);
             this.Controls.Add(this.cb_line);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lb_create);
+            this.Controls.Add(this.lb_repo);
             this.Controls.Add(this.cb_dim);
             this.Controls.Add(this.cb_red);
             this.Controls.Add(this.cb_section);
@@ -387,8 +399,8 @@
         private System.Windows.Forms.CheckBox cb_section;
         private System.Windows.Forms.CheckBox cb_red;
         private System.Windows.Forms.CheckBox cb_dim;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lb_repo;
+        private System.Windows.Forms.Label lb_create;
         private System.Windows.Forms.CheckBox cb_line;
         private System.Windows.Forms.CheckBox cb_txt;
         private System.Windows.Forms.CheckBox cb_detail;
@@ -399,12 +411,13 @@
         private System.Windows.Forms.RadioButton rb_copy_all;
         private System.Windows.Forms.RadioButton rb_paste_fast;
         private System.Windows.Forms.RadioButton rb_paste_all;
-        private System.Windows.Forms.CheckBox cb_offset;
-        private System.Windows.Forms.CheckBox cb_predict;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txt_deg;
+        private System.Windows.Forms.Label lb_rep_or_create;
+        private System.Windows.Forms.CheckBox cb_dwg;
+        private System.Windows.Forms.Label lb_advanced;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txt_deg;
+        private System.Windows.Forms.Label label1;
     }
 }
 
