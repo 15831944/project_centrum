@@ -194,6 +194,14 @@ namespace project_centrum
                 {
                     TSD.SectionMark outputSectionMark = new TSD.SectionMark(outputView, leftPoint, rightPoint);
                     outputSectionMark.Attributes = inputSection._obj.Attributes;
+
+                    //if (inputSection._txt != null)
+                    //{
+                    //    outputSectionMark.Attributes.TagsAttributes.TagA2.TagContent.Clear();
+                    //    outputSectionMark.Attributes.TagsAttributes.TagA2.TagContent.Add(inputSection._txt);
+                    //    outputSectionMark.Modify();
+                    //}
+
                     outputSectionMark.Insert();
                 }
             }

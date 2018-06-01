@@ -17,7 +17,7 @@ namespace project_centrum
     class _SectionMark
     {
         public TSD.SectionMark _obj;
-        //public TSD.TextElement _txt;
+        public TSD.TextElement _txt;
 
         
         public _SectionMark(TSD.SectionMark obj)
