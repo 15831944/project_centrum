@@ -32,8 +32,8 @@ namespace project_centrum
         private void tekla_interface(Func<__DrawingData> getter, ref __DrawingData container)
         {
             UserProperties.set(cb_view.Checked, cb_mark.Checked,                                 
-                                cb_section.Checked, cb_detail.Checked, cb_line.Checked, cb_dim.Checked,
-                                cb_txt.Checked, cb_dwg.Checked,
+                                cb_section.Checked, cb_detail.Checked, cb_line.Checked, cb_dim.Checked, cb_txt.Checked,
+                                cb_txtfile.Checked, cb_dwg.Checked,
                                 cb_red.Checked, 
                                 offsetRotation);
 
@@ -168,7 +168,7 @@ namespace project_centrum
             cb_line.Enabled = status;
             cb_dim.Enabled = status;
 
-            cb_txt.Enabled = status;
+            cb_txtfile.Enabled = status;
             cb_dwg.Enabled = status;
 
             cb_red.Enabled = status;
@@ -191,7 +191,7 @@ namespace project_centrum
             cb_line.Checked = status;
             cb_dim.Checked = status;
 
-            cb_txt.Checked = status;
+            cb_txtfile.Checked = status;
             cb_dwg.Checked = status;
 
             cb_red.Checked = status;            

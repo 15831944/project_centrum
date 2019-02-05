@@ -28,8 +28,16 @@ namespace project_centrum
 
         public List<_SectionMark> sectionMarks;
         public List<TSD.DetailMark> detailMarks;
+        public List<TSD.Text> txt;
         public List<_StraightDimentionSet> straightDimSets;
+
+        public List<TSD.Arc> arcs;
         public List<TSD.Line> lines;
+        public List<TSD.Polyline> polylines;
+        public List<TSD.Circle> circles;
+        public List<TSD.Cloud> clouds;
+        public List<TSD.Rectangle> rectangles;
+        public List<TSD.Polygon> polygons;
 
         public List<TSD.TextFile> txtFiles;
         public List<TSD.DwgObject> dwgRefs;
@@ -47,8 +55,16 @@ namespace project_centrum
             
             sectionMarks = new List<_SectionMark>();
             detailMarks = new List<TSD.DetailMark>();
-            lines = new List<TSD.Line>();
+            txt = new List<TSD.Text>();
             straightDimSets = new List<_StraightDimentionSet>();
+
+            arcs = new List<TSD.Arc>();
+            lines = new List<TSD.Line>();
+            polylines = new List<TSD.Polyline>();
+            circles = new List<TSD.Circle>();
+            clouds = new List<TSD.Cloud>();
+            rectangles = new List<TSD.Rectangle>();
+            polygons = new List<TSD.Polygon>();
 
             txtFiles = new List<TSD.TextFile>();
             dwgRefs = new List<TSD.DwgObject>();
@@ -83,10 +99,52 @@ namespace project_centrum
                 detailMarks.Add(current);
             }
 
+            else if (dro is TSD.Text)
+            {
+                TSD.Text current = dro as TSD.Text;
+                txt.Add(current);
+            }
+
+            else if (dro is TSD.Arc)
+            {
+                TSD.Arc current = dro as TSD.Arc;
+                arcs.Add(current);
+            }
+
             else if (dro is TSD.Line)
             {
                 TSD.Line current = dro as TSD.Line;
                 lines.Add(current);
+            }
+
+            else if (dro is TSD.Polyline)
+            {
+                TSD.Polyline current = dro as TSD.Polyline;
+                polylines.Add(current);
+            }
+
+            else if (dro is TSD.Circle)
+            {
+                TSD.Circle current = dro as TSD.Circle;
+                circles.Add(current);
+            }
+
+            else if (dro is TSD.Cloud)
+            {
+                TSD.Cloud current = dro as TSD.Cloud;
+                clouds.Add(current);
+            }
+                       
+            else if (dro is TSD.Rectangle)
+            {
+                TSD.Rectangle current = dro as TSD.Rectangle;
+                rectangles.Add(current);
+            }
+                       
+            else if (dro is TSD.Polygon)
+            {
+                TSD.Polygon current = dro as TSD.Polygon;
+                polygons.Add(current);
             }
 
             else if (dro is TSD.TextFile)

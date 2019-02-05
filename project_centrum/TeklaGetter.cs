@@ -40,9 +40,16 @@ namespace project_centrum
                 if (UserProperties._mark) types.Add(typeof(TSD.Mark));
                 if (UserProperties._section) types.Add(typeof(TSD.SectionMark));
                 if (UserProperties._detail) types.Add(typeof(TSD.DetailMark));
+                //if (UserProperties._line) types.Add(typeof(TSD.Arc)); PUUDUB PIISAV INFO
                 if (UserProperties._line) types.Add(typeof(TSD.Line));
+                if (UserProperties._line) types.Add(typeof(TSD.Polyline));
+                if (UserProperties._line) types.Add(typeof(TSD.Circle));
+                if (UserProperties._line) types.Add(typeof(TSD.Cloud));
+                if (UserProperties._line) types.Add(typeof(TSD.Rectangle));
+                if (UserProperties._line) types.Add(typeof(TSD.Polygon));
                 if (UserProperties._dim) types.Add(typeof(TSD.StraightDimensionSet));
-                if (UserProperties._txt) types.Add(typeof(TSD.TextFile));
+                if (UserProperties._txt) types.Add(typeof(TSD.Text));
+                if (UserProperties._txtfile) types.Add(typeof(TSD.TextFile));
                 if (UserProperties._dwg) types.Add(typeof(TSD.DwgObject));
 
                 if (types.Count != 0)

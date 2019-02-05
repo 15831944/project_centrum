@@ -20,8 +20,9 @@ namespace project_centrum
         public static bool _detail;
         public static bool _dim;
         public static bool _line;
-
         public static bool _txt;
+
+        public static bool _txtfile;
         public static bool _dwg;
 
         public static bool _red;
@@ -31,8 +32,8 @@ namespace project_centrum
         public static bool _predict;
 
         public static void set(bool view, bool mark, 
-                               bool section, bool detail, bool line, bool dim,
-                               bool txt, bool dwg,
+                               bool section, bool detail, bool line, bool dim, bool txt,
+                               bool txtfile, bool dwg,
                                bool red, 
                                double deg)
         {
@@ -43,8 +44,9 @@ namespace project_centrum
             _detail = detail;
             _dim = dim;
             _line = line;
-
             _txt = txt;
+
+            _txtfile = txtfile;
             _dwg = dwg;
 
             _red = red;

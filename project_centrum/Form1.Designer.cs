@@ -39,7 +39,7 @@
             this.lb_repo = new System.Windows.Forms.Label();
             this.lb_create = new System.Windows.Forms.Label();
             this.cb_line = new System.Windows.Forms.CheckBox();
-            this.cb_txt = new System.Windows.Forms.CheckBox();
+            this.cb_txtfile = new System.Windows.Forms.CheckBox();
             this.cb_detail = new System.Windows.Forms.CheckBox();
             this.cb_onoff = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -55,6 +55,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txt_deg = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.cb_txt = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -145,7 +146,7 @@
             this.cb_dim.AutoSize = true;
             this.cb_dim.Checked = true;
             this.cb_dim.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_dim.Location = new System.Drawing.Point(15, 160);
+            this.cb_dim.Location = new System.Drawing.Point(15, 171);
             this.cb_dim.Name = "cb_dim";
             this.cb_dim.Size = new System.Drawing.Size(78, 17);
             this.cb_dim.TabIndex = 9;
@@ -182,17 +183,17 @@
             this.cb_line.Text = "Lines";
             this.cb_line.UseVisualStyleBackColor = true;
             // 
-            // cb_txt
+            // cb_txtfile
             // 
-            this.cb_txt.AutoSize = true;
-            this.cb_txt.Checked = true;
-            this.cb_txt.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_txt.Location = new System.Drawing.Point(100, 180);
-            this.cb_txt.Name = "cb_txt";
-            this.cb_txt.Size = new System.Drawing.Size(63, 17);
-            this.cb_txt.TabIndex = 15;
-            this.cb_txt.Text = "TextFile";
-            this.cb_txt.UseVisualStyleBackColor = true;
+            this.cb_txtfile.AutoSize = true;
+            this.cb_txtfile.Checked = true;
+            this.cb_txtfile.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_txtfile.Location = new System.Drawing.Point(100, 191);
+            this.cb_txtfile.Name = "cb_txtfile";
+            this.cb_txtfile.Size = new System.Drawing.Size(63, 17);
+            this.cb_txtfile.TabIndex = 15;
+            this.cb_txtfile.Text = "TextFile";
+            this.cb_txtfile.UseVisualStyleBackColor = true;
             // 
             // cb_detail
             // 
@@ -285,7 +286,7 @@
             // lb_rep_or_create
             // 
             this.lb_rep_or_create.AutoSize = true;
-            this.lb_rep_or_create.Location = new System.Drawing.Point(10, 140);
+            this.lb_rep_or_create.Location = new System.Drawing.Point(10, 151);
             this.lb_rep_or_create.Name = "lb_rep_or_create";
             this.lb_rep_or_create.Size = new System.Drawing.Size(144, 13);
             this.lb_rep_or_create.TabIndex = 22;
@@ -296,7 +297,7 @@
             this.cb_dwg.AutoSize = true;
             this.cb_dwg.Checked = true;
             this.cb_dwg.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_dwg.Location = new System.Drawing.Point(100, 160);
+            this.cb_dwg.Location = new System.Drawing.Point(100, 171);
             this.cb_dwg.Name = "cb_dwg";
             this.cb_dwg.Size = new System.Drawing.Size(65, 17);
             this.cb_dwg.TabIndex = 26;
@@ -349,11 +350,24 @@
             this.label1.TabIndex = 28;
             this.label1.Text = "coded by Aleksandr Ess";
             // 
+            // cb_txt
+            // 
+            this.cb_txt.AutoSize = true;
+            this.cb_txt.Checked = true;
+            this.cb_txt.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_txt.Location = new System.Drawing.Point(100, 120);
+            this.cb_txt.Name = "cb_txt";
+            this.cb_txt.Size = new System.Drawing.Size(47, 17);
+            this.cb_txt.TabIndex = 29;
+            this.cb_txt.Text = "Text";
+            this.cb_txt.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(463, 424);
+            this.Controls.Add(this.cb_txt);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lb_advanced);
             this.Controls.Add(this.cb_dwg);
@@ -365,7 +379,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.cb_onoff);
             this.Controls.Add(this.cb_detail);
-            this.Controls.Add(this.cb_txt);
+            this.Controls.Add(this.cb_txtfile);
             this.Controls.Add(this.cb_line);
             this.Controls.Add(this.lb_create);
             this.Controls.Add(this.lb_repo);
@@ -402,7 +416,7 @@
         private System.Windows.Forms.Label lb_repo;
         private System.Windows.Forms.Label lb_create;
         private System.Windows.Forms.CheckBox cb_line;
-        private System.Windows.Forms.CheckBox cb_txt;
+        private System.Windows.Forms.CheckBox cb_txtfile;
         private System.Windows.Forms.CheckBox cb_detail;
         private System.Windows.Forms.CheckBox cb_onoff;
         private System.Windows.Forms.Panel panel1;
@@ -418,6 +432,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txt_deg;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox cb_txt;
     }
 }
 

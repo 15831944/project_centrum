@@ -61,7 +61,20 @@ namespace project_centrum
                 i++;
                 MainForm._form.replace_text("Proccessing: " + i.ToString() + " of " + tot.ToString());
 
-                if (one is TSD.Mark || one is TSD.StraightDimensionSet || one is TSD.SectionMark || one is TSD.DetailMark || one is TSD.Line || one is TSD.TextFile || one is TSD.DwgObject)
+                if (one is TSD.Mark ||
+                    one is TSD.StraightDimensionSet ||
+                    one is TSD.SectionMark ||
+                    one is TSD.DetailMark ||
+                    one is TSD.Text ||
+                    //one is TSD.Arc ||
+                    one is TSD.Line ||
+                    one is TSD.Polyline ||
+                    one is TSD.Circle ||
+                    one is TSD.Cloud ||
+                    one is TSD.Rectangle ||
+                    one is TSD.Polygon ||
+                    one is TSD.TextFile ||
+                    one is TSD.DwgObject)
                 {
                     TSD.ViewBase oneView = one.GetView();
 
@@ -75,6 +88,7 @@ namespace project_centrum
                     }
                 }
             }
+
             MainForm._form.add_text(String.Empty);
         }
 
@@ -92,6 +106,8 @@ namespace project_centrum
 
             int sectionMarks = 0;
             int detailMarks = 0;
+            int text = 0;
+
             int lines = 0;
             int straightDimSets = 0;
 
@@ -111,8 +127,16 @@ namespace project_centrum
 
                 sectionMarks += data[view].sectionMarks.Count;
                 detailMarks += data[view].detailMarks.Count;
-                lines += data[view].lines.Count;
+                text += data[view].txt.Count;
                 straightDimSets += data[view].straightDimSets.Count;
+
+                //lines += data[view].arcs.Count;
+                lines += data[view].lines.Count;
+                lines += data[view].polylines.Count;
+                lines += data[view].circles.Count;
+                lines += data[view].clouds.Count;
+                lines += data[view].rectangles.Count;
+                lines += data[view].polygons.Count;
 
                 txtFiles += data[view].txtFiles.Count;
                 dwgRefs += data[view].dwgRefs.Count;
@@ -132,8 +156,8 @@ namespace project_centrum
             message.AppendLine("");
             message.AppendLine("Section marks: " + sectionMarks);
             message.AppendLine("Detail marsk: " + detailMarks);
-            message.AppendLine("");
             message.AppendLine("StraightDimentionSets: " + straightDimSets);
+            message.AppendLine("Text: " + text);
             message.AppendLine("");
             message.AppendLine("Lines: " + lines);
             message.AppendLine("TextFiles: " + txtFiles);

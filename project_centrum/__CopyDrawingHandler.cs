@@ -69,6 +69,11 @@ namespace project_centrum
                         createDetailMarks(input.detailMarks, output.detailMarks, output.view as TSD.View);
                     }
 
+                    if (UserProperties._txt)
+                    {
+                        createText(input.txt, output.txt, input, output);
+                    }
+
                     if (UserProperties._dim)
                     {
                         createDimentionLineSets(input.straightDimSets, output.straightDimSets, output.view);
@@ -76,7 +81,14 @@ namespace project_centrum
 
                     if (UserProperties._line)
                     {
+                        //createArcs(input.arcs, output.arcs, input.view, output.view); // PUUDUB PIISAV INFO KAARE TAASLOOMISEKS
                         createLines(input.lines, output.lines, input.view, output.view);
+                        createPolylines(input.polylines, output.polylines, input.view, output.view);
+
+                        createCircles(input.circles, output.circles, input.view, output.view);
+                        createClouds(input.clouds, output.clouds, input.view, output.view);
+                        createRectangles(input.rectangles, output.rectangles, input.view, output.view);
+                        createPolygons(input.polygons, output.polygons, input.view, output.view);
                     }
                 }
                 else
@@ -86,9 +98,8 @@ namespace project_centrum
                         createLinesNoOffset(input.lines, output.lines, input.view, output.view);
                     }
                 }
-
-
-                if (UserProperties._txt)
+                
+                if (UserProperties._txtfile)
                 {
                     repositionTextFile(input.txtFiles, output.txtFiles, input, output);
                 }
@@ -98,6 +109,7 @@ namespace project_centrum
                     repositionDwgFile(input.dwgRefs, output.dwgRefs, input, output);
                 }
 
+                output.view.Modify();
             }
         }
 
@@ -105,9 +117,8 @@ namespace project_centrum
         private static void repositionViewWithOffset(TSD.View input, TSD.View output)
         {
             T3D.Point minus = __GeometryOperations.getLocalOffset(__GeometryOperations.sheetOutputPoint, __GeometryOperations.sheetInputPoint);
-            T3D.Point gg = __GeometryOperations.applyLocalOffset(output.Origin, minus);
-            output.Origin = gg;
-            output.Modify();
+            T3D.Point localOffset = __GeometryOperations.applyLocalOffset(output.Origin, minus);
+            output.Origin = localOffset;
         }
 
 
@@ -215,12 +226,12 @@ namespace project_centrum
                 T3D.Point centerPoint = __GeometryOperations.applyGlobalOffset(inputDetail.CenterPoint);
                 T3D.Point boundaryPoint = __GeometryOperations.applyGlobalOffset(inputDetail.BoundaryPoint);
                 T3D.Point labelPoint = __GeometryOperations.applyGlobalOffset(inputDetail.LabelPoint);
-                
+
                 bool found = false;
                 foreach (TSD.DetailMark outputDetailMark in output)
                 {
-                    if (outputDetailMark.CenterPoint == centerPoint && 
-                        outputDetailMark.BoundaryPoint == boundaryPoint && 
+                    if (outputDetailMark.CenterPoint == centerPoint &&
+                        outputDetailMark.BoundaryPoint == boundaryPoint &&
                         outputDetailMark.LabelPoint == labelPoint)
                     {
                         found = true;
@@ -301,6 +312,34 @@ namespace project_centrum
         }
 
 
+        private static void createText(List<TSD.Text> input, List<TSD.Text> output, __ViewBaseData inputData, __ViewBaseData outputData)
+        {
+            foreach (TSD.Text inputText in input)
+            {
+                T3D.Point insertionPoint = __GeometryOperations.applyGlobalOffset(inputText.InsertionPoint);
+
+                bool found = false;
+
+                //foreach (TSD.Text outputText in output)
+                //{
+                //    if (outputText.InsertionPoint == insertionPoint && outputText.TextString == inputText.TextString)
+                //    {
+                //        found = true;
+                //        break;
+                //    }
+                //}
+
+                if (found == false)
+                {
+                    TSD.Text outputText = new TSD.Text(outputData.view, insertionPoint, inputText.TextString);
+                    outputText.Placing = inputText.Placing;
+                    outputText.Attributes = inputText.Attributes;
+                    outputText.Insert();
+                }
+            }
+        }
+
+
         private static void createDimentionLineSets(List<_StraightDimentionSet> input, List<_StraightDimentionSet> output, TSD.ViewBase outputView)
         {
             foreach (_StraightDimentionSet inputDimSet in input)
@@ -330,7 +369,7 @@ namespace project_centrum
                                 {
                                     local = false;
                                     break;
-                                }                                
+                                }
                             }
 
                             if (local == true)
@@ -366,6 +405,39 @@ namespace project_centrum
         }
 
 
+        //private static void createArcs(List<TSD.Arc> input, List<TSD.Arc> output, TSD.ViewBase inputView, TSD.ViewBase outputView)
+        //{
+        //    foreach (TSD.Arc inputArc in input)
+        //    {
+        //        T3D.Point startPoint = __GeometryOperations.applyGlobalOffset(inputArc.StartPoint);
+        //        T3D.Point endPoint = __GeometryOperations.applyGlobalOffset(inputArc.EndPoint);
+
+        //        bool found = false;
+        //        foreach (TSD.Arc outputArc in output)
+        //        {
+        //            if (outputArc.StartPoint == startPoint && outputArc.EndPoint == endPoint)
+        //            {
+        //                found = true;
+        //                break;
+        //            }
+        //            else if (outputArc.StartPoint == endPoint && outputArc.EndPoint == startPoint)
+        //            {
+        //                found = true;
+        //                break;
+        //            }
+        //        }
+
+        //        if (found == false)
+        //        {
+        //            TSD.Arc outputLine = new TSD.Arc(outputView, startPoint, endPoint, inputArc.Radius, inputArc.Attributes);
+        //            outputLine.Attributes = inputArc.Attributes;
+        //            outputLine.Insert();
+        //        }
+
+        //    }
+        //}
+
+
         private static void createLines(List<TSD.Line> input, List<TSD.Line> output, TSD.ViewBase inputView, TSD.ViewBase outputView)
         {
             foreach (TSD.Line inputLine in input)
@@ -381,6 +453,11 @@ namespace project_centrum
                         found = true;
                         break;
                     }
+                    else if (outputLine.StartPoint == endPoint && outputLine.EndPoint == startPoint)
+                    {
+                        found = true;
+                        break;
+                    }
                 }
 
                 if (found == false)
@@ -390,6 +467,273 @@ namespace project_centrum
                     outputLine.Insert();
                 }
 
+            }
+        }
+
+
+        private static void createPolylines(List<TSD.Polyline> input, List<TSD.Polyline> output, TSD.ViewBase inputView, TSD.ViewBase outputView)
+        {
+            foreach (TSD.Polyline inputPoly in input)
+            {
+                TSD.PointList pts = new TSD.PointList();
+
+                foreach (T3D.Point pt in inputPoly.Points)
+                {
+                    T3D.Point temp = __GeometryOperations.applyGlobalOffset(pt);
+                    pts.Add(temp);
+                }
+
+                bool found = false;
+                bool same = true;
+                foreach (TSD.Polyline outputPoly in output)
+                {
+                    if (outputPoly.Points.Count == pts.Count)
+                    {
+                        if (outputPoly.Points.Count != 0)
+                        {
+                            for (int i = 0; i < outputPoly.Points.Count; i++)
+                            {
+                                T3D.Point oldpt = outputPoly.Points[0];
+                                T3D.Point newpt = pts[0];
+
+                                if (__GeometryOperations.compare2Points(oldpt, newpt) == false)
+                                {
+                                    same = false;
+                                    break;
+                                }
+                            }
+
+                            if (same == true)
+                            {
+                                found = true;
+                                break;
+                            }
+
+                            for (int i = 0; i < outputPoly.Points.Count; i++)
+                            {
+                                T3D.Point oldpt = outputPoly.Points[0];
+                                T3D.Point newpt = pts[pts.Count - i - 1];
+
+                                if (__GeometryOperations.compare2Points(oldpt, newpt) == false)
+                                {
+                                    same = false;
+                                    break;
+                                }
+                            }
+
+                            if (same == true)
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (found == false)
+                {
+                    TSD.Polyline outputLine = new TSD.Polyline(outputView, pts, inputPoly.Attributes);
+                    outputLine.Attributes = inputPoly.Attributes;
+                    outputLine.Insert();
+                }
+            }
+        }
+
+
+        private static void createCircles(List<TSD.Circle> input, List<TSD.Circle> output, TSD.ViewBase inputView, TSD.ViewBase outputView)
+        {
+            foreach (TSD.Circle inputCircle in input)
+            {
+                T3D.Point centerPoint = __GeometryOperations.applyGlobalOffset(inputCircle.CenterPoint);
+
+                bool found = false;
+                foreach (TSD.Circle outputCircle in output)
+                {
+                    if (outputCircle.CenterPoint == centerPoint && outputCircle.Radius == inputCircle.Radius)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found == false)
+                {
+                    TSD.Circle outputLine = new TSD.Circle(outputView, centerPoint, inputCircle.Radius, inputCircle.Attributes);
+                    outputLine.Attributes = inputCircle.Attributes;
+                    outputLine.Insert();
+                }
+
+            }
+        }
+
+
+        private static void createClouds(List<TSD.Cloud> input, List<TSD.Cloud> output, TSD.ViewBase inputView, TSD.ViewBase outputView)
+        {
+            foreach (TSD.Cloud inputPoly in input)
+            {
+                TSD.PointList pts = new TSD.PointList();
+
+                foreach (T3D.Point pt in inputPoly.Points)
+                {
+                    T3D.Point temp = __GeometryOperations.applyGlobalOffset(pt);
+                    pts.Add(temp);
+                }
+
+                bool found = false;
+                bool same = true;
+                foreach (TSD.Cloud outputPoly in output)
+                {
+                    if (outputPoly.Points.Count == pts.Count)
+                    {
+                        if (outputPoly.Points.Count != 0)
+                        {
+                            for (int i = 0; i < outputPoly.Points.Count; i++)
+                            {
+                                T3D.Point oldpt = outputPoly.Points[0];
+                                T3D.Point newpt = pts[0];
+
+                                if (__GeometryOperations.compare2Points(oldpt, newpt) == false)
+                                {
+                                    same = false;
+                                    break;
+                                }
+                            }
+
+                            if (same == true)
+                            {
+                                found = true;
+                                break;
+                            }
+
+                            for (int i = 0; i < outputPoly.Points.Count; i++)
+                            {
+                                T3D.Point oldpt = outputPoly.Points[0];
+                                T3D.Point newpt = pts[pts.Count - i - 1];
+
+                                if (__GeometryOperations.compare2Points(oldpt, newpt) == false)
+                                {
+                                    same = false;
+                                    break;
+                                }
+                            }
+
+                            if (same == true)
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (found == false)
+                {
+                    TSD.Cloud outputLine = new TSD.Cloud(outputView, pts, inputPoly.Attributes);
+                    outputLine.Attributes = inputPoly.Attributes;
+                    outputLine.Insert();
+                }
+            }
+        }
+
+
+        private static void createRectangles(List<TSD.Rectangle> input, List<TSD.Rectangle> output, TSD.ViewBase inputView, TSD.ViewBase outputView)
+        {
+            foreach (TSD.Rectangle inputRectangle in input)
+            {
+                T3D.Point startPoint = __GeometryOperations.applyGlobalOffset(inputRectangle.StartPoint);
+                T3D.Point endPoint = __GeometryOperations.applyGlobalOffset(inputRectangle.EndPoint);
+
+                bool found = false;
+                foreach (TSD.Rectangle outputLine in output)
+                {
+                    if (outputLine.StartPoint == startPoint && outputLine.EndPoint == endPoint)
+                    {
+                        found = true;
+                        break;
+                    }
+                    else if (outputLine.StartPoint == endPoint && outputLine.EndPoint == startPoint)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found == false)
+                {
+                    TSD.Rectangle outputLine = new TSD.Rectangle(outputView, startPoint, endPoint, inputRectangle.Attributes);
+                    outputLine.Attributes = inputRectangle.Attributes;
+                    outputLine.Insert();
+                }
+
+            }
+        }
+
+
+        private static void createPolygons(List<TSD.Polygon> input, List<TSD.Polygon> output, TSD.ViewBase inputView, TSD.ViewBase outputView)
+        {
+            foreach (TSD.Polygon inputPoly in input)
+            {
+                TSD.PointList pts = new TSD.PointList();
+
+                foreach (T3D.Point pt in inputPoly.Points)
+                {
+                    T3D.Point temp = __GeometryOperations.applyGlobalOffset(pt);
+                    pts.Add(temp);
+                }
+
+                bool found = false;
+                bool same = true;
+                foreach (TSD.Polygon outputPoly in output)
+                {
+                    if (outputPoly.Points.Count == pts.Count)
+                    {
+                        if (outputPoly.Points.Count != 0)
+                        {
+                            for (int i = 0; i < outputPoly.Points.Count; i++)
+                            {
+                                T3D.Point oldpt = outputPoly.Points[0];
+                                T3D.Point newpt = pts[0];
+
+                                if (__GeometryOperations.compare2Points(oldpt, newpt) == false)
+                                {
+                                    same = false;
+                                    break;
+                                }
+                            }
+
+                            if (same == true)
+                            {
+                                found = true;
+                                break;
+                            }
+
+                            for (int i = 0; i < outputPoly.Points.Count; i++)
+                            {
+                                T3D.Point oldpt = outputPoly.Points[0];
+                                T3D.Point newpt = pts[pts.Count - i - 1];
+
+                                if (__GeometryOperations.compare2Points(oldpt, newpt) == false)
+                                {
+                                    same = false;
+                                    break;
+                                }
+                            }
+
+                            if (same == true)
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (found == false)
+                {
+                    TSD.Polygon outputLine = new TSD.Polygon(outputView, pts, inputPoly.Attributes);
+                    outputLine.Attributes = inputPoly.Attributes;
+                    outputLine.Insert();
+                }
             }
         }
 
